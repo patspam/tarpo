@@ -275,3 +275,7 @@ html, body {
 	line-height:1px;	
 }
 
+.NOTE .x-grid3-cell-inner {
+    text-decoration:italics;
+    color:gray;
+}

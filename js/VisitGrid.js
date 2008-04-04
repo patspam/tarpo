@@ -19,155 +19,95 @@ VisitGrid = function(){
                 sortable: true,
                 renderer: Ext.util.Format.dateRenderer('D d/m/Y'),
                 dataIndex: 'd',
-				id:'visit-d',
                 groupRenderer: Ext.util.Format.createTextDateRenderer(),
                 groupName: 'Date',
-                editor: new Ext.form.DateField({
-                    format : "d/m/Y"
-                })
             },
             {
                 header: "House",
                 width:50,
                 sortable: true,
                 dataIndex: 'addr',
-                id:'visit-addr',
-                editor: new Ext.form.TextField({
-                    allowBlank: false
-                })
             },
 			{
                 header: "Location",
                 width:65,
                 sortable: true,
                 dataIndex: 'loc',
-                id:'visit-loc',
-                editor: new Ext.form.TextField({
-                    allowBlank: true
-                })
             },
 			{
                 header: "Type",
                 width:40,
                 sortable: true,
                 dataIndex: 'type',
-                id:'visit-type',
-                editor: new Ext.form.TextField({
-                    allowBlank: false
-                })
             },
 			{
                 header: "Name",
                 width:40,
                 sortable: true,
                 dataIndex: 'name',
-                id:'visit-name',
-                editor: new Ext.form.TextField({
-                    allowBlank: true
-                })
             },
 			{
                 header: "Colour",
                 width:40,
                 sortable: true,
                 dataIndex: 'colour',
-                id:'visit-colour',
-                editor: new Ext.form.TextField({
-                    allowBlank: true
-                })
             },
 			{
                 header: "Sex",
                 width:40,
                 sortable: true,
                 dataIndex: 'sex',
-                id:'visit-sex',
-                editor: new Ext.form.TextField({
-                    allowBlank: true
-                })
             },
 			{
                 header: "Desexed",
                 width:55,
                 sortable: true,
                 dataIndex: 'desexed',
-                id:'visit-desexed',
 				renderer: Ext.util.Format.bool,
-                editor: new Ext.form.Checkbox({
-                    allowBlank: false
-                })
             },
 			{
                 header: "BCS",
                 width:30,
                 sortable: true,
                 dataIndex: 'bcs',
-                id:'visit-bcs',
-                editor: new Ext.form.NumberField({
-                    allowBlank: false
-                })
             },
 			{
                 header: "Mange",
                 width:40,
                 sortable: true,
                 dataIndex: 'mange',
-                id:'visit-mange',
-                editor: new Ext.form.NumberField({
-                    allowBlank: false
-                })
             },
 			{
                 header: "Ticks",
                 width:40,
                 sortable: true,
                 dataIndex: 'ticks',
-                id:'visit-ticks',
-                editor: new Ext.form.NumberField({
-                    allowBlank: false
-                })
             },
 			{
                 header: "Fleas",
                 width:40,
                 sortable: true,
                 dataIndex: 'fleas',
-                id:'visit-fleas',
-                editor: new Ext.form.NumberField({
-                    allowBlank: false
-                })
             },
 			{
                 header: "Covinan",
                 width:45,
                 sortable: true,
                 dataIndex: 'covinan',
-                id:'visit-covinan',
 				renderer: Ext.util.Format.bool,
-                editor: new Ext.form.TextField({
-                    allowBlank: false
-                })
             },
 			{
                 header: "TVT",
                 width:30,
                 sortable: true,
                 dataIndex: 'tvt',
-                id:'visit-tvt',
 				renderer: Ext.util.Format.bool,
-                editor: new Ext.form.TextField({
-                    allowBlank: false
-                })
             },
 			{
                 header: "Comments",
                 width:180,
                 sortable: true,
                 dataIndex: 'comments',
-                id:'visit-comments',
-                editor: new Ext.form.TextField({
-                    allowBlank: false
-                })
             },
             
         ],
@@ -230,5 +170,8 @@ Ext.extend(VisitGrid, Ext.grid.EditorGridPanel, {
 VisitView = Ext.extend(Ext.grid.GroupingView, {
 	forceFit:true,
     ignoreAdd: true,
-    emptyText: 'There are no visits to show in this list.'
+    emptyText: 'There are no visits to show in this list.',
+	getRowClass : function(r){
+		return r.data.type;
+    }
 });

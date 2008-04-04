@@ -49,6 +49,21 @@ Ext.onReady(function(){
         anchor: '100%'
     });
 	
+	function checkType() {
+		var fields = [name,colour,sex,desexed,bcs,mange,ticks,fleas,covinan,tvt];
+					
+		if (type.getValue() == 'NOTE') {
+			Ext.each(fields, function(field){
+				field.disable();
+				field.setValue();
+			});
+		} else {
+			Ext.each(fields, function(field){
+				field.enable();
+			});
+		}
+	}
+	
 	var type = new Ext.form.ComboBox({
 		fieldLabel: 'Type',
         name: 'type',
@@ -57,7 +72,7 @@ Ext.onReady(function(){
 		tpl: Templates.simpleCombo,
 		store: new Ext.data.SimpleStore({
 		    fields: ['singleField'],
-		    data : [ ['DOG'], ['CAT'], ['PUPPY'], ['KITTEN'], ['PIG'], ['HOUSE'], ['OTHER']]
+		    data : [ ['DOG'], ['CAT'], ['PUPPY'], ['KITTEN'], ['PIG'], ['NOTE'], ['OTHER']]
 		}),
 		displayField: 'singleField',
 		typeAhead: true,
@@ -65,6 +80,12 @@ Ext.onReady(function(){
 	    triggerAction: 'all',
 	    selectOnFocus:true,
 		editable: false,
+		listeners: {
+			select: {
+				fn: checkType
+			},
+			scope: this
+		},
     });
 	
 	var name = new Ext.form.TextField({
@@ -190,19 +211,6 @@ Ext.onReady(function(){
         anchor: '100%'
     });
 	
-//	var description = new Ext.form.HtmlEditor({
-//        hideLabel: true,
-//        name: 'description',
-//        anchor: '100% -95',  // anchor width by percentage and height by raw adjustment
-//        onEditorEvent : function(e){
-//	        var t;
-//	        if(e.browserEvent.type == 'mousedown' && (t = e.getTarget('a', 3))){
-//	            t.target = '_blank';
-//	        }
-//	        this.updateToolbar();
-//	    }
-//    });
-	
 	var form = new Ext.form.FormPanel({
 		region:'center',
         baseCls: 'x-plain',
@@ -261,6 +269,7 @@ Ext.onReady(function(){
 		if(!isNew){
 			var view = getView();
 			form.getForm().loadRecord(view);
+			checkType();
 		}
 	}
 	
