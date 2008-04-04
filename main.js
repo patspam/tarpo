@@ -46,15 +46,15 @@ Ext.onReady(function(){
 		newVisit: new Ext.Action({
 			text: 'New Entry',
 			iconCls: 'icon-active',
-			tooltip: 'New Visit',
+			tooltip: 'New Entry',
 			handler: function(){
-//				visitHeader.vAddr.focus();
 				Ext.air.NativeWindowManager.getVisitWindow();
 			}
 		}),
 		
 		deleteVisit: new Ext.Action({
 			itemText: 'Delete',
+			text: 'Delete',
 			iconCls: 'icon-delete-visit',
 			tooltip: 'Delete Visit',
 			disabled: true,

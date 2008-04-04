@@ -11,7 +11,7 @@ Ext.onReady(function(){
 		visitId = '270981421JBPW';
 		win.title = 'New Visit';
 	} else {
-		win.title = 'House Visit - ' + Ext.util.Format.ellipsis(getView().data.title, 40);
+		win.title = 'House Visit - ' + Ext.util.Format.ellipsis(getView().data.addr, 40);
 	}	
 	
 	var tb = new Ext.Toolbar({
@@ -34,7 +34,7 @@ Ext.onReady(function(){
 		fieldLabel: 'Date',
 		name: 'd',
 		width: 135,
-		format: 'm/d/Y'
+		format: 'd/m/Y'
 	});
 	
 	var addr = new Ext.form.TextField({
@@ -49,10 +49,22 @@ Ext.onReady(function(){
         anchor: '100%'
     });
 	
-	var type = new Ext.form.TextField({
+	var type = new Ext.form.ComboBox({
 		fieldLabel: 'Type',
         name: 'type',
-        anchor: '100%'
+        anchor: '100%',
+		
+		tpl: Templates.simpleCombo,
+		store: new Ext.data.SimpleStore({
+		    fields: ['singleField'],
+		    data : [ ['DOG'], ['CAT'], ['PUPPY'], ['KITTEN'], ['PIG'], ['HOUSE'], ['OTHER']]
+		}),
+		displayField: 'singleField',
+		typeAhead: true,
+	    mode: 'local',
+	    triggerAction: 'all',
+	    selectOnFocus:true,
+		editable: false,
     });
 	
 	var name = new Ext.form.TextField({
@@ -67,55 +79,112 @@ Ext.onReady(function(){
         anchor: '100%'
     });
 	
-	var sex = new Ext.form.TextField({
+	var sex = new Ext.form.ComboBox({
 		fieldLabel: 'Sex',
         name: 'sex',
-        anchor: '100%'
+        anchor: '100%',
+		
+		tpl: Templates.simpleCombo,
+		store: new Ext.data.SimpleStore({
+		    fields: ['singleField'],
+		    data : [ ['M'], ['F'], ]
+		}),
+		displayField: 'singleField',
+		typeAhead: true,
+	    mode: 'local',
+	    triggerAction: 'all',
+	    selectOnFocus:true,
+		editable: false,
     });
 	
-	var desexed = new Ext.form.TextField({
+	var desexed = new Ext.form.Checkbox({
 		fieldLabel: 'Desexed',
-        name: 'desexed',
-        anchor: '100%'
+        name: 'desexed'
     });
 	
-	var bcs = new Ext.form.TextField({
+	var bcs = new Ext.form.ComboBox({
 		fieldLabel: 'BCS',
         name: 'bcs',
-        anchor: '100%'
+        anchor: '100%',
+		
+		tpl: Templates.simpleCombo,
+		store: new Ext.data.SimpleStore({
+		    fields: ['singleField'],
+		    data : [ [1], [2], [3], [4], [5], [6], [7], [8], [9], ]
+		}),
+		displayField: 'singleField',
+		typeAhead: true,
+	    mode: 'local',
+	    triggerAction: 'all',
+	    selectOnFocus:true,
+		editable: false,
     });
 	
-	var mange = new Ext.form.TextField({
+	var mange = new Ext.form.ComboBox({
 		fieldLabel: 'Mange',
         name: 'mange',
-        anchor: '100%'
-    });	
+        anchor: '100%',
+		
+		tpl: Templates.simpleCombo,
+		store: new Ext.data.SimpleStore({
+		    fields: ['singleField'],
+		    data : [ [1], [2], [3], [4], [5], ]
+		}),
+		displayField: 'singleField',
+		typeAhead: true,
+	    mode: 'local',
+	    triggerAction: 'all',
+	    selectOnFocus:true,
+		editable: false,
+    });
 	
-	var ticks = new Ext.form.TextField({
-		fieldLabel: 'ticks',
+	var ticks = new Ext.form.ComboBox({
+		fieldLabel: 'Ticks',
         name: 'ticks',
-        anchor: '100%'
-    });	
+        anchor: '100%',
+		
+		tpl: Templates.simpleCombo,
+		store: new Ext.data.SimpleStore({
+		    fields: ['singleField'],
+		    data : [ [1], [2], [3], [4], ]
+		}),
+		displayField: 'singleField',
+		typeAhead: true,
+	    mode: 'local',
+	    triggerAction: 'all',
+	    selectOnFocus:true,
+		editable: false,
+    });
 	
-	var fleas = new Ext.form.TextField({
-		fieldLabel: 'fleas',
+	var fleas = new Ext.form.ComboBox({
+		fieldLabel: 'Fleas',
         name: 'fleas',
-        anchor: '100%'
+        anchor: '100%',
+		
+		tpl: Templates.simpleCombo,
+		store: new Ext.data.SimpleStore({
+		    fields: ['singleField'],
+		    data : [ [1], [2], [3], ]
+		}),
+		displayField: 'singleField',
+		typeAhead: true,
+	    mode: 'local',
+	    triggerAction: 'all',
+	    selectOnFocus:true,
+		editable: false,
+    });
+	
+	var covinan = new Ext.form.Checkbox({
+		fieldLabel: 'Covinan',
+        name: 'covinan'
     });	
 	
-	var covinan = new Ext.form.TextField({
-		fieldLabel: 'covinan',
-        name: 'covinan',
-        anchor: '100%'
+	var tvt = new Ext.form.Checkbox({
+		fieldLabel: 'TVT',
+        name: 'tvt'
     });	
 	
-	var tvt = new Ext.form.TextField({
-		fieldLabel: 'tvt',
-        name: 'tvt',
-        anchor: '100%'
-    });	
-	
-	var comments = new Ext.form.TextField({
+	var comments = new Ext.form.TextArea({
 		fieldLabel: 'Comments',
         name: 'comments',
         anchor: '100%'
@@ -209,24 +278,6 @@ Ext.onReady(function(){
 			// should all happen automagically
 		}
 		form.getForm().updateRecord(view);
-	}
-	
-	function setMsg(msgText){
-		var last;
-		if(!msgText) {
-			msg.setDisplayed(false);
-		} else {
-			msg.setDisplayed('');
-			msg.update(msgText);
-		}
-//		description.anchorSpec.bottom = function(v){
-//            if(v !== last){
-//                last = v;
-//				var h = msg.getHeight();
-//                return v - 95 - (h ? h + 8 : 0);
-//            }
-//        };
-		form.doLayout();
 	}
 	
 	function validate(){

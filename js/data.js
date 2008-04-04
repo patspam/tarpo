@@ -20,10 +20,10 @@ tx.data.Visit = Ext.data.Record.create([
 	{name: 'colour', type:'string'},
 	{name: 'sex', type:'string'},
     {name: 'desexed', type:'boolean'},
-	{name: 'bcs', type:'string'},
-	{name: 'mange', type:'string'},
-	{name: 'ticks', type:'string'},
-	{name: 'fleas', type:'string'},
+	{name: 'bcs', type:'int'},
+	{name: 'mange', type:'int'},
+	{name: 'ticks', type:'int'},
+	{name: 'fleas', type:'int'},
 	{name: 'covinan', type:'boolean'},
 	{name: 'tvt', type:'boolean'},	
 	{name: 'comments', type:'string'}
@@ -32,3 +32,7 @@ tx.data.Visit = Ext.data.Record.create([
 tx.data.conn = Ext.sql.Connection.getInstance();
 
 tx.data.visits = new tx.data.VisitStore();
+
+Ext.util.Format.bool = function(value){
+	return value ? '<input type="checkbox" checked="checked" onclick="return false"></input>' : '<input type="checkbox" onclick="return false"></input>';
+};

@@ -17,13 +17,13 @@ VisitGrid = function(){
                 header: "Date",
                 width: 100,
                 sortable: true,
-                renderer: Ext.util.Format.dateRenderer('D m/d/Y'),
+                renderer: Ext.util.Format.dateRenderer('D d/m/Y'),
                 dataIndex: 'd',
 				id:'visit-d',
                 groupRenderer: Ext.util.Format.createTextDateRenderer(),
                 groupName: 'Date',
                 editor: new Ext.form.DateField({
-                    format : "m/d/Y"
+                    format : "d/m/Y"
                 })
             },
             {
@@ -92,7 +92,8 @@ VisitGrid = function(){
                 sortable: true,
                 dataIndex: 'desexed',
                 id:'visit-desexed',
-                editor: new Ext.form.TextField({
+				renderer: Ext.util.Format.bool,
+                editor: new Ext.form.Checkbox({
                     allowBlank: false
                 })
             },
@@ -122,7 +123,7 @@ VisitGrid = function(){
                 sortable: true,
                 dataIndex: 'ticks',
                 id:'visit-ticks',
-                editor: new Ext.form.TextField({
+                editor: new Ext.form.NumberField({
                     allowBlank: false
                 })
             },
@@ -132,7 +133,7 @@ VisitGrid = function(){
                 sortable: true,
                 dataIndex: 'fleas',
                 id:'visit-fleas',
-                editor: new Ext.form.TextField({
+                editor: new Ext.form.NumberField({
                     allowBlank: false
                 })
             },
@@ -142,6 +143,7 @@ VisitGrid = function(){
                 sortable: true,
                 dataIndex: 'covinan',
                 id:'visit-covinan',
+				renderer: Ext.util.Format.bool,
                 editor: new Ext.form.TextField({
                     allowBlank: false
                 })
@@ -152,6 +154,7 @@ VisitGrid = function(){
                 sortable: true,
                 dataIndex: 'tvt',
                 id:'visit-tvt',
+				renderer: Ext.util.Format.bool,
                 editor: new Ext.form.TextField({
                     allowBlank: false
                 })

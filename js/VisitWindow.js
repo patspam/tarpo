@@ -9,7 +9,7 @@ Ext.air.NativeWindowManager.getVisitWindow = function(visitId){
 			id: winId,
 			file: 'visit.html?visitId=' + visitId,
 			width: 500,
-			height:500
+			height:550
 		});
 	}
 	return win;

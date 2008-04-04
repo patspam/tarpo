@@ -45,7 +45,7 @@ Ext.util.Format.createTextDateRenderer = function(){
                 return 'Last ' + date.format('l');
             }
         }            
-        return date.getFullYear() == year ? date.format('D m/d') : date.format('D m/d/Y');
+        return date.getFullYear() == year ? date.format('D m/d') : date.format('D d/m/Y');
    };
    
    f.date = today;
