@@ -25,7 +25,11 @@ Ext.util.Format.createTextDateRenderer = function(){
         if(!date) {
             return '(No Date)';
         }
-        var notime = date.clearTime(true).getTime();
+        var notime = date.clearTime(true);
+		if(!notime) {
+            return '(No Date)';
+        }
+        notime = notime.getTime();
 
         if (notime == todayTime) {
             return 'Today';
