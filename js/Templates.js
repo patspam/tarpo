@@ -4,3 +4,5 @@ Templates = {
 		'<tpl for="."><div class="x-combo-list-item">{singleField}</div></tpl>'
 	)
 };
+
+Date.precompileFormats('D d/m/Y');

@@ -34,7 +34,8 @@ Ext.onReady(function(){
 		fieldLabel: 'Date',
 		name: 'd',
 		width: 135,
-		format: 'd/m/Y'
+		format: 'd/m/Y',
+		value: new Date() // default value (overwritten with existing value if not new)
 	});
 	
 	var addr = new Ext.form.TextField({
@@ -286,7 +287,10 @@ Ext.onReady(function(){
 			view = getView();
 			// should all happen automagically
 		}
-		form.getForm().updateRecord(view);
+		if (view) {
+			form.getForm().updateRecord(view);
+		}
+		
 	}
 	
 	function validate(){

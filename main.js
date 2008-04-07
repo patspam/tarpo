@@ -40,6 +40,20 @@ Ext.onReady(function(){
     var grid = new VisitGrid();
 	var selections = grid.getSelectionModel();
 	
+	// single col, single result
+	function querySingle(sql) {
+		var instance = Ext.sql.Connection.getInstance();
+		instance.open('db');
+		var result = instance.query(sql)[0];
+		var results = new Array();
+		for (p in result) {
+			return result[p]; // return first
+		}
+	}
+	
+	function sigFigs(x) {
+		return Math.round(x*100)/100;
+	}
 	
 	// Shared actions used by Ext toolbars, menus, etc.
 	var actions = {
@@ -49,6 +63,35 @@ Ext.onReady(function(){
 			tooltip: 'New Entry',
 			handler: function(){
 				Ext.air.NativeWindowManager.getVisitWindow();
+			}
+		}),
+		
+		report: new Ext.Action({
+			text: 'Report',
+			iconCls: 'icon-active',
+			tooltip: 'Report',
+			handler: function(){
+				
+				var report = "";
+				report += "Houses Visited: " + querySingle('select count(distinct addr) from visit') + "<br>";
+				
+				report += "<br/><H2>Total Animals Seen</H2>";
+				report += "Dogs: " + querySingle('select count(*) from visit where type="DOG"') + "<br>";
+				report += "Cats: " + querySingle('select count(*) from visit where type="CAT"') + "<br>";
+				report += "Puppies: " + querySingle('select count(*) from visit where type="PUPPY"') + "<br>";
+				report += "Kittens: " + querySingle('select count(*) from visit where type="KITTEN"') + "<br>";
+				report += "Pigs: " + querySingle('select count(*) from visit where type="PIG"') + "<br>";
+				report += "Other: " + querySingle('select count(*) from visit where type="OTHER"') + "<br>";
+				
+				report += "<br/><H2>Dog Averages</H2>";
+				report += "BCS: " + sigFigs(querySingle('select avg(bcs) from visit where type="DOG"')) + "<br>";
+				report += "Mange: " + sigFigs(querySingle('select avg(mange) from visit where type="DOG"')) + "<br>";
+				
+				Ext.Msg.show({
+					title: 'Report',
+					msg: report,
+					minWidth: 200,
+				});
 			}
 		}),
 		
@@ -82,6 +125,7 @@ Ext.onReady(function(){
 	
 	menus.add('File', [
 		actions.newVisit, 
+		actions.report,
 		'-',
 		actions.quit
 	]);

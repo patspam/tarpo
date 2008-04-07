@@ -34,5 +34,5 @@ tx.data.conn = Ext.sql.Connection.getInstance();
 tx.data.visits = new tx.data.VisitStore();
 
 Ext.util.Format.bool = function(value){
-	return value ? '<input type="checkbox" checked="checked" onclick="return false"></input>' : '<input type="checkbox" onclick="return false"></input>';
+	return value ? '<img src="/images/icon-complete.gif"></input>' : '';
 };
