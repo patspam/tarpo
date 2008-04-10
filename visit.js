@@ -307,10 +307,6 @@ Ext.onReady(function(){
 		var view;
 		if(isNew){
 			view = opener.tx.data.visits.createVisit(
-				d.getValue(), 
-				addr.getValue(), 
-				loc.getValue(),
-				type.getValue(),
 				list.getRawValue()
 			);
 		}else{

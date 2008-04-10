@@ -1,6 +1,6 @@
 // Initialize the state provider
 Ext.state.Manager.setProvider(new Ext.air.FileProvider({
-	file: 'visits.state',
+	file: 'v3t.state',
 	// if first time running
 	defaultState : {
 		mainWindow : {
@@ -37,8 +37,10 @@ Ext.onReady(function(){
 	
     tx.data.conn.open('db');
     
-    var grid = new VisitGrid();
-	var selections = grid.getSelectionModel();
+    var visitsGrid = new VisitGrid();
+	var surgGrid = new SurgGrid();
+	var visitsSelections = visitsGrid.getSelectionModel();
+	var surgSelections = surgGrid.getSelectionModel();
 	
 	// single col, single result
 	function querySingle(sql) {
@@ -60,9 +62,18 @@ Ext.onReady(function(){
 		newVisit: new Ext.Action({
 			text: 'New Entry',
 			iconCls: 'icon-active',
-			tooltip: 'New Entry',
+			tooltip: 'New House Visit',
 			handler: function(){
 				Ext.air.NativeWindowManager.getVisitWindow();
+			}
+		}),
+		
+		newSurg: new Ext.Action({
+			text: 'New Entry',
+			iconCls: 'icon-active',
+			tooltip: 'New Surgery',
+			handler: function(){
+				Ext.air.NativeWindowManager.getSurgWindow();
 			}
 		}),
 		
@@ -98,7 +109,17 @@ Ext.onReady(function(){
 					avg_bcs: sigFigs(querySingle('select avg(bcs) from visit where type="DOG"' + xF)),
 					avg_mange: sigFigs(querySingle('select avg(mange) from visit where type="DOG"' + xF)),
 					avg_dogs_per_house: sigFigs(dogs / houses_with_dogs ),
+					
+					speys: querySingle('select count(*) from surg where spey=1' + xF),
+					castrations: querySingle('select count(*) from surg where castration=1' + xF),
+					other_procedures: querySingle('select count(*) from surg where other_procedures != ""' + xF),
+					
+					euth_unwanted: querySingle('select count(*) from surg where euth_unwanted=1' + xF),
+					euth_humane: querySingle('select count(*) from surg where euth_humane=1' + xF),
+					euth_cheeky: querySingle('select count(*) from surg where euth_cheeky=1' + xF),
 				};
+				
+				alert('select count(*) from surg where spey=1' + xF);
 				
 				Ext.Msg.show({
 					title: 'Report: ' + filter_for,
@@ -117,8 +138,25 @@ Ext.onReady(function(){
 			handler: function(){
 				Ext.Msg.confirm('Confirm', 'Are you sure you want to delete the selected visit(s)?', function(btn){
 					if (btn == 'yes') {
-						selections.each(function(s){
+						visitsSelections.each(function(s){
 							tx.data.visits.remove(s);
+						});
+					}
+				});
+			}
+		}),
+		
+		deleteSurg: new Ext.Action({
+			itemText: 'Delete Surg',
+			text: 'Delete Surg',
+			iconCls: 'icon-delete-visit',
+			tooltip: 'Delete Surg',
+			disabled: true,
+			handler: function(){
+				Ext.Msg.confirm('Confirm', 'Are you sure you want to delete the selected surg(s)?', function(btn){
+					if (btn == 'yes') {
+						surgSelections.each(function(s){
+							tx.data.surg.remove(s);
 						});
 					}
 				});
@@ -187,6 +225,7 @@ Ext.onReady(function(){
 	
 	menus.add('File', [
 		actions.newVisit, 
+		actions.newSurg,
 		actions.newList, 
 		actions.newFolder,
 		actions.demoData,
@@ -214,8 +253,12 @@ Ext.onReady(function(){
     tx.data.lists.bindTree(tree);
 	tx.data.lists.on('update', function(){
 		tx.data.visits.applyGrouping();
-		if(grid.titleNode){
-			grid.setTitle(grid.titleNode.text);
+		tx.data.surg.applyGrouping();
+		if(visitsGrid.titleNode){
+			visitsGrid.setTitle(visitsGrid.titleNode.text);
+		}
+		if(surgGrid.titleNode){
+			surgGrid.setTitle(surgGrid.titleNode.text);
 		}
 	});
 
@@ -226,11 +269,18 @@ Ext.onReady(function(){
 		items: [{
 				xtype:'splitbutton',
 				iconCls:'icon-edit',
-				text:'New',
+				text:'New House Visit',
 				handler: actions.newVisit.initialConfig.handler,
 				menu: [actions.newVisit, actions.newList, actions.newFolder]
+			},{
+				xtype:'splitbutton',
+				iconCls:'icon-edit',
+				text:'New Surg',
+				handler: actions.newSurg.initialConfig.handler,
+				menu: [actions.newSurg, actions.newList, actions.newFolder]
 			},'-',
 			actions.deleteVisit,
+			actions.deleteSurg,
 			actions.report,
             '->', ' ', ' ', ' '		
 		]
@@ -241,21 +291,24 @@ Ext.onReady(function(){
 		id: 'tab-panel',
         activeTab: 0,
 //        defaults:{autoScroll: true},
+		deferredRender: false, // to avoid eval()!
         items:[
+
 			new Ext.Panel({
 				title: 'House Visits',
 				layout: 'fit',
-				items: grid
+				items: visitsGrid,
+				
 			}), 
-//			new Ext.Panel({
-//				title: 'Surgery',
-////				items: []
-//			}), 
-//			new Ext.Panel({
-//				title: 'Medical Cases',
-////				items: []
-//			}),
-		]
+			new Ext.Panel({
+				title: 'Surgeries',
+				layout: 'fit',
+				items: surgGrid,
+				listeners: {'activate': function(){
+					tx.data.surg.init();
+				}}
+			}), 
+		],
 			
     });
 
@@ -264,9 +317,14 @@ Ext.onReady(function(){
         items: [tb, tree, tab]
     });
 	
-	grid.on('keydown', function(e){
-         if(e.getKey() == e.DELETE && !grid.editing){
+	visitsGrid.on('keydown', function(e){
+         if(e.getKey() == e.DELETE && !visitsGrid.editing){
              actions.deleteVisit.execute();
+         }
+    });
+	surgGrid.on('keydown', function(e){
+         if(e.getKey() == e.DELETE && !surgGrid.editing){
+             actions.deleteSurg.execute();
          }
     });
 	
@@ -276,17 +334,20 @@ Ext.onReady(function(){
          }
     });
 
-    selections.on('selectionchange', function(sm){
+    visitsSelections.on('selectionchange', function(sm){
     	var disabled = sm.getCount() < 1;
     	actions.deleteVisit.setDisabled(disabled);
     });
-
-//	var visitHeader = new VisitHeader(grid);
+	surgSelections.on('selectionchange', function(sm){
+    	var disabled = sm.getCount() < 1;
+    	actions.deleteSurg.setDisabled(disabled);
+    });
 
 	win.show();
 	win.instance.activate();
 	
 	tx.data.visits.init();
+	tx.data.surg.init();
 	
 	tree.root.select();
 	
@@ -307,13 +368,18 @@ Ext.onReady(function(){
 					}
 				});
 				tx.data.visits.loadList(lists);
+				tx.data.surg.loadList(lists);
 			}
 			else {
 				tx.data.visits.loadList(node.id);
+				tx.data.surg.loadList(node.id);
 			}
-			grid.titleNode = node;
-			grid.setTitle(node.text);
-			grid.setIconClass(node.attributes.iconCls);
+			visitsGrid.titleNode = node;
+			surgGrid.titleNode = node;
+			visitsGrid.setTitle(node.text);
+			surgGrid.setTitle(node.text);
+			visitsGrid.setIconClass(node.attributes.iconCls);
+			surgGrid.setIconClass(node.attributes.iconCls);
 		}
 	}
 

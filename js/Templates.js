@@ -38,7 +38,7 @@ Templates.report = new Ext.XTemplate(
 	'<dl>',
 		'<dt>Speys</dt><dd>{speys}</dd>',
 		'<dt>Castrations</dt><dd>{castrations}</dd>',
-		'<dt>Other Procedures</dt><dd>{other_surgery}</dd>',
+		'<dt>Other Procedures</dt><dd>{other_procedures}</dd>',
 	'</dl>',
 	
 	'<H2>Medical</H2>',

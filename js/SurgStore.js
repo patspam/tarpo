@@ -1,26 +1,26 @@
-tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
+tx.data.SurgStore = Ext.extend(Ext.data.GroupingStore, {
     constructor: function(){
-        tx.data.VisitStore.superclass.constructor.call(this, {
+        tx.data.SurgStore.superclass.constructor.call(this, {
             sortInfo: {
                 field: 'd',
                 direction: "ASC"
             },
             groupField: 'd',
-            visitFilter: 'all',
+            surgFilter: 'all',
             reader: new Ext.data.JsonReader({
                 id: 'id',
-                fields: tx.data.Visit
+                fields: tx.data.Surg
             })
         });
         this.conn = tx.data.conn;
-        this.proxy = new Ext.sql.Proxy(tx.data.conn, 'visit', 'id', this);
+        this.proxy = new Ext.sql.Proxy(tx.data.conn, 'surg', 'id', this);
     },
     
     applyFilter: function(filter){
         if (filter !== undefined) {
-            this.visitFilter = filter;
+            this.surgFilter = filter;
         }
-        var value = this.visitFilter;
+        var value = this.surgFilter;
         if (value == 'all') {
             return this.clearFilter();
         }
@@ -29,7 +29,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
         });
     },
     
-    addVisit: function(data){
+    addSurg: function(data){
         this.suspendEvents();
         this.clearFilter();
         this.resumeEvents();
@@ -69,16 +69,16 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 	},
 	
 	removeList: function(listId){
-		this.conn.execBy('delete from visit where listId = ?', [listId]);
+		this.conn.execBy('delete from surg where listId = ?', [listId]);
 		this.reload();
 	},
     
     prepareTable: function(){
         try {
             this.createTable({
-                name: 'visit',
+                name: 'surg',
                 key: 'id',
-                fields: tx.data.Visit.prototype.fields
+                fields: tx.data.Surg.prototype.fields
             });
         } 
         catch (e) {
@@ -86,7 +86,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
         }
     },
     
-    createVisit: function(listText){
+    createSurg: function(listText){
 		var listId = '';
 		if(!Ext.isEmpty(listText)){
 			listId = tx.data.lists.addList(Ext.util.Format.htmlEncode(listText)).id;
@@ -94,7 +94,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 			listId = tx.data.lists.newList(false).id;
 		}
 		var newId = Ext.uniqueId();
-        this.addVisit({
+        this.addSurg({
             id: newId,
 			listId: listId,
         });
@@ -107,39 +107,17 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
         }
         //workaround WebKit cross-frame date issue
         fixDateMember(r.data, 'd');
-        tx.data.VisitStore.superclass.afterEdit.apply(this, arguments);
+        tx.data.SurgStore.superclass.afterEdit.apply(this, arguments);
     },
     
     init: function(){
 		tx.data.lists.load();
-        this.load({
-            callback: function(){
-                // first time?
-                //				if (this.getCount() >= 1) {
-                //					Ext.Msg.confirm('Delete Visits?', 'Your database currently contains data. Would you like to clear it?', 
-                //						function(btn){
-                //							if(btn == 'yes'){
-                //								this.removeAll();
-                //							}
-                //						}, this);
-                //				}
-                
-                if (this.getCount() < 1) {
-                    Ext.Msg.confirm('Create Visits?', 'Your database is currently empty. Would you like to insert some demo data?', function(btn){
-                        if (btn == 'yes') {
-                            tx.data.demoData();
-                        }
-                    }, this);
-                }
-            },
-            scope: this
-        });
     },
     
     lookup: function(id){
-        var visit;
-        if (visit = this.getById(id)) {
-            return visit;
+        var surg;
+        if (surg = this.getById(id)) {
+            return surg;
         }
         var data = this.proxy.table.lookup(id);
         if (data) {
@@ -152,7 +130,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
     /* This is used to load some demo data if the database is empty */
     demoData: function(){
         var s = new Date();
-        this.addVisit({
+        this.addSurg({
             id: Ext.uniqueId(),
 			d: s.add('d', -3),
             addr: '537',
@@ -161,7 +139,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
             comments: 'No roof',
 			listId:'2007-dry-start',
         });
-        this.addVisit({
+        this.addSurg({
             id: Ext.uniqueId(),
 			d: s.add('d', -3),
             addr: '536',
@@ -175,7 +153,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 			mange: 3,
 			listId:'2007-dry-start',
         });
-        this.addVisit({
+        this.addSurg({
             id: Ext.uniqueId(),
 			d: s.add('d', -3),
             addr: '536',
@@ -190,7 +168,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 			comments: 'Lame LH',
 			listId:'2007-dry-start',
         });
-        this.addVisit({
+        this.addSurg({
             id: Ext.uniqueId(),
 			d: s.add('d', -3),
             addr: '535',
@@ -199,7 +177,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 			comments: 'Not home',
 			listId:'2007-dry-start',
         });
-        this.addVisit({
+        this.addSurg({
             id: Ext.uniqueId(),
 			d: s.add('d', -3),
             addr: '534',
@@ -208,7 +186,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 			comments: 'Not home',
 			listId:'2007-dry-start',
         });
-        this.addVisit({
+        this.addSurg({
             id: Ext.uniqueId(),
 			d: s.add('d', -2),
             addr: '533',
@@ -221,7 +199,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 			mange: 1,
 			listId:'2007-dry-start',
         });
-        this.addVisit({
+        this.addSurg({
             id: Ext.uniqueId(),
 			d: s.add('d', -2),
             addr: '533',
@@ -234,7 +212,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 			mange: 1,
 			listId:'2007-dry-start',
         });
-        this.addVisit({
+        this.addSurg({
             id: Ext.uniqueId(),
 			d: s.add('d', -2),
             addr: '533',
@@ -247,7 +225,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 			mange: 2,
 			listId:'2007-dry-start',
         });
-		this.addVisit({
+		this.addSurg({
             id: Ext.uniqueId(),
 			d: s.add('d', -1),
             addr: '205',
@@ -260,7 +238,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 			mange: 1,
 			listId:'2007-dry-end',
         });
-		this.addVisit({
+		this.addSurg({
             id: Ext.uniqueId(),
 			d: s.add('d', -1),
             addr: '206/207',
@@ -274,7 +252,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 			comments: 'To castrate',
 			listId:'2007-dry-end',
         });
-		this.addVisit({
+		this.addSurg({
             id: Ext.uniqueId(),
 			d: s.add('d', -1),
             addr: '206/207',
@@ -288,7 +266,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 			comments: 'To castrate',
 			listId:'2007-dry-end',
         });
-		this.addVisit({
+		this.addSurg({
             id: Ext.uniqueId(),
 			d: s.add('d', -1),
             addr: '206/207',
@@ -301,7 +279,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 			mange: 1,
 			listId:'2007-dry-end',
         });
-		this.addVisit({
+		this.addSurg({
             id: Ext.uniqueId(),
 			d: s.add('d', -1),
             addr: '206/207',
@@ -314,7 +292,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 			mange: 1,
 			listId:'2007-dry-end',
         });
-		this.addVisit({
+		this.addSurg({
             id: Ext.uniqueId(),
 			d: s.add('d', -1),
             addr: '206/207',
@@ -327,7 +305,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 			mange: 1,
 			listId:'2007-dry-end',
         });
-		this.addVisit({
+		this.addSurg({
             id: Ext.uniqueId(),
 			d: s.add('d', -1),
             addr: '208',
@@ -336,7 +314,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 			comments: 'No dogs',
 			listId:'2007-dry-end',
         });
-		this.addVisit({
+		this.addSurg({
             id: Ext.uniqueId(),
 			d: s,
             addr: '128',
@@ -349,7 +327,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 			mange: 1,
 			listId:'2007-dry-end',
         });
-		this.addVisit({
+		this.addSurg({
             id: Ext.uniqueId(),
 			d: s,
             addr: '128',

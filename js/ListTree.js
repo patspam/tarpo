@@ -97,6 +97,14 @@ Ext.extend(ListTree, Ext.tree.TreePanel, {
 						tx.actions.newVisit.execute();
                     }
                 },{
+                    iconCls:'icon-edit',
+                    text:'New Surgery',
+                    scope: this,
+                    handler:function(){
+						this.ctxNode.select();
+						tx.actions.newSurg.execute();
+                    }
+                },{
                     iconCls:'icon-list-new',
                     text:'New List',
                     scope: this,
@@ -179,6 +187,7 @@ Ext.extend(ListTree, Ext.tree.TreePanel, {
 					s.parentNode.removeChild(s);
 					tx.data.lists.remove(this.store.getById(s.id));
 					tx.data.visits.removeList(s.id);
+					tx.data.surg.removeList(s.id);
 				}
 			}, this);
 		}
