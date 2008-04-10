@@ -235,10 +235,33 @@ Ext.onReady(function(){
             '->', ' ', ' ', ' '		
 		]
 	});
+	
+	var tab = new Ext.TabPanel({
+        region:'center',
+		id: 'tab-panel',
+        activeTab: 0,
+//        defaults:{autoScroll: true},
+        items:[
+			new Ext.Panel({
+				title: 'House Visits',
+				layout: 'fit',
+				items: grid
+			}), 
+//			new Ext.Panel({
+//				title: 'Surgery',
+////				items: []
+//			}), 
+//			new Ext.Panel({
+//				title: 'Medical Cases',
+////				items: []
+//			}),
+		]
+			
+    });
 
 	var viewport = new Ext.Viewport({
         layout:'border',
-        items: [tb, tree, grid]
+        items: [tb, tree, tab]
     });
 	
 	grid.on('keydown', function(e){

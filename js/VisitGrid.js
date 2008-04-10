@@ -12,6 +12,7 @@ VisitGrid = function(){
         iconCls:'icon-folder',
         region:'center',
 		margins:'3 3 3 0',
+		stripeRows: true,
         columns: [
 			{
                 header: "Date",
