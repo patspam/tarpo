@@ -1,15 +1,17 @@
 Ext.onReady(function(){
-
+	
     Ext.QuickTips.init();
 	
+	// globals in function scope
 	var win = window.nativeWindow;
-	
 	var opener = Ext.air.NativeWindow.getRootHtmlWindow();
 	var visitId = String(window.location).split('=')[1];
 	var isNew = visitId == 'New';
+	var addCount = 1;
+	
 	if (isNew) {
-		visitId = '270981421JBPW';
-		win.title = 'New Visit';
+		visitId = Ext.uniqueId();
+		win.title = 'New Visit #' + addCount;
 	} else {
 		win.title = 'House Visit - ' + Ext.util.Format.ellipsis(getView().data.addr, 40);
 	}	
@@ -53,6 +55,12 @@ Ext.onReady(function(){
 	var addr = new Ext.form.TextField({
 		fieldLabel: 'House',
         name: 'addr',
+        anchor: '100%'
+    });
+	
+	var owner = new Ext.form.TextField({
+		fieldLabel: 'Owner',
+        name: 'owner',
         anchor: '100%'
     });
 	
@@ -233,7 +241,16 @@ Ext.onReady(function(){
 		buttonAlign: 'right',
 		minButtonWidth: 80,
 		buttons:[{
-			text: 'OK',
+			text: 'Save (leave open)',
+			handler: function(){
+				if(validate()) {
+					saveData();
+					visitId = Ext.uniqueId();
+					win.title = 'New Visit #' + ++addCount;
+				}
+			}
+		},{
+			text: 'Save',
 			handler: function(){
 				if(validate()) {
 					saveData();
@@ -249,8 +266,9 @@ Ext.onReady(function(){
         items: [
 		d,
 		list,
-		addr,
 		loc,
+		addr,
+		owner,		
 		type,
 		name,
 		colour,
@@ -316,9 +334,6 @@ Ext.onReady(function(){
 	}
 	
 	function getView(){
-		if (visitId == 'New') {
-			return null;
-		}
 		var t = opener.tx.data.visits.lookup(visitId);
 		if(t){
 			//workaround WebKit cross-frame date issue

@@ -67,30 +67,43 @@ Ext.onReady(function(){
 		}),
 		
 		report: new Ext.Action({
-			text: 'Report',
+			text: 'Report on All Data',
 			iconCls: 'icon-active',
-			tooltip: 'Report',
-			handler: function(){
+			tooltip: 'Report on All Data (right-click on individual list for more specific Report)',
+			handler: function(listId){
 				
-				var report = "";
-				report += "Houses Visited: " + querySingle('select count(distinct addr) from visit') + "<br>";
+				var xF, filter_for;
+				if (listId && typeof listId === 'string' && querySingle('select isFolder from list where listId = "' + listId + '"') == 0) {
+					xF = ' AND listId="' + listId + '"';
+					filter_for = tx.data.lists.getName(listId);
+				} else {
+					xF = '';
+					filter_for = 'All Data';
+				}
 				
-				report += "<br/><H2>Total Animals Seen</H2>";
-				report += "Dogs: " + querySingle('select count(*) from visit where type="DOG"') + "<br>";
-				report += "Cats: " + querySingle('select count(*) from visit where type="CAT"') + "<br>";
-				report += "Puppies: " + querySingle('select count(*) from visit where type="PUPPY"') + "<br>";
-				report += "Kittens: " + querySingle('select count(*) from visit where type="KITTEN"') + "<br>";
-				report += "Pigs: " + querySingle('select count(*) from visit where type="PIG"') + "<br>";
-				report += "Other: " + querySingle('select count(*) from visit where type="OTHER"') + "<br>";
+				var houses_with_dogs = querySingle('select count(distinct addr) from visit where type="DOG"' + xF);
+				var dogs = querySingle('select count(*) from visit where type="DOG"' + xF);
 				
-				report += "<br/><H2>Dog Averages</H2>";
-				report += "BCS: " + sigFigs(querySingle('select avg(bcs) from visit where type="DOG"')) + "<br>";
-				report += "Mange: " + sigFigs(querySingle('select avg(mange) from visit where type="DOG"')) + "<br>";
+				var report_data = {
+					houses: querySingle('select count(distinct addr) from visit where 1' + xF),
+					houses_with_dogs: houses_with_dogs,
+					dogs: dogs,
+					cats: querySingle('select count(*) from visit where type="CAT"' + xF),
+					puppies: querySingle('select count(*) from visit where type="PUPPY"' + xF),
+					kittens: querySingle('select count(*) from visit where type="KITTEN"' + xF),
+					pigs: querySingle('select count(*) from visit where type="PIG"' + xF),
+					other: querySingle('select count(*) from visit where type="OTHER"' + xF),
+					covinan: querySingle('select count(*) from visit where covinan=1' + xF),
+					
+					avg_bcs: sigFigs(querySingle('select avg(bcs) from visit where type="DOG"' + xF)),
+					avg_mange: sigFigs(querySingle('select avg(mange) from visit where type="DOG"' + xF)),
+					avg_dogs_per_house: sigFigs(dogs / houses_with_dogs ),
+				};
 				
 				Ext.Msg.show({
-					title: 'Report',
-					msg: report,
-					minWidth: 200,
+					title: 'Report: ' + filter_for,
+					msg: Templates.report.apply(report_data),
+					minWidth: 400,
 				});
 			}
 		}),
@@ -157,7 +170,16 @@ Ext.onReady(function(){
 			handler: function(){
 				air.NativeApplication.nativeApplication.exit();
 			}
-		})
+		}),
+		
+		demoData: new Ext.Action({
+			itemText: 'Load Demo Data',
+			tooltip: 'Re-populate database with demo data',
+			iconCls: 'icon-list-delete',
+			handler: function(){
+				tx.data.demoData();
+			}
+		}),
 	};
     tx.actions = actions;
 
@@ -166,7 +188,8 @@ Ext.onReady(function(){
 	menus.add('File', [
 		actions.newVisit, 
 		actions.newList, 
-		actions.newFolder, 
+		actions.newFolder,
+		actions.demoData,
 		actions.report,
 		'-',
 		actions.quit
@@ -208,6 +231,7 @@ Ext.onReady(function(){
 				menu: [actions.newVisit, actions.newList, actions.newFolder]
 			},'-',
 			actions.deleteVisit,
+			actions.report,
             '->', ' ', ' ', ' '		
 		]
 	});

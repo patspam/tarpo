@@ -279,3 +279,34 @@ html, body {
     text-decoration:italics;
     color:gray;
 }
+
+div.report h2 {
+	font-size: 123.1%;
+	padding: 0 0 0.5em 0; 
+	font-weight: bold; 
+	clear: left;
+}
+div.report dl + h2 {
+	padding: 1em 0 0 0;
+}
+div.report h3 {
+	font-size:108%;
+	padding: 0.5em 0 0 0; 
+	font-weight: bold; 
+	clear: left;
+}
+div.report dl {
+	width: 200px;
+}
+div.report dl dt { 
+	float: left;
+	clear: left;
+	width: 155px;
+}
+div.report dl dd { 
+	margin-left:1em; 
+	float: left;
+	font-weight: bold; 
+	text-align: right;
+}
+

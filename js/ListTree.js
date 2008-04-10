@@ -119,6 +119,13 @@ Ext.extend(ListTree, Ext.tree.TreePanel, {
                     handler:function(){
                         this.removeList(this.ctxNode);
                     }
+                },'-',{
+					text:'Report',
+                    iconCls:'icon-list-delete',
+                    scope: this,
+                    handler:function(){
+                        tx.actions.report.execute(this.ctxNode.id);
+                    }
                 }]
             });
             this.menu.on('hide', this.onContextHide, this);

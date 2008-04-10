@@ -1,20 +1,10 @@
-// Unique ids, if the time isn't unique enough, the addition 
-// of random chars should be
-Ext.uniqueId = function(){
-	var t = String(new Date().getTime()).substr(4);
-	var s = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-	for(var i = 0; i < 4; i++){
-		t += s.charAt(Math.floor(Math.random()*26));
-	}
-	return t;
-}
-
 // Define the Visit data type
 tx.data.Visit = Ext.data.Record.create([
     {name: 'id', type:'string'},
 	{name: 'listId', type:'string'},
 	{name: 'd', type:'date', dateFormat: Ext.sql.Proxy.DATE_FORMAT, defaultValue: ''},
     {name: 'addr', type:'string'},
+	{name: 'owner', type:'string'},
     {name: 'loc', type:'string'},
     {name: 'type', type:'string'},
     {name: 'name', type:'string'},
@@ -59,3 +49,12 @@ tx.data.getActiveListId = function(){
     }
     return id;
 };
+
+tx.data.demoData = function() {
+	tx.data.conn.exec('delete from list');
+	tx.data.conn.exec('delete from visit');
+	tx.data.lists.reload();
+	tx.data.visits.reload();
+	tx.data.lists.demoData();
+	tx.data.visits.demoData();
+}

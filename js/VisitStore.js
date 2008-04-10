@@ -131,8 +131,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
                 if (this.getCount() < 1) {
                     Ext.Msg.confirm('Create Visits?', 'Your database is currently empty. Would you like to insert some demo data?', function(btn){
                         if (btn == 'yes') {
-							tx.data.lists.loadDemoLists();
-                            this.loadDemoVisits();
+                            tx.data.demoData();
                         }
                     }, this);
                 }
@@ -155,7 +154,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
     },
     
     /* This is used to load some demo data if the database is empty */
-    loadDemoVisits: function(){
+    demoData: function(){
         var s = new Date();
         this.addVisit({
             id: Ext.uniqueId(),
@@ -170,6 +169,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
             id: Ext.uniqueId(),
 			d: s.add('d', -3),
             addr: '536',
+			owner: 'Peter',
             loc: 'Bottom Camp',
             type: 'DOG',
 			colour: 'B',
@@ -183,6 +183,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
             id: Ext.uniqueId(),
 			d: s.add('d', -3),
             addr: '536',
+			owner: 'Peter',
             loc: 'Bottom Camp',
             type: 'DOG',
 			colour: 'T',

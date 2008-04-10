@@ -55,7 +55,7 @@ tx.data.ListStore = Ext.extend(Ext.data.Store, {
 		return null;
 	},
 	
-	loadDemoLists: function(){
+	demoData: function(){
 		this.addList('2007', '2007', true, 'root');
 		this.addList('2007 Trip 1 (Start of dry season)', '2007-dry-start', false, '2007');
 		this.addList('2007 Trip 2 (End of dry season)', '2007-dry-end', false, '2007');
