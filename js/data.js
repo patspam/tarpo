@@ -12,6 +12,7 @@ Ext.uniqueId = function(){
 // Define the Visit data type
 tx.data.Visit = Ext.data.Record.create([
     {name: 'id', type:'string'},
+	{name: 'listId', type:'string'},
 	{name: 'd', type:'date', dateFormat: Ext.sql.Proxy.DATE_FORMAT, defaultValue: ''},
     {name: 'addr', type:'string'},
     {name: 'loc', type:'string'},
@@ -29,10 +30,32 @@ tx.data.Visit = Ext.data.Record.create([
 	{name: 'comments', type:'string'}
 ]);
 
+// Define the List data type
+tx.data.List = Ext.data.Record.create([
+    {name: 'listId', type:'string'},
+    {name: 'parentId', type:'string'},
+    {name: 'listName', type:'string'},
+    {name: 'isFolder', type:'boolean'}
+]);
+
 tx.data.conn = Ext.sql.Connection.getInstance();
 
 tx.data.visits = new tx.data.VisitStore();
+tx.data.lists = new tx.data.ListStore();
 
 Ext.util.Format.bool = function(value){
 	return value ? '<img src="/images/icon-complete.gif"></input>' : '';
+};
+
+tx.data.getActiveListId = function(){
+    var id = tx.data.visits.activeList;
+    if(!id){
+        var first = tx.data.lists.getAt(0);
+        if(first){
+            id = first.id;
+        }else{
+            id = tx.data.lists.newList().id;
+        }
+    }
+    return id;
 };

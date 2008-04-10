@@ -112,6 +112,46 @@ Ext.onReady(function(){
 			}
 		}),
 		
+		newList: new Ext.Action({
+			itemText: 'New List',
+			tooltip: 'New List',
+			iconCls: 'icon-list-new',
+			handler: function(){
+				var id = tx.data.lists.newList(false, tree.getActiveFolderId()).id;
+				tree.startEdit(id, true);
+			}
+		}),
+		
+		deleteList: new Ext.Action({
+			itemText: 'Delete',
+			tooltip: 'Delete List',
+			iconCls: 'icon-list-delete',
+			disabled: true,
+			handler: function(){
+				tree.removeList(tree.getSelectionModel().getSelectedNode());
+			}
+		}),
+		
+		newFolder: new Ext.Action({
+			itemText: 'New Folder',
+			tooltip: 'New Folder',
+			iconCls: 'icon-folder-new',
+			handler: function(){
+				var id = tx.data.lists.newList(true, tree.getActiveFolderId()).id;
+				tree.startEdit(id, true);
+			}
+		}),
+		
+		deleteFolder: new Ext.Action({
+			itemText: 'Delete',
+			tooltip: 'Delete Folder',
+			iconCls: 'icon-folder-delete',
+			disabled: true,
+			handler: function(s){
+				tree.removeList(tree.getSelectionModel().getSelectedNode());
+			}
+		}),
+		
 		quit : new Ext.Action({
 			text: 'Exit',
 			handler: function(){
@@ -125,6 +165,8 @@ Ext.onReady(function(){
 	
 	menus.add('File', [
 		actions.newVisit, 
+		actions.newList, 
+		actions.newFolder, 
 		actions.report,
 		'-',
 		actions.quit
@@ -136,7 +178,23 @@ Ext.onReady(function(){
             Ext.air.NativeWindowManager.getAboutWindow().activate();
         }
     }]);
+	
+	var tree = new ListTree({
+		actions: actions,
+		store: tx.data.lists
+	});
 
+	var root = tree.getRootNode();	
+
+	var listSm = tree.getSelectionModel();
+	
+    tx.data.lists.bindTree(tree);
+	tx.data.lists.on('update', function(){
+		tx.data.visits.applyGrouping();
+		if(grid.titleNode){
+			grid.setTitle(grid.titleNode.text);
+		}
+	});
 
     var tb = new Ext.Toolbar({
 		region:'north',
@@ -147,7 +205,7 @@ Ext.onReady(function(){
 				iconCls:'icon-edit',
 				text:'New',
 				handler: actions.newVisit.initialConfig.handler,
-				menu: [actions.newVisit]
+				menu: [actions.newVisit, actions.newList, actions.newFolder]
 			},'-',
 			actions.deleteVisit,
             '->', ' ', ' ', ' '		
@@ -156,12 +214,18 @@ Ext.onReady(function(){
 
 	var viewport = new Ext.Viewport({
         layout:'border',
-        items: [tb, grid]
+        items: [tb, tree, grid]
     });
 	
 	grid.on('keydown', function(e){
          if(e.getKey() == e.DELETE && !grid.editing){
              actions.deleteVisit.execute();
+         }
+    });
+	
+	tree.el.on('keydown', function(e){
+         if(e.getKey() == e.DELETE && !tree.editor.editing){
+             actions.deleteList.execute();
          }
     });
 
@@ -176,6 +240,41 @@ Ext.onReady(function(){
 	win.instance.activate();
 	
 	tx.data.visits.init();
+	
+	tree.root.select();
+	
+	var loadList = function(listId){
+		var node = tree.getNodeById(listId);
+		if(node && !node.isSelected()){
+			node.select();
+			return;
+		}
+		actions.deleteList.setDisabled(!node || !node.attributes.editable);
+		actions.deleteFolder.setDisabled(!node || node.attributes.editable === false || !node.attributes.isFolder);
+		if(node){
+			if (node.attributes.isFolder) {
+				var lists = [];
+				node.cascade(function(n){
+					if (!n.attributes.isFolder) {
+						lists.push(n.attributes.id);
+					}
+				});
+				tx.data.visits.loadList(lists);
+			}
+			else {
+				tx.data.visits.loadList(node.id);
+			}
+			grid.titleNode = node;
+			grid.setTitle(node.text);
+			grid.setIconClass(node.attributes.iconCls);
+		}
+	}
+
+	listSm.on('selectionchange', function(t, node){
+		loadList(node ? node.id : null);
+	});
+	
+	root.reload();
 	
 	win.on('closing', function(){
 		Ext.air.NativeWindowManager.closeAll();

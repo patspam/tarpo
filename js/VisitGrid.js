@@ -14,12 +14,11 @@ VisitGrid = function(){
 		margins:'3 3 3 0',
         columns: [
 			{
-                header: "When",
+                header: "Date",
                 width: 100,
                 sortable: true,
                 renderer: Ext.util.Format.dateRenderer('D d/m/Y'),
                 dataIndex: 'd',
-                groupRenderer: Ext.util.Format.createTextDateRenderer(),
 				id: 'visits-grid--d',
             },
             {

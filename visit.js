@@ -38,6 +38,18 @@ Ext.onReady(function(){
 		value: new Date() // default value (overwritten with existing value if not new)
 	});
 	
+	var list = new ListSelector({
+        fieldLabel: 'List',
+		name: 'listId',
+		store: opener.tx.data.lists,
+		anchor: '100%'
+    });
+	list.on('render', function(){
+		this.menu.on('beforeshow', function(m){
+			list.tree.setWidth(Math.max(180, list.getSize().width));
+		});
+	})
+	
 	var addr = new Ext.form.TextField({
 		fieldLabel: 'House',
         name: 'addr',
@@ -236,6 +248,7 @@ Ext.onReady(function(){
 		
         items: [
 		d,
+		list,
 		addr,
 		loc,
 		type,
@@ -256,8 +269,6 @@ Ext.onReady(function(){
 		layout:'border',
 		items:[tb, form]
 	});
-	
-	var msg = Ext.get('msg');
 	
 	refreshData.defer(10);
 
@@ -281,7 +292,8 @@ Ext.onReady(function(){
 				d.getValue(), 
 				addr.getValue(), 
 				loc.getValue(),
-				type.getValue()
+				type.getValue(),
+				list.getRawValue()
 			);
 		}else{
 			view = getView();
