@@ -1,11 +1,3 @@
-/*
- * Ext JS Library 0.20
- * Copyright(c) 2006-2008, Ext JS, LLC.
- * licensing@extjs.com
- * 
- * http://extjs.com/license
- */
-
 // Implementation class for created the tree powered form field
 ListSelector = Ext.extend(Ext.ux.TreeSelector, {
 	maxHeight:200,

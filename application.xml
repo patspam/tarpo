@@ -15,19 +15,19 @@
 -->
 
 	<!-- The application identifier string, unique to this application. Required. -->
-	<id>com.patspam.v3t</id>
+	<id>com.patspam.tarpo</id>
 
 	<!-- Used as the filename for the application. Required. -->
-	<filename>v3t</filename>
+	<filename>Tarpo</filename>
 
 	<!-- The name that is displayed in the AIR application installer. Optional. -->
-	<name>v3t</name>
+	<name>Tarpo</name>
 
 	<!-- An application version designator (such as "v1", "2.5", or "Alpha 1"). Required. -->
 	<version>1.0</version>
 
 	<!-- Description, displayed in the AIR application installer. Optional. -->
-	<description>v3t by Patrick Donelan</description>
+	<description>Tarpo by Patrick Donelan</description>
 
 	<!-- Copyright information. Optional -->
 	<copyright>(c) 2008 - Patrick Donelan</copyright>
@@ -38,7 +38,7 @@
 		<content>main.html</content>
 		
 		<!-- The title of the main window. Optional. -->
-		 <title>v3t</title>
+		 <title>Tarpo</title>
 
 		<!-- The type of system chrome to use (either "standard" or "none"). Optional. Default standard. -->
 		<systemChrome>standard</systemChrome>
@@ -74,14 +74,14 @@
 		<minSize>800 600</minSize>
 
 		<!-- The window's initial maximum size, specified as a width/height pair, such as "1600 1200". Optional. -->
-		<maxSize>1280 1024</maxSize>
+		<!--<maxSize>1280 1024</maxSize>-->
 	</initialWindow>
 
 	<!-- The subpath of the standard default installation location to use. Optional. -->
-	<!--<installFolder>v3t</installFolder>-->
+	<!--<installFolder>Tarpo</installFolder>-->
 
 	<!-- The subpath of the Windows Start/Programs menu to use. Optional. -->
-	<!-- <programMenuFolder>v3t</programMenuFolder> -->
+	<!-- <programMenuFolder>Tarpo</programMenuFolder> -->
 
 	<!-- The icon the system uses for the application. For at least one resolution,
 		 specify the path to a PNG file included in the AIR package. Optional. -->

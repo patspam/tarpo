@@ -1,11 +1,3 @@
-/*
- * Ext JS Library 0.20
- * Copyright(c) 2006-2008, Ext JS, LLC.
- * licensing@extjs.com
- * 
- * http://extjs.com/license
- */
-
 ListTree = function(config){
 	ListTree.superclass.constructor.call(this, Ext.apply({
 		id:'list-tree',

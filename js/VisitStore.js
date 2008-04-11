@@ -155,7 +155,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
         this.addVisit({
             id: Ext.uniqueId(),
 			d: s.add('d', -3),
-            addr: '537',
+            house: '537',
             loc: 'Bottom Camp',
             type: 'NOTE',
             comments: 'No roof',
@@ -164,7 +164,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
         this.addVisit({
             id: Ext.uniqueId(),
 			d: s.add('d', -3),
-            addr: '536',
+            house: '536',
 			owner: 'Peter',
             loc: 'Bottom Camp',
             type: 'DOG',
@@ -178,7 +178,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
         this.addVisit({
             id: Ext.uniqueId(),
 			d: s.add('d', -3),
-            addr: '536',
+            house: '536',
 			owner: 'Peter',
             loc: 'Bottom Camp',
             type: 'DOG',
@@ -193,7 +193,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
         this.addVisit({
             id: Ext.uniqueId(),
 			d: s.add('d', -3),
-            addr: '535',
+            house: '535',
             loc: 'Bottom Camp',
             type: 'NOTE',
 			comments: 'Not home',
@@ -202,7 +202,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
         this.addVisit({
             id: Ext.uniqueId(),
 			d: s.add('d', -3),
-            addr: '534',
+            house: '534',
             loc: 'Bottom Camp',
             type: 'NOTE',
 			comments: 'Not home',
@@ -211,7 +211,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
         this.addVisit({
             id: Ext.uniqueId(),
 			d: s.add('d', -2),
-            addr: '533',
+            house: '533',
             loc: 'Bottom Camp',
             type: 'DOG',
 			colour: 'T/W',
@@ -224,7 +224,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
         this.addVisit({
             id: Ext.uniqueId(),
 			d: s.add('d', -2),
-            addr: '533',
+            house: '533',
             loc: 'Bottom Camp',
             type: 'DOG',
 			colour: 'T/W',
@@ -237,7 +237,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
         this.addVisit({
             id: Ext.uniqueId(),
 			d: s.add('d', -2),
-            addr: '533',
+            house: '533',
             loc: 'Bottom Camp',
             type: 'DOG',
 			colour: 'B/W',
@@ -250,7 +250,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 		this.addVisit({
             id: Ext.uniqueId(),
 			d: s.add('d', -1),
-            addr: '205',
+            house: '205',
             loc: 'Bottom Camp',
             type: 'DOG',
 			colour: 'Red',
@@ -263,7 +263,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 		this.addVisit({
             id: Ext.uniqueId(),
 			d: s.add('d', -1),
-            addr: '206/207',
+            house: '206/207',
             loc: 'Bottom Camp',
             type: 'DOG',
 			colour: 'T/W',
@@ -277,7 +277,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 		this.addVisit({
             id: Ext.uniqueId(),
 			d: s.add('d', -1),
-            addr: '206/207',
+            house: '206/207',
             loc: 'Bottom Camp',
             type: 'DOG',
 			colour: 'T/W',
@@ -291,7 +291,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 		this.addVisit({
             id: Ext.uniqueId(),
 			d: s.add('d', -1),
-            addr: '206/207',
+            house: '206/207',
             loc: 'Bottom Camp',
             type: 'DOG',
 			colour: 'T/W',
@@ -304,7 +304,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 		this.addVisit({
             id: Ext.uniqueId(),
 			d: s.add('d', -1),
-            addr: '206/207',
+            house: '206/207',
             loc: 'Bottom Camp',
             type: 'DOG',
 			colour: 'Red/Brown',
@@ -317,7 +317,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 		this.addVisit({
             id: Ext.uniqueId(),
 			d: s.add('d', -1),
-            addr: '206/207',
+            house: '206/207',
             loc: 'Bottom Camp',
             type: 'DOG',
 			colour: 'T/W',
@@ -330,7 +330,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 		this.addVisit({
             id: Ext.uniqueId(),
 			d: s.add('d', -1),
-            addr: '208',
+            house: '208',
             loc: 'Bottom Camp',
             type: 'NOTE',
 			comments: 'No dogs',
@@ -339,7 +339,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 		this.addVisit({
             id: Ext.uniqueId(),
 			d: s,
-            addr: '128',
+            house: '128',
             loc: 'Side Camp',
             type: 'DOG',
 			colour: 'T',
@@ -352,7 +352,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 		this.addVisit({
             id: Ext.uniqueId(),
 			d: s,
-            addr: '128',
+            house: '128',
             loc: 'Side Camp',
             type: 'DOG',
 			colour: 'T/W',

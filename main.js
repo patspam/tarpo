@@ -1,16 +1,16 @@
 // Initialize the state provider
-Ext.state.Manager.setProvider(new Ext.air.FileProvider({
-	file: 'v3t.state',
-	// if first time running
-	defaultState : {
-		mainWindow : {
-			width:780,
-			height:580,
-			x:10,
-			y:10
-		}
-	}
-}));
+//Ext.state.Manager.setProvider(new Ext.air.FileProvider({
+//	file: 'app.state',
+//	// if first time running
+//	defaultState : {
+//		mainWindow : {
+//			width:780,
+//			height:580,
+//			x:10,
+//			y:10
+//		}
+//	}
+//}));
 
 Ext.onReady(function(){
     Ext.QuickTips.init();
@@ -21,9 +21,9 @@ Ext.onReady(function(){
 		instance: window.nativeWindow,
 		minimizeToTray: true,
 		trayIcon: 'ext-air/resources/icons/extlogo16.png',
-		trayTip: 'v3t',
+		trayTip: 'Tarpo',
 		trayMenu : [{
-			text: 'Open v3t',
+			text: 'Open Tarpo',
 			handler: function(){
 				win.activate();
 			}
@@ -92,11 +92,11 @@ Ext.onReady(function(){
 					filter_for = 'All Data';
 				}
 				
-				var houses_with_dogs = querySingle('select count(distinct addr) from visit where type="DOG"' + xF);
+				var houses_with_dogs = querySingle('select count(distinct house) from visit where type="DOG"' + xF);
 				var dogs = querySingle('select count(*) from visit where type="DOG"' + xF);
 				
 				var report_data = {
-					houses: querySingle('select count(distinct addr) from visit where 1' + xF),
+					houses: querySingle('select count(distinct house) from visit where 1' + xF),
 					houses_with_dogs: houses_with_dogs,
 					dogs: dogs,
 					cats: querySingle('select count(*) from visit where type="CAT"' + xF),
@@ -114,9 +114,9 @@ Ext.onReady(function(){
 					castrations: querySingle('select count(*) from surg where castration=1' + xF),
 					other_procedures: querySingle('select count(*) from surg where other_procedures != ""' + xF),
 					
-					euth_unwanted: querySingle('select count(*) from surg where euth_unwanted=1' + xF),
-					euth_humane: querySingle('select count(*) from surg where euth_humane=1' + xF),
-					euth_cheeky: querySingle('select count(*) from surg where euth_cheeky=1' + xF),
+					euth_unwanted: querySingle('select count(*) from surg where euth="Unwanted"' + xF),
+					euth_humane: querySingle('select count(*) from surg where euth="Humane"' + xF),
+					euth_cheeky: querySingle('select count(*) from surg where euth="Cheeky"' + xF),
 				};
 				
 				alert('select count(*) from surg where spey=1' + xF);
@@ -350,6 +350,9 @@ Ext.onReady(function(){
 	tx.data.surg.init();
 	
 	tree.root.select();
+	
+	// fix bug where surg doesn't show initially
+	tx.data.surg.reload();
 	
 	var loadList = function(listId){
 		var node = tree.getNodeById(listId);

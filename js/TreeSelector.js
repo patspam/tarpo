@@ -1,11 +1,3 @@
-/*
- * Ext JS Library 0.20
- * Copyright(c) 2006-2008, Ext JS, LLC.
- * licensing@extjs.com
- * 
- * http://extjs.com/license
- */
-
 // custom menu item to contain Ext trees
 Ext.menu.TreeItem = Ext.extend(Ext.menu.Adapter, {
 	constructor : function(config){

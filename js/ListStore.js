@@ -1,12 +1,3 @@
-/*
- * Ext JS Library 0.20
- * Copyright(c) 2006-2008, Ext JS, LLC.
- * licensing@extjs.com
- * 
- * http://extjs.com/license
- */
-
-
 tx.data.ListStore = Ext.extend(Ext.data.Store, {
 	constructor: function(){
 		tx.data.ListStore.superclass.constructor.call(this, {

@@ -32,7 +32,7 @@ VisitGrid = function(){
                 header: "House",
                 width:50,
                 sortable: true,
-                dataIndex: 'addr',
+                dataIndex: 'house',
             },
             {
                 header: "Owner",
