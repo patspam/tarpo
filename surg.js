@@ -58,24 +58,6 @@ Ext.onReady(function(){
 		]
 	});
 	
-	function checkType() {
-//		var fields = ['name','colour','sex','desexed','bcs','mange','ticks','fleas','covinan','tvt'];
-//		
-//		var type = form.getForm().findField('type');
-//		if (type.getValue() == 'NOTE') {
-//			Ext.each(fields, function(field){
-//				var f = form.getForm().findField(field);
-//				f.disable();
-//				f.setValue();
-//			});
-//		} else {
-//			Ext.each(fields, function(field){
-//				var f = form.getForm().findField(field);
-//				f.enable();
-//			});
-//		}
-	}
-	
 	var form = new Ext.form.FormPanel({
 		region:'center',
         baseCls: 'x-plain',
@@ -175,7 +157,7 @@ Ext.onReady(function(){
 					tpl: Templates.simpleCombo,
 					store: new Ext.data.SimpleStore({
 					    fields: ['singleField'],
-					    data : [ ['DOG'], ['CAT'], ['PUPPY'], ['KITTEN'], ['PIG'], ['NOTE'], ['OTHER']]
+					    data : [ ['DOG'], ['CAT'], ['PUPPY'], ['KITTEN'], ['PIG'], ['OTHER']]
 					}),
 					displayField: 'singleField',
 					typeAhead: true,
@@ -183,12 +165,6 @@ Ext.onReady(function(){
 				    triggerAction: 'all',
 				    selectOnFocus:true,
 					editable: false,
-					listeners: {
-						select: {
-							fn: checkType
-						},
-						scope: this
-					},
 			    }),
 				
 				new Ext.form.TextField({
@@ -357,7 +333,6 @@ Ext.onReady(function(){
 		if(!isNew){
 			var view = getView();
 			form.getForm().loadRecord(view);
-			checkType();
 		}
 	}
 	

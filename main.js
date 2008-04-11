@@ -1,16 +1,16 @@
 // Initialize the state provider
-//Ext.state.Manager.setProvider(new Ext.air.FileProvider({
-//	file: 'app.state',
-//	// if first time running
-//	defaultState : {
-//		mainWindow : {
-//			width:780,
-//			height:580,
-//			x:10,
-//			y:10
-//		}
-//	}
-//}));
+Ext.state.Manager.setProvider(new Ext.air.FileProvider({
+	file: 'app.state',
+	// if first time running
+	defaultState : {
+		mainWindow : {
+			width:780,
+			height:580,
+			x:10,
+			y:10
+		}
+	}
+}));
 
 Ext.onReady(function(){
     Ext.QuickTips.init();
@@ -112,14 +112,13 @@ Ext.onReady(function(){
 					
 					speys: querySingle('select count(*) from surg where spey=1' + xF),
 					castrations: querySingle('select count(*) from surg where castration=1' + xF),
+					vaccinations: querySingle('select count(*) from surg where vacc=1' + xF),
 					other_procedures: querySingle('select count(*) from surg where other_procedures != ""' + xF),
 					
 					euth_unwanted: querySingle('select count(*) from surg where euth="Unwanted"' + xF),
 					euth_humane: querySingle('select count(*) from surg where euth="Humane"' + xF),
 					euth_cheeky: querySingle('select count(*) from surg where euth="Cheeky"' + xF),
 				};
-				
-				alert('select count(*) from surg where spey=1' + xF);
 				
 				Ext.Msg.show({
 					title: 'Report: ' + filter_for,
@@ -218,6 +217,18 @@ Ext.onReady(function(){
 				tx.data.demoData();
 			}
 		}),
+		
+		resetDefaults: new Ext.Action({
+			itemText: 'Reset Program Defaults',
+			tooltip: 'Reset program defaults such as column widths',
+			iconCls: 'icon-list-delete',
+			handler: function(){
+				air.NativeApplication.nativeApplication.addEventListener('exiting', function(){
+					Ext.state.Manager.getProvider().clearAllState();
+				});
+				Ext.Msg.alert('Restart Required', 'Please restart to apply this change')
+			}
+		})
 	};
     tx.actions = actions;
 
@@ -230,6 +241,7 @@ Ext.onReady(function(){
 		actions.newFolder,
 		actions.demoData,
 		actions.report,
+		actions.resetDefaults,
 		'-',
 		actions.quit
 	]);
