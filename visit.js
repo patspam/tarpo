@@ -300,7 +300,7 @@ Ext.onReady(function(){
 		var view;
 		if(isNew){
 			view = opener.tx.data.visits.createVisit(
-				list.getRawValue()
+				form.getForm().findField('listId').getRawValue()
 			);
 		}else{
 			view = getView();
