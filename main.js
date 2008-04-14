@@ -240,6 +240,38 @@ Ext.onReady(function(){
 			}
 		}),
 		
+		exportXml: new Ext.Action({
+			itemText: 'Export All Data to XML',
+			tooltip: 'Export All Data to XML',
+			handler: function(){
+				new tx.XmlExporter();
+			}
+		}),
+		
+		exportVisitCsv: new Ext.Action({
+			itemText: 'Export Visit Data to CSV',
+			tooltip: 'Export Visit Data to CSV',
+			handler: function(){
+				new tx.VisitCsvExporter();
+			}
+		}),
+		
+		exportSurgCsv: new Ext.Action({
+			itemText: 'Export Surgical Case Data to CSV',
+			tooltip: 'Export Surgical Case Data to CSV',
+			handler: function(){
+				new tx.SurgCsvExporter();
+			}
+		}),
+		
+		exportMedCsv: new Ext.Action({
+			itemText: 'Export Medical Case Data to CSV',
+			tooltip: 'Export Medical Case Data to CSV',
+			handler: function(){
+				new tx.MedCsvExporter();
+			}
+		}),
+		
 		quit : new Ext.Action({
 			text: 'Exit',
 			handler: function(){
@@ -284,6 +316,11 @@ Ext.onReady(function(){
 		actions.report,
 		actions.resetDefaults,
 		actions.demoData,
+		'-',
+		actions.exportVisitCsv,
+		actions.exportSurgCsv,
+		actions.exportMedCsv,
+		actions.exportXml,
 		'-',
 		actions.quit
 	]);
