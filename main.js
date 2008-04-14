@@ -39,8 +39,10 @@ Ext.onReady(function(){
     
     var visitsGrid = new VisitGrid();
 	var surgGrid = new SurgGrid();
+	var medGrid = new MedGrid();
 	var visitsSelections = visitsGrid.getSelectionModel();
 	var surgSelections = surgGrid.getSelectionModel();
+	var medSelections = medGrid.getSelectionModel();
 	
 	// single col, single result
 	function querySingle(sql) {
@@ -77,6 +79,15 @@ Ext.onReady(function(){
 			}
 		}),
 		
+		newMed: new Ext.Action({
+			text: 'New Medical Case',
+			iconCls: 'icon-multi-list',
+			tooltip: 'New Medical Case',
+			handler: function(){
+				Ext.air.NativeWindowManager.getMedWindow();
+			}
+		}),
+		
 		report: new Ext.Action({
 			text: 'Report on All Data',
 			iconCls: 'icon-report',
@@ -92,36 +103,42 @@ Ext.onReady(function(){
 					filter_for = 'All Data';
 				}
 				
-				var houses_with_dogs = querySingle('select count(distinct house) from visit where type="DOG"' + xF);
-				var dogs = querySingle('select count(*) from visit where type="DOG"' + xF);
+				var houses_with_dogs = querySingle('select count(distinct house) from visit where type="Dog"' + xF);
+				var dogs = querySingle('select count(*) from visit where type="Dog"' + xF);
 				
 				var report_data = {
 					houses: querySingle('select count(distinct house) from visit where 1' + xF),
 					houses_with_dogs: houses_with_dogs,
 					dogs: dogs,
-					cats: querySingle('select count(*) from visit where type="CAT"' + xF),
-					puppies: querySingle('select count(*) from visit where type="PUPPY"' + xF),
-					kittens: querySingle('select count(*) from visit where type="KITTEN"' + xF),
-					pigs: querySingle('select count(*) from visit where type="PIG"' + xF),
-					other: querySingle('select count(*) from visit where type="OTHER"' + xF),
+					cats: querySingle('select count(*) from visit where type="Cat"' + xF),
+					puppies: querySingle('select count(*) from visit where type="Puppy"' + xF),
+					kittens: querySingle('select count(*) from visit where type="Kitten"' + xF),
+					pigs: querySingle('select count(*) from visit where type="Pig"' + xF),
+					other: querySingle('select count(*) from visit where type="Other"' + xF),
 					ivermectin: querySingle('select count(*) from visit where ivermectin=1' + xF),
 					covinan: querySingle('select count(*) from visit where covinan=1' + xF),
 					
-					avg_bcs: sigFigs(querySingle('select avg(bcs) from visit where type="DOG"' + xF)),
-					avg_mange: sigFigs(querySingle('select avg(mange) from visit where type="DOG"' + xF)),
+					avg_bcs: sigFigs(querySingle('select avg(bcs) from visit where type="Dog"' + xF)),
+					avg_mange: sigFigs(querySingle('select avg(mange) from visit where type="Dog"' + xF)),
 					avg_dogs_per_house: sigFigs(dogs / houses_with_dogs ),
 					
-					speys: querySingle('select count(*) from surg where desex="spey"' + xF),
-					castrations: querySingle('select count(*) from surg where desex="castration"' + xF),
+					surgical_cases: querySingle('select count(*) from surg' + xF),
+					speys: querySingle('select count(*) from surg where desex="Spey"' + xF),
+					castrations: querySingle('select count(*) from surg where desex="Castrate"' + xF),
 					other_procedures: querySingle('select count(*) from surg where other_procedures = 1' + xF),
-					penile_tvt: querySingle('select count(*) from surg where tvt = "Penile"' + xF),
-					vaginal_tvt: querySingle('select count(*) from surg where tvt = "Vaginal"' + xF),
-					vaccinations: querySingle('select count(*) from surg where vacc=1' + xF),
+					penile_tvt: querySingle('select count(*) from surg where tvt="Penile"' + xF),
+					vaginal_tvt: querySingle('select count(*) from surg where tvt="Vaginal"' + xF),
+					surgical_vaccinations: querySingle('select count(*) from surg where vacc=1' + xF),
 					
+					medical_cases: querySingle('select count(*) from med' + xF),
+					fight_wounds: querySingle('select count(*) from med where reason="Fight Wound"' + xF),
+					hunting_wounds: querySingle('select count(*) from med where reason="Hunting Wound"' + xF),
+					car_accidents: querySingle('select count(*) from med where reason="Car Accident"' + xF),
+					medical_vaccinations: querySingle('select count(*) from med where vacc=1' + xF),
 					
-					euth_unwanted: querySingle('select count(*) from surg where euth="Unwanted"' + xF),
-					euth_humane: querySingle('select count(*) from surg where euth="Humane"' + xF),
-					euth_cheeky: querySingle('select count(*) from surg where euth="Cheeky"' + xF),
+					euth_unwanted: querySingle('select count(*) from med where euth="Unwanted"' + xF),
+					euth_humane: querySingle('select count(*) from med where euth="Humane"' + xF),
+					euth_cheeky: querySingle('select count(*) from med where euth="Cheeky"' + xF),
 				};
 				
 				Ext.Msg.show({
@@ -160,6 +177,23 @@ Ext.onReady(function(){
 					if (btn == 'yes') {
 						surgSelections.each(function(s){
 							tx.data.surg.remove(s);
+						});
+					}
+				});
+			}
+		}),
+		
+		deleteMed: new Ext.Action({
+			itemText: 'Delete Medical Case',
+			text: 'Delete Medical Case',
+			iconCls: 'icon-delete',
+			tooltip: 'Delete Medical Case',
+			disabled: true,
+			handler: function(){
+				Ext.Msg.confirm('Confirm', 'Are you sure you want to delete the selected Medical Case(s)?', function(btn){
+					if (btn == 'yes') {
+						medSelections.each(function(s){
+							tx.data.med.remove(s);
 						});
 					}
 				});
@@ -274,11 +308,15 @@ Ext.onReady(function(){
 	tx.data.lists.on('update', function(){
 		tx.data.visits.applyGrouping();
 		tx.data.surg.applyGrouping();
+		tx.data.med.applyGrouping();
 		if(visitsGrid.titleNode){
 			visitsGrid.setTitle(visitsGrid.titleNode.text);
 		}
 		if(surgGrid.titleNode){
 			surgGrid.setTitle(surgGrid.titleNode.text);
+		}
+		if(medGrid.titleNode){
+			medGrid.setTitle(medGrid.titleNode.text);
 		}
 	});
 
@@ -289,6 +327,7 @@ Ext.onReady(function(){
 		items: [
 			actions.newVisit,
 			actions.newSurg,
+			actions.newMed,
 			'-',
 			actions.report,
             '->', ' ', ' ', ' '		
@@ -317,6 +356,14 @@ Ext.onReady(function(){
 					tx.data.surg.init();
 				}}
 			}), 
+			new Ext.Panel({
+				title: 'Medical Cases',
+				layout: 'fit',
+				items: medGrid,
+				listeners: {'activate': function(){
+					tx.data.med.init();
+				}}
+			}), 
 		],
 			
     });
@@ -336,6 +383,11 @@ Ext.onReady(function(){
              actions.deleteSurg.execute();
          }
     });
+	medGrid.on('keydown', function(e){
+         if(e.getKey() == e.DELETE && !medGrid.editing){
+             actions.deleteMed.execute();
+         }
+    });
 	
 	tree.el.on('keydown', function(e){
          if(e.getKey() == e.DELETE && !tree.editor.editing){
@@ -351,17 +403,23 @@ Ext.onReady(function(){
     	var disabled = sm.getCount() < 1;
     	actions.deleteSurg.setDisabled(disabled);
     });
+	medSelections.on('selectionchange', function(sm){
+    	var disabled = sm.getCount() < 1;
+    	actions.deleteMed.setDisabled(disabled);
+    });
 
 	win.show();
 	win.instance.activate();
 	
 	tx.data.visits.init();
 	tx.data.surg.init();
+	tx.data.med.init();
 	
 	tree.root.select();
 	
 	// fix bug where surg grid doesn't show initially
 	tx.data.surg.reload();
+	tx.data.med.reload();
 	
 	var loadList = function(listId){
 		var node = tree.getNodeById(listId);
@@ -381,17 +439,22 @@ Ext.onReady(function(){
 				});
 				tx.data.visits.loadList(lists);
 				tx.data.surg.loadList(lists);
+				tx.data.med.loadList(lists);
 			}
 			else {
 				tx.data.visits.loadList(node.id);
 				tx.data.surg.loadList(node.id);
+				tx.data.med.loadList(node.id);
 			}
 			visitsGrid.titleNode = node;
 			surgGrid.titleNode = node;
+			medGrid.titleNode = node;
 			visitsGrid.setTitle(node.text);
 			surgGrid.setTitle(node.text);
+			medGrid.setTitle(node.text);
 			visitsGrid.setIconClass(node.attributes.iconCls);
 			surgGrid.setIconClass(node.attributes.iconCls);
+			medGrid.setIconClass(node.attributes.iconCls);
 		}
 	}
 

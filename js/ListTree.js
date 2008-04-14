@@ -164,6 +164,7 @@ Ext.extend(ListTree, Ext.tree.TreePanel, {
 					tx.data.lists.remove(this.store.getById(s.id));
 					tx.data.visits.removeList(s.id);
 					tx.data.surg.removeList(s.id);
+					tx.data.med.removeList(s.id);
 				}
 			}, this);
 		}

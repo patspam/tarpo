@@ -36,7 +36,7 @@ Ext.onReady(function(){
 		var fields = ['name','colour','sex','desexed','bcs','mange','ticks','fleas','ivermectin','covinan','tvt'];
 		
 		var type = form.getForm().findField('type');
-		if (type.getValue() == 'NOTE') {
+		if (type.getValue() == 'Note') {
 			Ext.each(fields, function(field){
 				var f = form.getForm().findField(field);
 				f.disable();
@@ -101,7 +101,7 @@ Ext.onReady(function(){
 				tpl: Templates.simpleCombo,
 				store: new Ext.data.SimpleStore({
 				    fields: ['singleField'],
-				    data : [ ['DOG'], ['CAT'], ['PUPPY'], ['KITTEN'], ['PIG'], ['NOTE'], ['OTHER']]
+				    data : [ ['Dog'], ['Cat'], ['Puppy'], ['Kitten'], ['Pig'], ['Other'], ['Note']]
 				}),
 				displayField: 'singleField',
 				typeAhead: true,

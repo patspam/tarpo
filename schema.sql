@@ -32,6 +32,33 @@ CREATE TABLE surg (
         vacc INTEGER,
         details TEXT
 );
+CREATE TABLE med (
+        id TEXT NOT NULL PRIMARY KEY,
+        listId TEXT,
+        d TEXT,
+        loc TEXT,
+        house TEXT,
+
+        balanda INTEGER,
+        charge TEXT,
+        owner TEXT,
+        o_loc TEXT,
+
+        type TEXT,
+        mc TEXT,
+        name TEXT,
+        breed TEXT,
+        colour TEXT,
+        sex TEXT,
+        desexed INTEGER,
+        bcs TEXT,
+        mange TEXT,
+
+        reason TEXT,
+        vacc INTEGER,
+        euth TEXT,
+        details TEXT
+);
 CREATE TABLE visit (
         id TEXT NOT NULL PRIMARY KEY,
         listId TEXT,

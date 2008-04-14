@@ -3,7 +3,7 @@ html, body {
 	margin:0;
 	border:0;
 }
-#visits-grid .x-grid3-header, #surg-grid .x-grid3-header {
+#visits-grid .x-grid3-header, #surg-grid .x-grid3-header, #med-grid .x-grid3-header  {
     background: #f9f9f9 url(images/hrow.gif) repeat-x left top;
 }
 .x-grid3-body .x-grid3-td-visit-col .x-grid3-cell-inner {

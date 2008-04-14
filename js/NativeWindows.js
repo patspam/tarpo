@@ -32,6 +32,23 @@ Ext.air.NativeWindowManager.getSurgWindow = function(surgId){
 	return win;
 }
 
+Ext.air.NativeWindowManager.getMedWindow = function(medId){
+	var medId = medId || 'New';
+	var win, winId = 'med' + medId;
+
+	if(win = this.get(winId)) {
+		win.instance.orderToFront();
+	} else {
+		win = new Ext.air.NativeWindow({
+			id: winId,
+			file: 'med.html?medId=' + medId,
+			width: 550,
+			height:550
+		});
+	}
+	return win;
+}
+
 Ext.air.NativeWindowManager.getAboutWindow = function(){
 	var win, winId = 'about';
 	if(win = this.get(winId)) {

@@ -1,20 +1,19 @@
 Ext.onReady(function(){
 
-	
     Ext.QuickTips.init();
 	
 	// globals in function scope
 	var win = window.nativeWindow;
 	var opener = Ext.air.NativeWindow.getRootHtmlWindow();
-	var surgId = String(window.location).split('=')[1];
-	var isNew = surgId == 'New';
+	var medId = String(window.location).split('=')[1];
+	var isNew = medId == 'New';
 	var addCount = 1;
 	
 	if (isNew) {
-		surgId = Ext.uniqueId();
-		win.title = 'New Surgical Case #' + addCount;
+		medId = Ext.uniqueId();
+		win.title = 'New Medical Case #' + addCount;
 	} else {
-		win.title = 'Surgical Case - ' + Ext.util.Format.ellipsis(getView().data.mc, 40);
+		win.title = 'Medical Case - ' + Ext.util.Format.ellipsis(getView().data.mc, 40);
 	}	
 	
 	var tb = new Ext.Toolbar({
@@ -23,9 +22,9 @@ Ext.onReady(function(){
 		id:'main-tb',
 		items:[
 			{iconCls: 'icon-delete', text: 'Delete', handler: function(){
-				Ext.Msg.confirm('Confirm Delete', 'Are you sure you want to delete this Surgical Case?', function(btn){
+				Ext.Msg.confirm('Confirm Delete', 'Are you sure you want to delete this Medical Case?', function(btn){
 					if(btn == 'yes'){
-						opener.tx.data.surg.remove(getView());
+						opener.tx.data.med.remove(getView());
 						win.close();
 					}
 				});
@@ -47,8 +46,8 @@ Ext.onReady(function(){
 				if(validate()) {
 					saveData();
 					isNew = true;
-					surgId = Ext.uniqueId();
-					win.title = 'New Surgical Case #' + ++addCount;
+					medId = Ext.uniqueId();
+					win.title = 'New Medical Case #' + ++addCount;
 				}
 			}
 		},{
@@ -159,42 +158,14 @@ Ext.onReady(function(){
 			
 			Forms.common.dual_column(
 				new Ext.form.ComboBox({
-					fieldLabel: 'Desex',
-			        name: 'desex',
+					fieldLabel: 'Reason',
+			        name: 'reason',
 			        anchor: '100%',
 					
 					tpl: Templates.simpleCombo,
 					store: new Ext.data.SimpleStore({
 					    fields: ['singleField'],
-					    data : [ [Forms.common.clearComboMarker], ['Spey'], ['Castrate']]
-					}),
-					displayField: 'singleField',
-					typeAhead: true,
-				    mode: 'local',
-				    triggerAction: 'all',
-				    selectOnFocus:true,
-					editable: false,
-					listeners: {
-						select: Forms.common.clearCombo
-					}
-			    }),
-				
-				new Ext.form.Checkbox({
-					fieldLabel: 'Other Procedures',
-			        name: 'other_procedures'
-			    })
-			),
-			
-			Forms.common.dual_column(
-				new Ext.form.ComboBox({
-					fieldLabel: 'TVT',
-			        name: 'tvt',
-			        anchor: '100%',
-					
-					tpl: Templates.simpleCombo,
-					store: new Ext.data.SimpleStore({
-					    fields: ['singleField'],
-					    data : [ [Forms.common.clearComboMarker], ['Penile'], ['Vaginal']]
+					    data : [ [Forms.common.clearComboMarker], ['Fight Wound'], ['Hunting Wound'], ['Car Accident']]
 					}),
 					displayField: 'singleField',
 					typeAhead: true,
@@ -212,6 +183,27 @@ Ext.onReady(function(){
 			        name: 'vacc'
 			    })
 			),
+			
+			new Ext.form.ComboBox({
+				fieldLabel: 'Euthenasia',
+		        name: 'euth',
+		        anchor: '100%',
+				
+				tpl: Templates.simpleCombo,
+				store: new Ext.data.SimpleStore({
+				    fields: ['singleField'],
+				    data : [ [Forms.common.clearComboMarker], ['Unwanted'], ['Humane'], ['Cheeky']]
+				}),
+				displayField: 'singleField',
+				typeAhead: true,
+			    mode: 'local',
+			    triggerAction: 'all',
+			    selectOnFocus:true,
+				editable: false,
+				listeners: {
+					select: Forms.common.clearCombo
+				}
+		    }),
 			
 			new Ext.form.TextArea({
 				fieldLabel: 'Details',
@@ -244,7 +236,7 @@ Ext.onReady(function(){
 	function saveData(){
 		var view;
 		if(isNew){
-			view = opener.tx.data.surg.createSurg(
+			view = opener.tx.data.med.createMed(
 				form.getForm().findField('listId').getRawValue()
 			);
 		}else{
@@ -266,7 +258,7 @@ Ext.onReady(function(){
 	}
 	
 	function getView(){
-		var t = opener.tx.data.surg.lookup(surgId);
+		var t = opener.tx.data.med.lookup(medId);
 		if(t){
 			//workaround WebKit cross-frame date issue
 			fixDateMember(t.data, 'd');
