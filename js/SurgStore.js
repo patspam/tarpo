@@ -152,13 +152,12 @@ tx.data.SurgStore = Ext.extend(Ext.data.GroupingStore, {
 			mange: 1,
 			charge: 0,
             
-			spey: '',
-			castration: '1',
-			euth: '',
-			vacc: '',
+			desex: 'Castrate',
 			other_procedures: '',
+			tvt: 'Penile',
+			vacc: '',
 			
-			comments: '',			
+			details: '',
         });
         this.addSurg({
             id: Ext.uniqueId(),
@@ -182,13 +181,12 @@ tx.data.SurgStore = Ext.extend(Ext.data.GroupingStore, {
 			mange: 2,
 			charge: 0,
             
-			spey: '1',
-			castration: '',
-			euth: '',
-			vacc: '',
+			desex: 'Spey',
 			other_procedures: '',
+			tvt: '',
+			vacc: '',
 			
-			comments: "Vaginal TVT 3cm multifocal.\nDebride. \nImpression smears. \nLumps for path. \nVincristine 0.5mg",
+			details: "Vaginal TVT 3cm multifocal.\nDebride. \nImpression smears. \nLumps for path. \nVincristine 0.5mg",
         });
         this.addSurg({
             id: Ext.uniqueId(),
@@ -212,13 +210,12 @@ tx.data.SurgStore = Ext.extend(Ext.data.GroupingStore, {
 			mange: 2,
 			charge: 0,
             
-			spey: '',
-			castration: '1',
-			euth: '',
-			vacc: '',
+			desex: 'Castrate',
 			other_procedures: '',
+			tvt: '',
+			vacc: '',
 			
-			comments: '',	
+			details: '',	
         });
         this.addSurg({
  			id: Ext.uniqueId(),
@@ -242,13 +239,12 @@ tx.data.SurgStore = Ext.extend(Ext.data.GroupingStore, {
 			mange: 2,
 			charge: 0,
             
-			spey: '1',
-			castration: '',
-			euth: '',
-			vacc: '',
+			desex: 'Spey',
 			other_procedures: '',
+			tvt: 'Vaginal',
+			vacc: '',
 			
-			comments: "",
+			details: "",
         });
         this.addSurg({
            id: Ext.uniqueId(),
@@ -272,13 +268,12 @@ tx.data.SurgStore = Ext.extend(Ext.data.GroupingStore, {
 			mange: 2,
 			charge: 0,
             
-			spey: '',
-			castration: '1',
-			euth: '',
-			vacc: '',
+			desex: 'Castrate',
 			other_procedures: '',
+			tvt: '',
+			vacc: '',
 			
-			comments: "",
+			details: "",
         });
         this.addSurg({
             d: s.add('d', -2),
@@ -301,13 +296,12 @@ tx.data.SurgStore = Ext.extend(Ext.data.GroupingStore, {
 			mange: 4,
 			charge: 0,
             
-			spey: '',
-			castration: '1',
-			euth: '',
+			desex: 'Castrate',
+			other_procedures: '1',
+			tvt: '',
 			vacc: '',
-			other_procedures: '',
 			
-			comments: "Scabby lesions on head-ventral-?Demodex. \nDectomax + dexafort inj.",
+			details: "Scabby lesions on head-ventral-?Demodex. \nDectomax + dexafort inj.",
         });
 		this.addSurg({
            id: Ext.uniqueId(),
@@ -331,13 +325,12 @@ tx.data.SurgStore = Ext.extend(Ext.data.GroupingStore, {
 			mange: 1,
 			charge: 0,
             
-			spey: '',
-			castration: '',
-			euth: 'Humane',
-			vacc: '',
+			desex: '',
 			other_procedures: '',
+			tvt: '',
+			vacc: '',
 			
-			comments: "",
+			details: "",
         });
     }
 });

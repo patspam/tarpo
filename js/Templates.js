@@ -22,6 +22,7 @@ Templates.report = new Ext.XTemplate(
 		'<dt>Kittens</dt><dd>{kittens}</dd>',
 		'<dt>Pigs</dt><dd>{pigs}</dd>',
 		'<dt>Other</dt><dd>{other}</dd>',
+		'<dt>Ivermectin</dt><dd>{ivermectin}</dd>',
 		'<dt>Covinan</dt><dd>{covinan}</dd>',
 	'</dl>',
 		
@@ -32,14 +33,16 @@ Templates.report = new Ext.XTemplate(
 		'<dt>Dogs per dog-owning house</dt><dd>{avg_dogs_per_house}</dd>',
 	'</dl>',
 	
-	'<H2>Surgery</H2>',
+	'<H2>Surgical Cases</H2>',
 	
 	'<H3>Totals</H3>',
 	'<dl>',
 		'<dt>Speys</dt><dd>{speys}</dd>',
 		'<dt>Castrations</dt><dd>{castrations}</dd>',
-		'<dt>Vaccinations</dt><dd>{vaccinations}</dd>',
 		'<dt>Other Procedures</dt><dd>{other_procedures}</dd>',
+		'<dt>Penile TVT</dt><dd>{penile_tvt}</dd>',
+		'<dt>Vaginal TVT</dt><dd>{vaginal_tvt}</dd>',
+		'<dt>Vaccinations</dt><dd>{vaccinations}</dd>',		
 	'</dl>',
 	
 	'<H2>Medical</H2>',

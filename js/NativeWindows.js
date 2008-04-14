@@ -1,5 +1,5 @@
 Ext.air.NativeWindowManager.getVisitWindow = function(visitId){
-	visitId = visitId || 'New';
+	var visitId = visitId || 'New';
 	var win, winId = 'visit' + visitId;
 
 	if(win = this.get(winId)) {
@@ -8,7 +8,7 @@ Ext.air.NativeWindowManager.getVisitWindow = function(visitId){
 		win = new Ext.air.NativeWindow({
 			id: winId,
 			file: 'visit.html?visitId=' + visitId,
-			width: 500,
+			width: 550,
 			height:650
 		});
 	}
@@ -16,7 +16,7 @@ Ext.air.NativeWindowManager.getVisitWindow = function(visitId){
 }
 
 Ext.air.NativeWindowManager.getSurgWindow = function(surgId){
-	surgId = surgId || 'New';
+	var surgId = surgId || 'New';
 	var win, winId = 'surg' + surgId;
 
 	if(win = this.get(winId)) {
@@ -25,8 +25,8 @@ Ext.air.NativeWindowManager.getSurgWindow = function(surgId){
 		win = new Ext.air.NativeWindow({
 			id: winId,
 			file: 'surg.html?surgId=' + surgId,
-			width: 500,
-			height:650
+			width: 550,
+			height:550
 		});
 	}
 	return win;

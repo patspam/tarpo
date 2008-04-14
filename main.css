@@ -18,14 +18,11 @@ html, body {
     background:transparent;
 }
 
-.icon-active {
+.icon-report {
     background-image:url(images/icon-active.gif) !important;
 }
 .icon-delete {
     background-image:url(images/delete.gif) !important;
-}
-.icon-delete-visit {
-    background-image:url(images/icon-delete-visit.gif) !important;
 }
 .icon-edit {
 	background-image:url(images/edit.gif) !important;
@@ -263,4 +260,8 @@ div.report dl dd {
 	font-weight: bold; 
 	text-align: right;
 }
-
+/* highlights part of microchip */
+span.mc-highlight {
+	font-weight: bold; 
+	color: #004083
+}

@@ -15,6 +15,7 @@ tx.data.Visit = Ext.data.Record.create([
 	{name: 'mange', type:'int'},
 	{name: 'ticks', type:'int'},
 	{name: 'fleas', type:'int'},
+	{name: 'ivermectin', type:'boolean'},
 	{name: 'covinan', type:'boolean'},
 	{name: 'tvt', type:'boolean'},	
 	{name: 'comments', type:'string'}
@@ -43,17 +44,12 @@ tx.data.Surg = Ext.data.Record.create([
 	{name: 'mange', type:'int'},
 	{name: 'charge', type:'string'},
 	
-	{name: 'spey', type:'boolean'},
-	{name: 'castration', type:'boolean'},
-	{name: 'euth', type:'string'},
+	{name: 'desex', type:'string'},
+	{name: 'other_procedures', type:'boolean'},
+	{name: 'tvt', type:'string'},
 	{name: 'vacc', type:'boolean'},
-	{name: 'other_procedures', type:'string'},
 	
-	{name: 'history', type:'string'},
-	{name: 'clinical', type:'string'},
-	{name: 'diagnosis', type:'string'},
-	
-	{name: 'comments', type:'string'},
+	{name: 'details', type:'string'},
 ]);
 
 // Define the List data type

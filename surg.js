@@ -1,30 +1,5 @@
 Ext.onReady(function(){
-	
-	function dual_column(a, b) {
-		return {
-				layout: 'column',
-				anchor: '100%',
-				baseCls: 'x-plain',
-				defaults: {
-					columnWidth: .5,
-					layout: 'form',
-					baseCls: 'x-plain',
-				},
-				items: [{
-					items: 
-					
-						a,
-					
-				}, {
-					labelAlign: 'right',
-					labelWidth: '5', // just need any old value
-					items: 
-					
-						b,
-					
-				}]
-			}
-	};
+
 	
     Ext.QuickTips.init();
 	
@@ -37,9 +12,9 @@ Ext.onReady(function(){
 	
 	if (isNew) {
 		surgId = Ext.uniqueId();
-		win.title = 'New Surgery #' + addCount;
+		win.title = 'New Surgical Case #' + addCount;
 	} else {
-		win.title = 'Surgery - ' + Ext.util.Format.ellipsis(getView().data.house, 40);
+		win.title = 'Surgical Case - ' + Ext.util.Format.ellipsis(getView().data.mc, 40);
 	}	
 	
 	var tb = new Ext.Toolbar({
@@ -47,8 +22,8 @@ Ext.onReady(function(){
 		height:26,
 		id:'main-tb',
 		items:[
-			{iconCls: 'icon-delete-surg', text: 'Delete', handler: function(){
-				Ext.Msg.confirm('Confirm Delete', 'Are you sure you want to delete this surgery?', function(btn){
+			{iconCls: 'icon-delete', text: 'Delete', handler: function(){
+				Ext.Msg.confirm('Confirm Delete', 'Are you sure you want to delete this Surgical Case?', function(btn){
 					if(btn == 'yes'){
 						opener.tx.data.surg.remove(getView());
 						win.close();
@@ -73,7 +48,7 @@ Ext.onReady(function(){
 					saveData();
 					isNew = true;
 					surgId = Ext.uniqueId();
-					win.title = 'New Surgery #' + ++addCount;
+					win.title = 'New Surgical Case #' + ++addCount;
 				}
 			}
 		},{
@@ -88,67 +63,43 @@ Ext.onReady(function(){
 			text: 'Cancel',
 			handler: function(){ window.nativeWindow.close(); }
 		}],
-				
 		
         items: [
-			new Ext.form.DateField({
-				fieldLabel: 'Date',
-				name: 'd',
-				width: 135,
-				format: 'd/m/Y',
-				value: new Date(), // default value (overwritten with existing value if not new)
-				allowBlank: false,
-			}),
-		
-			new ListSelector({
-		        fieldLabel: 'List',
-				name: 'listId',
-				store: opener.tx.data.lists,
-				anchor: '100%',
-				allowBlank: false,
-				listeners: {
-					render: function(){
-						var _self = this;
-						_self.menu.on('beforeshow', function(m){
-							_self.tree.setWidth(Math.max(180, _self.getSize().width));
-						});
-					}
-				}
-		    }),
+			Forms.common.d,
+			Forms.common.listId,
 			
-			dual_column(
-				new Ext.form.TextField({
-					fieldLabel: 'House',
-			        name: 'house',
-					allowBlank: false,
+			Forms.common.dual_column(
+				Forms.common.house,
+				Forms.common.loc
+			),
+			
+			Forms.common.dual_column(
+				new Ext.form.Checkbox({
+					fieldLabel: 'Balanda',
+			        name: 'balanda'
 			    }),
 				
-				new Ext.form.TextField({
-					fieldLabel: 'Location',
-			        name: 'loc',
+				new Ext.form.NumberField({
+					fieldLabel: 'Charge',
+			        name: 'charge',
+			        anchor: '100%',
+					allowNegative: false,
+					value: 0,
+					allowBlank: false,
 			    })
 			),
 			
-			new Ext.form.Checkbox({
-				fieldLabel: 'Balanda',
-		        name: 'balanda'
-		    }),
-			
-			dual_column(
-				new Ext.form.TextField({
-					fieldLabel: 'Owner',
-			        name: 'owner',
-			        anchor: '100%'
-			    }),
+			Forms.common.dual_column(
+				Forms.common.owner,
 				
 				new Ext.form.TextField({
-					fieldLabel: 'Owner Location',
+					fieldLabel: 'Location',
 			        name: 'o_loc',
 			        anchor: '100%',
 			    })
 			),
 			
-			dual_column(
+			Forms.common.dual_column(
 				new Ext.form.ComboBox({
 					fieldLabel: 'Type',
 			        name: 'type',
@@ -167,127 +118,55 @@ Ext.onReady(function(){
 					editable: false,
 			    }),
 				
-				new Ext.form.TextField({
-					fieldLabel: 'Breed',
+				new Ext.form.ComboBox({
+			        fieldLabel: 'Breed',
 			        name: 'breed',
-			        anchor: '100%'
+			        anchor: '100%',
+			        tpl: Templates.simpleCombo,
+			        store: new Ext.data.SimpleStore({
+			            fields: ['singleField'],
+			            data: [['Campy'], ['...'], ]
+			        }),
+			        displayField: 'singleField',
+			        mode: 'local',
+			        triggerAction: 'all',
+			        selectOnFocus: true,
 			    })
 			),
 			
 			new Ext.form.TextField({
 				fieldLabel: 'Microchip',
 		        name: 'mc',
-		        anchor: '100%'
-		    }),
-			
-			dual_column(
-				new Ext.form.TextField({
-					fieldLabel: 'Name',
-			        name: 'name',
-			        anchor: '100%'
-			    }),
-				
-				new Ext.form.TextField({
-					fieldLabel: 'Colour',
-			        name: 'colour',
-			        anchor: '100%'
-			    })
-			),
-			
-			dual_column(
-				new Ext.form.ComboBox({
-					fieldLabel: 'Sex',
-			        name: 'sex',
-			        anchor: '100%',
-					allowBlank: false,
-					tpl: Templates.simpleCombo,
-					store: new Ext.data.SimpleStore({
-					    fields: ['singleField'],
-					    data : [ ['M'], ['F'], ]
-					}),
-					displayField: 'singleField',
-					typeAhead: true,
-				    mode: 'local',
-				    triggerAction: 'all',
-				    selectOnFocus:true,
-					editable: false,
-			    }),
-			
-				new Ext.form.Checkbox({
-					fieldLabel: 'Desexed',
-			        name: 'desexed'
-			    })
-			),
-			
-			dual_column(
-				new Ext.form.ComboBox({
-					fieldLabel: 'BCS',
-			        name: 'bcs',
-			        anchor: '100%',
-					
-					tpl: Templates.simpleCombo,
-					store: new Ext.data.SimpleStore({
-					    fields: ['singleField'],
-					    data : [ [' '], [1], [2], [3], [4], [5], [6], [7], [8], [9], ]
-					}),
-					displayField: 'singleField',
-					typeAhead: true,
-				    mode: 'local',
-				    triggerAction: 'all',
-				    selectOnFocus:true,
-					editable: false,
-			    }),
-				
-				new Ext.form.ComboBox({
-					fieldLabel: 'Mange',
-			        name: 'mange',
-			        anchor: '100%',
-					
-					tpl: Templates.simpleCombo,
-					store: new Ext.data.SimpleStore({
-					    fields: ['singleField'],
-					    data : [ [' '], [1], [2], [3], [4], [5], ]
-					}),
-					displayField: 'singleField',
-					typeAhead: true,
-				    mode: 'local',
-				    triggerAction: 'all',
-				    selectOnFocus:true,
-					editable: false,
-			    })
-			),
-			
-			new Ext.form.NumberField({
-				fieldLabel: 'Charge',
-		        name: 'charge',
 		        anchor: '100%',
-				allowNegative: false,
-				value: 0,
-				allowBlank: false,
+				maxLength: 15,
+				minLength: 15,
 		    }),
 			
-			dual_column(
-				new Ext.form.Checkbox({
-					fieldLabel: 'Spey',
-			        name: 'spey'
-			    }),
-				
-				new Ext.form.Checkbox({
-					fieldLabel: 'Castration',
-			        name: 'castration'
-			    })
+			Forms.common.dual_column(				
+				Forms.common.name,				
+				Forms.common.colour
 			),
 			
-			dual_column(
+			Forms.common.dual_column(
+				Forms.common.sex,
+				Forms.common.desexed				
+			),
+			
+			Forms.common.dual_column(
+				Forms.common.bcs,
+				Forms.common.mange
+			),
+			
+			Forms.common.dual_column(
 				new Ext.form.ComboBox({
-					fieldLabel: 'Euthanasia',
-			        name: 'euth',
+					fieldLabel: 'Desex',
+			        name: 'desex',
 			        anchor: '100%',
 					
 					tpl: Templates.simpleCombo,
 					store: new Ext.data.SimpleStore({
 					    fields: ['singleField'],
-					    data : [ [' '], ['Unwanted'], ['Humane'], ['Cheeky']]
+					    data : [ [Forms.common.clearComboMarker], ['Spey'], ['Castrate']]
 					}),
 					displayField: 'singleField',
 					typeAhead: true,
@@ -295,6 +174,37 @@ Ext.onReady(function(){
 				    triggerAction: 'all',
 				    selectOnFocus:true,
 					editable: false,
+					listeners: {
+						select: Forms.common.clearCombo
+					}
+			    }),
+				
+				new Ext.form.Checkbox({
+					fieldLabel: 'Other Procedures',
+			        name: 'other_procedures'
+			    })
+			),
+			
+			Forms.common.dual_column(
+				new Ext.form.ComboBox({
+					fieldLabel: 'TVT',
+			        name: 'tvt',
+			        anchor: '100%',
+					
+					tpl: Templates.simpleCombo,
+					store: new Ext.data.SimpleStore({
+					    fields: ['singleField'],
+					    data : [ [Forms.common.clearComboMarker], ['Penile'], ['Vaginal']]
+					}),
+					displayField: 'singleField',
+					typeAhead: true,
+				    mode: 'local',
+				    triggerAction: 'all',
+				    selectOnFocus:true,
+					editable: false,
+					listeners: {
+						select: Forms.common.clearCombo
+					}
 			    }),
 				
 				new Ext.form.Checkbox({
@@ -304,15 +214,10 @@ Ext.onReady(function(){
 			),
 			
 			new Ext.form.TextArea({
-				fieldLabel: 'Other Procedures',
-		        name: 'other',
-				anchor: '100%'
-		    }),
-			
-			new Ext.form.TextArea({
-				fieldLabel: 'Comments',
-		        name: 'comments',
-		        anchor: '100%'
+				fieldLabel: 'Details',
+		        name: 'details',
+		        anchor: '100%',
+				height: 100,
 		    }),
 		]
     });

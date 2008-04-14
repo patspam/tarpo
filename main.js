@@ -60,8 +60,8 @@ Ext.onReady(function(){
 	// Shared actions used by Ext toolbars, menus, etc.
 	var actions = {
 		newVisit: new Ext.Action({
-			text: 'New Entry',
-			iconCls: 'icon-active',
+			text: 'New House Visit',
+			iconCls: 'icon-multi-list',
 			tooltip: 'New House Visit',
 			handler: function(){
 				Ext.air.NativeWindowManager.getVisitWindow();
@@ -69,9 +69,9 @@ Ext.onReady(function(){
 		}),
 		
 		newSurg: new Ext.Action({
-			text: 'New Entry',
-			iconCls: 'icon-active',
-			tooltip: 'New Surgery',
+			text: 'New Surgical Case',
+			iconCls: 'icon-multi-list',
+			tooltip: 'New Surgical Case',
 			handler: function(){
 				Ext.air.NativeWindowManager.getSurgWindow();
 			}
@@ -79,7 +79,7 @@ Ext.onReady(function(){
 		
 		report: new Ext.Action({
 			text: 'Report on All Data',
-			iconCls: 'icon-active',
+			iconCls: 'icon-report',
 			tooltip: 'Report on All Data (right-click on individual list for more specific Report)',
 			handler: function(listId){
 				
@@ -104,16 +104,20 @@ Ext.onReady(function(){
 					kittens: querySingle('select count(*) from visit where type="KITTEN"' + xF),
 					pigs: querySingle('select count(*) from visit where type="PIG"' + xF),
 					other: querySingle('select count(*) from visit where type="OTHER"' + xF),
+					ivermectin: querySingle('select count(*) from visit where ivermectin=1' + xF),
 					covinan: querySingle('select count(*) from visit where covinan=1' + xF),
 					
 					avg_bcs: sigFigs(querySingle('select avg(bcs) from visit where type="DOG"' + xF)),
 					avg_mange: sigFigs(querySingle('select avg(mange) from visit where type="DOG"' + xF)),
 					avg_dogs_per_house: sigFigs(dogs / houses_with_dogs ),
 					
-					speys: querySingle('select count(*) from surg where spey=1' + xF),
-					castrations: querySingle('select count(*) from surg where castration=1' + xF),
+					speys: querySingle('select count(*) from surg where desex="spey"' + xF),
+					castrations: querySingle('select count(*) from surg where desex="castration"' + xF),
+					other_procedures: querySingle('select count(*) from surg where other_procedures = 1' + xF),
+					penile_tvt: querySingle('select count(*) from surg where tvt = "Penile"' + xF),
+					vaginal_tvt: querySingle('select count(*) from surg where tvt = "Vaginal"' + xF),
 					vaccinations: querySingle('select count(*) from surg where vacc=1' + xF),
-					other_procedures: querySingle('select count(*) from surg where other_procedures != ""' + xF),
+					
 					
 					euth_unwanted: querySingle('select count(*) from surg where euth="Unwanted"' + xF),
 					euth_humane: querySingle('select count(*) from surg where euth="Humane"' + xF),
@@ -129,13 +133,13 @@ Ext.onReady(function(){
 		}),
 		
 		deleteVisit: new Ext.Action({
-			itemText: 'Delete',
-			text: 'Delete',
-			iconCls: 'icon-delete-visit',
-			tooltip: 'Delete Visit',
+			itemText: 'Delete House Visit',
+			text: 'Delete House Visit',
+			iconCls: 'icon-delete',
+			tooltip: 'Delete House Visit',
 			disabled: true,
 			handler: function(){
-				Ext.Msg.confirm('Confirm', 'Are you sure you want to delete the selected visit(s)?', function(btn){
+				Ext.Msg.confirm('Confirm', 'Are you sure you want to delete the selected House Visit(s)?', function(btn){
 					if (btn == 'yes') {
 						visitsSelections.each(function(s){
 							tx.data.visits.remove(s);
@@ -146,13 +150,13 @@ Ext.onReady(function(){
 		}),
 		
 		deleteSurg: new Ext.Action({
-			itemText: 'Delete Surg',
-			text: 'Delete Surg',
-			iconCls: 'icon-delete-visit',
-			tooltip: 'Delete Surg',
+			itemText: 'Delete Surgical Case',
+			text: 'Delete Surgical Case',
+			iconCls: 'icon-delete',
+			tooltip: 'Delete Surgical Case',
 			disabled: true,
 			handler: function(){
-				Ext.Msg.confirm('Confirm', 'Are you sure you want to delete the selected surg(s)?', function(btn){
+				Ext.Msg.confirm('Confirm', 'Are you sure you want to delete the selected Surgical Case(s)?', function(btn){
 					if (btn == 'yes') {
 						surgSelections.each(function(s){
 							tx.data.surg.remove(s);
@@ -214,7 +218,11 @@ Ext.onReady(function(){
 			tooltip: 'Re-populate database with demo data',
 			iconCls: 'icon-list-delete',
 			handler: function(){
-				tx.data.demoData();
+				Ext.Msg.confirm('Confirm', 'This will delete all your existing data and populate the database with some demo data. Are you sure you want to continue?', function(btn){
+					if (btn == 'yes') {
+						tx.data.demoData();
+					}
+				});
 			}
 		}),
 		
@@ -223,10 +231,14 @@ Ext.onReady(function(){
 			tooltip: 'Reset program defaults such as column widths',
 			iconCls: 'icon-list-delete',
 			handler: function(){
-				air.NativeApplication.nativeApplication.addEventListener('exiting', function(){
-					Ext.state.Manager.getProvider().clearAllState();
+				Ext.Msg.confirm('Confirm', 'This will reset all program customisations you have made such as individual column positions and widths. Are you sure you want to continue?', function(btn){
+					if (btn == 'yes') {
+						air.NativeApplication.nativeApplication.addEventListener('exiting', function(){
+						Ext.state.Manager.getProvider().clearAllState();
+					});
+					Ext.Msg.alert('Program Defaults Reset', 'Please restart the application to fully apply the changes')
+					}
 				});
-				Ext.Msg.alert('Restart Required', 'Please restart to apply this change')
 			}
 		})
 	};
@@ -235,13 +247,9 @@ Ext.onReady(function(){
     var menus = Ext.air.SystemMenu;
 	
 	menus.add('File', [
-		actions.newVisit, 
-		actions.newSurg,
-		actions.newList, 
-		actions.newFolder,
-		actions.demoData,
 		actions.report,
 		actions.resetDefaults,
+		actions.demoData,
 		'-',
 		actions.quit
 	]);
@@ -278,21 +286,10 @@ Ext.onReady(function(){
 		region:'north',
 		id:'main-tb',
 		height:26,
-		items: [{
-				xtype:'splitbutton',
-				iconCls:'icon-edit',
-				text:'New House Visit',
-				handler: actions.newVisit.initialConfig.handler,
-				menu: [actions.newVisit, actions.newList, actions.newFolder]
-			},{
-				xtype:'splitbutton',
-				iconCls:'icon-edit',
-				text:'New Surg',
-				handler: actions.newSurg.initialConfig.handler,
-				menu: [actions.newSurg, actions.newList, actions.newFolder]
-			},'-',
-			actions.deleteVisit,
-			actions.deleteSurg,
+		items: [
+			actions.newVisit,
+			actions.newSurg,
+			'-',
 			actions.report,
             '->', ' ', ' ', ' '		
 		]
@@ -313,7 +310,7 @@ Ext.onReady(function(){
 				
 			}), 
 			new Ext.Panel({
-				title: 'Surgeries',
+				title: 'Surgical Cases',
 				layout: 'fit',
 				items: surgGrid,
 				listeners: {'activate': function(){
@@ -363,7 +360,7 @@ Ext.onReady(function(){
 	
 	tree.root.select();
 	
-	// fix bug where surg doesn't show initially
+	// fix bug where surg grid doesn't show initially
 	tx.data.surg.reload();
 	
 	var loadList = function(listId){

@@ -13,6 +13,18 @@ function fixDateMember(o, name){
 	}
 }
 
+// Date formatter needed because AIR sometimes chokes on Ext's built-in ones
+function dateFormatter(v){
+    if(!v){
+        return "";
+    }
+    if(!Ext.isDate(v)){
+        v = new Date(Date.parse(v));
+    }
+	return (v.toString()).replace(/(\d{4}).*/, '$1');
+//	return v.format('D d/m/Y'); // this breaks sometimes
+};
+
 // Unique ids, if the time isn't unique enough, the addition 
 // of random chars should be
 Ext.uniqueId = function(){
@@ -34,9 +46,6 @@ Ext.override(Ext.air.FileProvider, {
 		return;
 	}
 });
+
 //Ext.air.FileProvider.clearAllState();
 console = air.Introspector.Console;
-//Ext.air.FileProvider.a = 1;
-//Ext.air.FileProvider.prototype.clearAllState = function(){alert('ok!');};
-//console.log(Ext.air.FileProvider);
-//Ext.air.FileProvider.clearAllState();

@@ -12,6 +12,7 @@ CREATE TABLE surg (
         house TEXT,
 
         balanda INTEGER,
+        charge TEXT,
         owner TEXT,
         o_loc TEXT,
 
@@ -24,19 +25,12 @@ CREATE TABLE surg (
         desexed INTEGER,
         bcs TEXT,
         mange TEXT,
-        charge TEXT,
 
-        spey INTEGER,
-        castration INTEGER,
-        euth TEXT,
-        vacc INTEGER,
+        desex TEXT,
         other_procedures TEXT,
-
-        history TEXT,
-        clinical TEXT,
-        diagnosis TEXT,
-
-        comments TEXT
+        tvt TEXT,
+        vacc INTEGER,
+        details TEXT
 );
 CREATE TABLE visit (
         id TEXT NOT NULL PRIMARY KEY,
@@ -54,6 +48,7 @@ CREATE TABLE visit (
         mange TEXT,
         ticks TEXT,
         fleas TEXT,
+        ivermectin INTEGER,
         covinan INTEGER,
         tvt INTEGER,
         comments TEXT

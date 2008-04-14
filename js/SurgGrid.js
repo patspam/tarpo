@@ -8,7 +8,7 @@ SurgGrid = function(){
         enableColumnHide:false,
         enableColumnMove:true,
 		autoEncode: true,
-        title:'Surgery',
+        title:'Surgical Cases',
         iconCls:'icon-folder',
         region:'center',
 		margins:'3 3 3 0',
@@ -18,7 +18,7 @@ SurgGrid = function(){
                 header: "Date",
                 width: 75 + offset,
                 sortable: true,
-                renderer: Ext.util.Format.dateRenderer('D d/m/Y'),
+                renderer: dateFormatter,
                 dataIndex: 'd',
 				id: 'air-bug-first-row-requires-id',
             },
@@ -40,6 +40,12 @@ SurgGrid = function(){
                 sortable: true,
                 dataIndex: 'balanda',
 				renderer: Ext.util.Format.bool,
+            },
+			{
+                header: "Charge",
+                width:40 + offset,
+                sortable: true,
+                dataIndex: 'charge',
             },
 			{
                 header: "Owner",
@@ -64,6 +70,13 @@ SurgGrid = function(){
                 width:90 + offset,
                 sortable: true,
                 dataIndex: 'mc',
+				renderer: function(val){
+					if (!val)
+						return val;
+					if (val.length != 15)
+						return val;
+					return val.substr(0,9) + "<span class='mc-highlight'>" + val.substr(9) + "</span>";
+				},
             },
             {
                 header: "Name",
@@ -113,32 +126,24 @@ SurgGrid = function(){
 				align: 'center',
             },
 			{
-                header: "Charge",
+                header: "Desex",
                 width:40 + offset,
                 sortable: true,
-                dataIndex: 'charge',
+                dataIndex: 'desex',
             },
 			{
-                header: "Spey",
+                header: "Other",
                 width:30 + offset,
                 sortable: true,
-                dataIndex: 'spey',
+                dataIndex: 'other_procedures',
 				renderer: Ext.util.Format.bool,
 				align: 'center',
             },
 			{
-                header: "Castration",
-                width:55 + offset,
+                header: "TVT",
+                width:30 + offset,
                 sortable: true,
-                dataIndex: 'castration',
-				renderer: Ext.util.Format.bool,
-				align: 'center',
-            },
-			{
-                header: "Euthanasia",
-                width:55 + offset,
-                sortable: true,
-                dataIndex: 'euth',
+                dataIndex: 'tvt',
             },
 			{
                 header: "Vaccination",
@@ -149,34 +154,10 @@ SurgGrid = function(){
 				align: 'center',
             },
 			{
-                header: "Other",
-                width:40 + offset,
-                sortable: true,
-                dataIndex: 'other_prcedures',
-            },
-//			{
-//                header: "History",
-//                width:180,
-//                sortable: true,
-//                dataIndex: 'history',
-//            },
-//			{
-//                header: "Clinical",
-//                width:180,
-//                sortable: true,
-//                dataIndex: 'clinical',
-//            },
-//			{
-//                header: "Diagnosis",
-//                width:180,
-//                sortable: true,
-//                dataIndex: 'diagnosis',
-//            },
-			{
-                header: "Comments",
+                header: "Details",
                 width:180,
                 sortable: true,
-                dataIndex: 'comments',
+                dataIndex: 'details',
             },
             
         ],
@@ -239,7 +220,7 @@ Ext.extend(SurgGrid, Ext.grid.EditorGridPanel, {
 SurgView = Ext.extend(Ext.grid.GroupingView, {
 	forceFit:false,
     ignoreAdd: true,
-    emptyText: 'There are no surgeries to show in this list.',
+    emptyText: 'There are no Surgical Cases to show in this list.',
 	getRowClass : function(r){
 		return r.data.type;
     }

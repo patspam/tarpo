@@ -18,7 +18,7 @@ VisitGrid = function(){
                 header: "Date",
                 width: 100,
                 sortable: true,
-                renderer: Ext.util.Format.dateRenderer('D d/m/Y'),
+                renderer: dateFormatter,
                 dataIndex: 'd',
 				id: 'air-bug-first-row-requires-id',
             },
@@ -99,6 +99,14 @@ VisitGrid = function(){
                 width:40,
                 sortable: true,
                 dataIndex: 'fleas',
+				align: 'center',
+            },
+			{
+                header: "Ivermectin",
+                width:45,
+                sortable: true,
+                dataIndex: 'ivermectin',
+				renderer: Ext.util.Format.bool,
 				align: 'center',
             },
 			{

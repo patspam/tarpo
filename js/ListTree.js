@@ -81,22 +81,6 @@ Ext.extend(ListTree, Ext.tree.TreePanel, {
                 id:'lists-ctx',
 				listWidth: 200,
                 items: [{
-                    iconCls:'icon-edit',
-                    text:'New Visit',
-                    scope: this,
-                    handler:function(){
-						this.ctxNode.select();
-						tx.actions.newVisit.execute();
-                    }
-                },{
-                    iconCls:'icon-edit',
-                    text:'New Surgery',
-                    scope: this,
-                    handler:function(){
-						this.ctxNode.select();
-						tx.actions.newSurg.execute();
-                    }
-                },{
                     iconCls:'icon-list-new',
                     text:'New List',
                     scope: this,
@@ -120,8 +104,8 @@ Ext.extend(ListTree, Ext.tree.TreePanel, {
                         this.removeList(this.ctxNode);
                     }
                 },'-',{
-					text:'Report',
-                    iconCls:'icon-list-delete',
+					text:'Report On This List',
+                    iconCls:'icon-report',
                     scope: this,
                     handler:function(){
                         tx.actions.report.execute(this.ctxNode.id);

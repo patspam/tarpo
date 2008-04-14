@@ -113,17 +113,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
     init: function(){
 		tx.data.lists.load();
         this.load({
-            callback: function(){
-                // first time?
-                //				if (this.getCount() >= 1) {
-                //					Ext.Msg.confirm('Delete Visits?', 'Your database currently contains data. Would you like to clear it?', 
-                //						function(btn){
-                //							if(btn == 'yes'){
-                //								this.removeAll();
-                //							}
-                //						}, this);
-                //				}
-                
+            callback: function(){                
                 if (this.getCount() < 1) {
                     Ext.Msg.confirm('Create Visits?', 'Your database is currently empty. Would you like to insert some demo data?', function(btn){
                         if (btn == 'yes') {
@@ -174,6 +164,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 			bcs: 3,
 			mange: 3,
 			listId:'2007-dry-start',
+			ivermectin: 1,
         });
         this.addVisit({
             id: Ext.uniqueId(),
@@ -189,6 +180,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 			mange: 1,
 			comments: 'Lame LH',
 			listId:'2007-dry-start',
+			ivermectin: 1,
         });
         this.addVisit({
             id: Ext.uniqueId(),
@@ -220,6 +212,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 			bcs: 5,
 			mange: 1,
 			listId:'2007-dry-start',
+			ivermectin: 1,
         });
         this.addVisit({
             id: Ext.uniqueId(),
@@ -233,6 +226,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 			bcs: 4,
 			mange: 1,
 			listId:'2007-dry-start',
+			ivermectin: 1,
         });
         this.addVisit({
             id: Ext.uniqueId(),
@@ -246,6 +240,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 			bcs: 4,
 			mange: 2,
 			listId:'2007-dry-start',
+			ivermectin: 1,
         });
 		this.addVisit({
             id: Ext.uniqueId(),
@@ -259,6 +254,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 			bcs: 5,
 			mange: 1,
 			listId:'2007-dry-end',
+			ivermectin: 1,
         });
 		this.addVisit({
             id: Ext.uniqueId(),
@@ -273,6 +269,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 			mange: 1,
 			comments: 'To castrate',
 			listId:'2007-dry-end',
+			ivermectin: 1,
         });
 		this.addVisit({
             id: Ext.uniqueId(),
@@ -287,6 +284,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 			mange: 1,
 			comments: 'To castrate',
 			listId:'2007-dry-end',
+			ivermectin: 1,
         });
 		this.addVisit({
             id: Ext.uniqueId(),
@@ -300,6 +298,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 			bcs: 5,
 			mange: 1,
 			listId:'2007-dry-end',
+			ivermectin: 1,
         });
 		this.addVisit({
             id: Ext.uniqueId(),
@@ -313,6 +312,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 			bcs: 5,
 			mange: 1,
 			listId:'2007-dry-end',
+			ivermectin: 1,
         });
 		this.addVisit({
             id: Ext.uniqueId(),
@@ -326,6 +326,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 			bcs: 4,
 			mange: 1,
 			listId:'2007-dry-end',
+			ivermectin: 1,
         });
 		this.addVisit({
             id: Ext.uniqueId(),
@@ -348,6 +349,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 			bcs: 5,
 			mange: 1,
 			listId:'2007-dry-end',
+			ivermectin: 1,
         });
 		this.addVisit({
             id: Ext.uniqueId(),
@@ -363,6 +365,7 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 			name: 'Simba',
 			comments: "Multiple mutilobulated intradermal masses medial LH and also beside prepuce. \nOld dog.\nMonitor.",
 			listId:'2007-dry-end',
+			ivermectin: 1,
         });
     }
 });
