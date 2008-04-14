@@ -272,6 +272,14 @@ Ext.onReady(function(){
 			}
 		}),
 		
+		backup: new Ext.Action({
+			itemText: 'Backup Tarpo to your Desktop',
+			tooltip: 'Backup Tarpo to your Desktop',
+			handler: function(){
+				new tx.Backup();
+			}
+		}),
+		
 		quit : new Ext.Action({
 			text: 'Exit',
 			handler: function(){
@@ -314,9 +322,11 @@ Ext.onReady(function(){
 	
 	menus.add('File', [
 		actions.report,
+		'->',
 		actions.resetDefaults,
 		actions.demoData,
 		'-',
+		actions.backup,
 		actions.exportVisitCsv,
 		actions.exportSurgCsv,
 		actions.exportMedCsv,
