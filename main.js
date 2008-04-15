@@ -122,7 +122,7 @@ Ext.onReady(function(){
 					avg_mange: sigFigs(querySingle('select avg(mange) from visit where type="Dog"' + xF)),
 					avg_dogs_per_house: sigFigs(dogs / houses_with_dogs ),
 					
-					surgical_cases: querySingle('select count(*) from surg' + xF),
+					surgical_cases: querySingle('select count(*) from surg where 1' + xF),
 					speys: querySingle('select count(*) from surg where desex="Spey"' + xF),
 					castrations: querySingle('select count(*) from surg where desex="Castrate"' + xF),
 					other_procedures: querySingle('select count(*) from surg where other_procedures = 1' + xF),
@@ -130,10 +130,11 @@ Ext.onReady(function(){
 					vaginal_tvt: querySingle('select count(*) from surg where tvt="Vaginal"' + xF),
 					surgical_vaccinations: querySingle('select count(*) from surg where vacc=1' + xF),
 					
-					medical_cases: querySingle('select count(*) from med' + xF),
+					medical_cases: querySingle('select count(*) from med where 1' + xF),
 					fight_wounds: querySingle('select count(*) from med where reason="Fight Wound"' + xF),
 					hunting_wounds: querySingle('select count(*) from med where reason="Hunting Wound"' + xF),
 					car_accidents: querySingle('select count(*) from med where reason="Car Accident"' + xF),
+					other_reasons: querySingle('select count(*) from med where reason="Other"' + xF),
 					medical_vaccinations: querySingle('select count(*) from med where vacc=1' + xF),
 					
 					euth_unwanted: querySingle('select count(*) from med where euth="Unwanted"' + xF),

@@ -31,7 +31,7 @@ tx.data.Surg = Ext.data.Record.create([
 	
 	{name: 'balanda', type:'boolean'},
 	{name: 'owner', type:'string'},
-	{name: 'o_loc', type:'string'},
+	{name: 'domicile', type:'string'},
 	
 	{name: 'type', type:'string'},
     {name: 'mc', type:'string'},
@@ -61,7 +61,7 @@ tx.data.Med = Ext.data.Record.create([
 	
 	{name: 'balanda', type:'boolean'},
 	{name: 'owner', type:'string'},
-	{name: 'o_loc', type:'string'},
+	{name: 'domicile', type:'string'},
 	
 	{name: 'type', type:'string'},
     {name: 'mc', type:'string'},

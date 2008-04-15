@@ -44,10 +44,11 @@ Templates.report = new Ext.XTemplate(
 		'<dt>Fight Wounds</dt><dd>{fight_wounds}</dd>',
 		'<dt>Hunting Wounds</dt><dd>{hunting_wounds}</dd>',
 		'<dt>Car Accidents</dt><dd>{car_accidents}</dd>',
+		'<dt>Other Reasons</dt><dd>{other_reasons}</dd>',
 		'<dt>Vaccinations</dt><dd>{medical_vaccinations}</dd>',		
 	'</dl>',
 	
-	'<H3>Euthenasias</H3>',
+	'<H3>Euthanasia</H3>',
 	'<dl>',
 		'<dt>Unwanted</dt><dd>{euth_unwanted}</dd>',
 		'<dt>Humane Grounds</dt><dd>{euth_humane}</dd>',

@@ -73,73 +73,21 @@ Ext.onReady(function(){
 			),
 			
 			Forms.common.dual_column(
-				new Ext.form.Checkbox({
-					fieldLabel: 'Balanda',
-			        name: 'balanda'
-			    }),
-				
-				new Ext.form.NumberField({
-					fieldLabel: 'Charge',
-			        name: 'charge',
-			        anchor: '100%',
-					allowNegative: false,
-					value: 0,
-					allowBlank: false,
-			    })
+				Forms.common.balanda,
+				Forms.common.charge
 			),
 			
 			Forms.common.dual_column(
 				Forms.common.owner,
-				
-				new Ext.form.TextField({
-					fieldLabel: 'Location',
-			        name: 'o_loc',
-			        anchor: '100%',
-			    })
+				Forms.common.domicile
 			),
 			
 			Forms.common.dual_column(
-				new Ext.form.ComboBox({
-					fieldLabel: 'Type',
-			        name: 'type',
-			        anchor: '100%',
-					allowBlank: false,
-					tpl: Templates.simpleCombo,
-					store: new Ext.data.SimpleStore({
-					    fields: ['singleField'],
-					    data : [ ['Dog'], ['Cat'], ['Puppy'], ['Kitten'], ['Pig'], ['Other']]
-					}),
-					displayField: 'singleField',
-					typeAhead: true,
-				    mode: 'local',
-				    triggerAction: 'all',
-				    selectOnFocus:true,
-					editable: false,
-			    }),
-				
-				new Ext.form.ComboBox({
-			        fieldLabel: 'Breed',
-			        name: 'breed',
-			        anchor: '100%',
-			        tpl: Templates.simpleCombo,
-			        store: new Ext.data.SimpleStore({
-			            fields: ['singleField'],
-			            data: [['Campy'], ['...'], ]
-			        }),
-			        displayField: 'singleField',
-			        mode: 'local',
-			        triggerAction: 'all',
-			        selectOnFocus: true,
-			    })
+				Forms.common.animal_type,
+				Forms.common.breed
 			),
 			
-			new Ext.form.TextField({
-				fieldLabel: 'Microchip',
-		        name: 'mc',
-		        anchor: '100%',
-				maxLength: 15,
-				minLength: 15,
-		    }),
+			Forms.common.microchip,
 			
 			Forms.common.dual_column(				
 				Forms.common.name,				
@@ -161,11 +109,11 @@ Ext.onReady(function(){
 					fieldLabel: 'Reason',
 			        name: 'reason',
 			        anchor: '100%',
-					
+					allowBlank: false,					
 					tpl: Templates.simpleCombo,
 					store: new Ext.data.SimpleStore({
 					    fields: ['singleField'],
-					    data : [ [Forms.common.clearComboMarker], ['Fight Wound'], ['Hunting Wound'], ['Car Accident']]
+					    data : [ ['Fight Wound'], ['Hunting Wound'], ['Car Accident'], ['Other']]
 					}),
 					displayField: 'singleField',
 					typeAhead: true,
@@ -173,9 +121,6 @@ Ext.onReady(function(){
 				    triggerAction: 'all',
 				    selectOnFocus:true,
 					editable: false,
-					listeners: {
-						select: Forms.common.clearCombo
-					}
 			    }),
 				
 				new Ext.form.Checkbox({
@@ -185,7 +130,7 @@ Ext.onReady(function(){
 			),
 			
 			new Ext.form.ComboBox({
-				fieldLabel: 'Euthenasia',
+				fieldLabel: 'Euthanasia',
 		        name: 'euth',
 		        anchor: '100%',
 				

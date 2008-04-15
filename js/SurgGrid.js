@@ -54,10 +54,10 @@ SurgGrid = function(){
                 dataIndex: 'owner',
             },
 			{
-                header: "O. Location",
+                header: "Domicile",
                 width:60 + offset,
                 sortable: true,
-                dataIndex: 'o_loc',
+                dataIndex: 'domicile',
             },
 			{
                 header: "Type",

@@ -140,7 +140,7 @@ Ext.onReady(function(){
 				tpl: Templates.simpleCombo,
 				store: new Ext.data.SimpleStore({
 				    fields: ['singleField'],
-				    data : [ [' '], [1], [2], [3], [4], ]
+				    data : [ [Forms.common.clearComboMarker], [1], [2], [3], [4], ]
 				}),
 				displayField: 'singleField',
 				typeAhead: true,
@@ -148,6 +148,9 @@ Ext.onReady(function(){
 			    triggerAction: 'all',
 			    selectOnFocus:true,
 				editable: false,
+				listeners: {
+					select: Forms.common.clearCombo
+				}
 		    }),
 			
 			new Ext.form.ComboBox({
@@ -158,7 +161,7 @@ Ext.onReady(function(){
 				tpl: Templates.simpleCombo,
 				store: new Ext.data.SimpleStore({
 				    fields: ['singleField'],
-				    data : [ [' '], [1], [2], [3], ]
+				    data : [ [Forms.common.clearComboMarker], [1], [2], [3], ]
 				}),
 				displayField: 'singleField',
 				typeAhead: true,
@@ -166,6 +169,9 @@ Ext.onReady(function(){
 			    triggerAction: 'all',
 			    selectOnFocus:true,
 				editable: false,
+				listeners: {
+					select: Forms.common.clearCombo
+				}
 		    }),
 			
 			new Ext.form.Checkbox({

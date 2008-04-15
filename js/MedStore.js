@@ -139,7 +139,7 @@ tx.data.MedStore = Ext.extend(Ext.data.GroupingStore, {
 			
 			balanda: 0,
 			owner: '',
-			o_loc: 'Outstation xyz',
+			domicile: 'Community',
 			
 			mc: '956000000331729',
 			name: 'Julius',
@@ -166,7 +166,7 @@ tx.data.MedStore = Ext.extend(Ext.data.GroupingStore, {
 			
 			balanda: 0,
 			owner: 'C.J.',
-			o_loc: 'Outstation xyz',
+			domicile: 'Community',
 			
 			mc: '956000000332622',
 			name: '',
@@ -193,7 +193,7 @@ tx.data.MedStore = Ext.extend(Ext.data.GroupingStore, {
 			
 			balanda: 0,
 			owner: '',
-			o_loc: 'Outstation xyz',
+			domicile: 'Community',
 			
 			mc: '956000000333778',
 			name: '',
@@ -206,7 +206,7 @@ tx.data.MedStore = Ext.extend(Ext.data.GroupingStore, {
 			mange: 2,
 			charge: 0,
             
-			reason: '',
+			reason: 'Other',
 			vacc: '',
 			euth: '',
 			details: 'Chronic skin probs - constant pruritis No fleas seen.  Ongoing for years, seasonally worse in the wet.  Dermatitis paws, chin, ears.  Now getting scabby.  Seborrheic smell.  Mas Malaseb.  Rx scabies Tx , course of Cartrophen, course of macrolone.',
@@ -220,7 +220,7 @@ tx.data.MedStore = Ext.extend(Ext.data.GroupingStore, {
 			
 			balanda: 0,
 			owner: 'C.J.',
-			o_loc: 'Outstation xyz',
+			domicile: 'Outstation',
 			
 			mc: '956000000332968',
 			name: '',
@@ -247,7 +247,7 @@ tx.data.MedStore = Ext.extend(Ext.data.GroupingStore, {
 			
 			balanda: 1,
 			owner: 'Karen & Peter',
-			o_loc: '',
+			domicile: 'Outstation',
 			
 			mc: '956000000330332',
 			name: 'Billy',
@@ -260,7 +260,7 @@ tx.data.MedStore = Ext.extend(Ext.data.GroupingStore, {
 			mange: 2,
 			charge: 0,
             
-			reason: '',
+			reason: 'Other',
 			vacc: '1',
 			euth: '',
 			details: 'Desexed a few days ago.  C5 vaccination     To send vacc cards',
@@ -273,7 +273,7 @@ tx.data.MedStore = Ext.extend(Ext.data.GroupingStore, {
 			
 			balanda: 1,
 			owner: 'Karen & Peter',
-			o_loc: '',
+			domicile: 'Outstation',
 			
 			mc: '956000000330498',
 			name: 'Marlin',
@@ -286,7 +286,7 @@ tx.data.MedStore = Ext.extend(Ext.data.GroupingStore, {
 			mange: 4,
 			charge: 0,
             
-			reason: '',
+			reason: 'Other',
 			vacc: '',
 			euth: 'Unwanted',
 			details: 'Survived Rimadyl ingestion',
@@ -300,7 +300,7 @@ tx.data.MedStore = Ext.extend(Ext.data.GroupingStore, {
 			
 			balanda: '',
 			owner: 'Bob',
-			o_loc: '',
+			domicile: 'Outstation',
 			
 			mc: '956000000330222',
 			name: 'Billy',
@@ -313,7 +313,7 @@ tx.data.MedStore = Ext.extend(Ext.data.GroupingStore, {
 			mange: 1,
 			charge: 0,
             
-			reason: '',
+			reason: 'Other',
 			vacc: '1',
 			euth: '',
 			details: 'Phone calls.  HWT negative.  Cough a bit better.  Discussed rads in Darwin if no better.',

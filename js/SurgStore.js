@@ -139,7 +139,7 @@ tx.data.SurgStore = Ext.extend(Ext.data.GroupingStore, {
 			
 			balanda: 0,
 			owner: '',
-			o_loc: 'Outstation xyz',
+			domicile: 'Community',
 			
 			mc: '956000000331729',
 			name: 'Julius',
@@ -168,7 +168,7 @@ tx.data.SurgStore = Ext.extend(Ext.data.GroupingStore, {
 			
 			balanda: 0,
 			owner: 'C.J.',
-			o_loc: 'Outstation xyz',
+			domicile: 'Community',
 			
 			mc: '956000000332622',
 			name: '',
@@ -197,7 +197,7 @@ tx.data.SurgStore = Ext.extend(Ext.data.GroupingStore, {
 			
 			balanda: 0,
 			owner: '',
-			o_loc: 'Outstation xyz',
+			domicile: 'Community',
 			
 			mc: '956000000333778',
 			name: '',
@@ -226,7 +226,7 @@ tx.data.SurgStore = Ext.extend(Ext.data.GroupingStore, {
 			
 			balanda: 0,
 			owner: 'C.J.',
-			o_loc: 'Outstation xyz',
+			domicile: 'Community',
 			
 			mc: '956000000332968',
 			name: '',
@@ -255,7 +255,7 @@ tx.data.SurgStore = Ext.extend(Ext.data.GroupingStore, {
 			
 			balanda: 1,
 			owner: 'Karen & Peter',
-			o_loc: '',
+			domicile: 'Outstation',
 			
 			mc: '956000000330332',
 			name: 'Billy',
@@ -283,7 +283,7 @@ tx.data.SurgStore = Ext.extend(Ext.data.GroupingStore, {
 			
 			balanda: 1,
 			owner: 'Karen & Peter',
-			o_loc: '',
+			domicile: 'Outstation',
 			
 			mc: '956000000330498',
 			name: 'Marlin',
@@ -312,7 +312,7 @@ tx.data.SurgStore = Ext.extend(Ext.data.GroupingStore, {
 			
 			balanda: '',
 			owner: 'Bob',
-			o_loc: '',
+			domicile: 'Outstation',
 			
 			mc: '956000000330222',
 			name: 'Billy',

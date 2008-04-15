@@ -1,3 +1,8 @@
+delete from list;
+delete from visit;
+delete from surg;
+delete from med;
+
 CREATE TABLE list (
         listId TEXT NOT NULL PRIMARY KEY,
         parentId TEXT,
@@ -14,7 +19,7 @@ CREATE TABLE surg (
         balanda INTEGER,
         charge TEXT,
         owner TEXT,
-        o_loc TEXT,
+        domicile TEXT,
 
         type TEXT,
         mc TEXT,
@@ -42,7 +47,7 @@ CREATE TABLE med (
         balanda INTEGER,
         charge TEXT,
         owner TEXT,
-        o_loc TEXT,
+        domicile TEXT,
 
         type TEXT,
         mc TEXT,
