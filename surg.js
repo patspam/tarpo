@@ -65,108 +65,57 @@ Ext.onReady(function(){
 		}],
 		
         items: [
-			Forms.common.d,
-			Forms.common.listId,
+			{xtype: 'tx.form.d'},
+			{xtype: 'tx.form.listId'},
 			
-			Forms.common.dual_column(
-				Forms.common.house,
-				Forms.common.loc
+			tx.form.dual_column(
+				{xtype: 'tx.form.house'},
+				{xtype: 'tx.form.loc'}
 			),
 			
-			Forms.common.dual_column(
-				Forms.common.balanda,
-				Forms.common.charge
+			tx.form.dual_column(
+				{xtype: 'tx.form.balanda'},
+				{xtype: 'tx.form.charge'}
 			),
 			
-			Forms.common.dual_column(
-				Forms.common.owner,
-				Forms.common.domicile
+			tx.form.dual_column(
+				{xtype: 'tx.form.owner'},
+				{xtype: 'tx.form.domicile'}
 			),
 			
-			Forms.common.dual_column(
-				Forms.common.animal_type,
-				Forms.common.breed
+			tx.form.dual_column(
+				{xtype: 'tx.form.type'},
+				{xtype: 'tx.form.breed'}
 			),
 			
-			Forms.common.microchip,
+			{xtype: 'tx.form.mc'},
 			
-			Forms.common.dual_column(				
-				Forms.common.name,				
-				Forms.common.colour
+			tx.form.dual_column(				
+				{xtype: 'tx.form.name'},
+				{xtype: 'tx.form.colour'}
 			),
 			
-			Forms.common.dual_column(
-				Forms.common.sex,
-				Forms.common.desexed				
+			tx.form.dual_column(
+				{xtype: 'tx.form.sex'},
+				{xtype: 'tx.form.desexed'}
 			),
 			
-			Forms.common.dual_column(
-				Forms.common.bcs,
-				Forms.common.mange
+			tx.form.dual_column(
+				{xtype: 'tx.form.bcs'},
+				{xtype: 'tx.form.mange'}
 			),
 			
-			Forms.common.dual_column(
-				new Ext.form.ComboBox({
-					fieldLabel: 'Desex',
-			        name: 'desex',
-			        anchor: '100%',
-					
-					tpl: Templates.simpleCombo,
-					store: new Ext.data.SimpleStore({
-					    fields: ['singleField'],
-					    data : [ [Forms.common.clearComboMarker], ['Spey'], ['Castrate']]
-					}),
-					displayField: 'singleField',
-					typeAhead: true,
-				    mode: 'local',
-				    triggerAction: 'all',
-				    selectOnFocus:true,
-					editable: false,
-					listeners: {
-						select: Forms.common.clearCombo
-					}
-			    }),
-				
-				new Ext.form.Checkbox({
-					fieldLabel: 'Other Procedures',
-			        name: 'other_procedures'
-			    })
+			tx.form.dual_column(
+				{xtype: 'tx.form.desex'},
+				{xtype: 'tx.form.other_procedures'}
 			),
 			
-			Forms.common.dual_column(
-				new Ext.form.ComboBox({
-					fieldLabel: 'TVT',
-			        name: 'tvt',
-			        anchor: '100%',
-					
-					tpl: Templates.simpleCombo,
-					store: new Ext.data.SimpleStore({
-					    fields: ['singleField'],
-					    data : [ [Forms.common.clearComboMarker], ['Penile'], ['Vaginal']]
-					}),
-					displayField: 'singleField',
-					typeAhead: true,
-				    mode: 'local',
-				    triggerAction: 'all',
-				    selectOnFocus:true,
-					editable: false,
-					listeners: {
-						select: Forms.common.clearCombo
-					}
-			    }),
-				
-				new Ext.form.Checkbox({
-					fieldLabel: 'Vaccination',
-			        name: 'vacc'
-			    })
+			tx.form.dual_column(
+				{xtype: 'tx.form.tvt'},
+				{xtype: 'tx.form.vacc'}
 			),
 			
-			new Ext.form.TextArea({
-				fieldLabel: 'Details',
-		        name: 'details',
-		        anchor: '100%',
-				height: 100,
-		    }),
+			{xtype: 'tx.form.details'},
 		]
     });
 	

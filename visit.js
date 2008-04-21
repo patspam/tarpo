@@ -83,117 +83,53 @@ Ext.onReady(function(){
 				
 		
         items: [
-			Forms.common.d,
-			Forms.common.listId,
+			{xtype: 'tx.form.d'},
+			{xtype: 'tx.form.listId'},
 			
-			Forms.common.dual_column(
-				Forms.common.house,
-				Forms.common.loc
+			tx.form.dual_column(
+				{xtype: 'tx.form.house'},
+				{xtype: 'tx.form.loc'}
 			),
 			
-			Forms.common.owner,
-
-			new Ext.form.ComboBox({
-				fieldLabel: 'Type',
-		        name: 'type',
-		        anchor: '100%',
-				allowBlank: false,
-				tpl: Templates.simpleCombo,
+			{xtype: 'tx.form.owner'},
+			{
+				xtype: 'tx.form.type',
 				store: new Ext.data.SimpleStore({
 				    fields: ['singleField'],
 				    data : [ ['Dog'], ['Cat'], ['Puppy'], ['Kitten'], ['Pig'], ['Other'], ['Note']]
 				}),
-				displayField: 'singleField',
-				typeAhead: true,
-			    mode: 'local',
-			    triggerAction: 'all',
-			    selectOnFocus:true,
-				editable: false,
 				listeners: {
 					select: {
 						fn: checkType
 					},
 					scope: this
 				},
-		    }),
+			},
 	
-			Forms.common.dual_column(				
-				Forms.common.name,				
-				Forms.common.colour
+			tx.form.dual_column(				
+				{xtype: 'tx.form.name'},
+				{xtype: 'tx.form.colour'}
 			),
 			
-			Forms.common.dual_column(
-				Forms.common.sex,
-				Forms.common.desexed				
+			tx.form.dual_column(
+				{xtype: 'tx.form.sex'},
+				{xtype: 'tx.form.desexed'}
 			),
 			
-			Forms.common.dual_column(
-				Forms.common.bcs,
-				Forms.common.mange
+			tx.form.dual_column(
+				{xtype: 'tx.form.bcs'},
+				{xtype: 'tx.form.mange'}
 			),
 			
-			new Ext.form.ComboBox({
-				fieldLabel: 'Ticks',
-		        name: 'ticks',
-		        anchor: '100%',
-				
-				tpl: Templates.simpleCombo,
-				store: new Ext.data.SimpleStore({
-				    fields: ['singleField'],
-				    data : [ [Forms.common.clearComboMarker], [1], [2], [3], [4], ]
-				}),
-				displayField: 'singleField',
-				typeAhead: true,
-			    mode: 'local',
-			    triggerAction: 'all',
-			    selectOnFocus:true,
-				editable: false,
-				listeners: {
-					select: Forms.common.clearCombo
-				}
-		    }),
+			tx.form.dual_column(
+				{xtype: 'tx.form.ticks'},
+				{xtype: 'tx.form.fleas'}
+			),
 			
-			new Ext.form.ComboBox({
-				fieldLabel: 'Fleas',
-		        name: 'fleas',
-		        anchor: '100%',
-				
-				tpl: Templates.simpleCombo,
-				store: new Ext.data.SimpleStore({
-				    fields: ['singleField'],
-				    data : [ [Forms.common.clearComboMarker], [1], [2], [3], ]
-				}),
-				displayField: 'singleField',
-				typeAhead: true,
-			    mode: 'local',
-			    triggerAction: 'all',
-			    selectOnFocus:true,
-				editable: false,
-				listeners: {
-					select: Forms.common.clearCombo
-				}
-		    }),
-			
-			new Ext.form.Checkbox({
-				fieldLabel: 'Ivermectin',
-		        name: 'ivermectin'
-		    }),
-			
-			new Ext.form.Checkbox({
-				fieldLabel: 'Covinan',
-		        name: 'covinan'
-		    }),
-			
-			new Ext.form.Checkbox({
-				fieldLabel: 'TVT',
-		        name: 'tvt'
-		    }),
-			
-			new Ext.form.TextArea({
-				fieldLabel: 'Comments',
-		        name: 'comments',
-		        anchor: '100%'
-		    }),
+			{xtype: 'tx.form.ivermectin'},
+			{xtype: 'tx.form.covinan'},
+			{xtype: 'tx.form.tvt'},
+			{xtype: 'tx.form.comments'},
 		]
     });
 	

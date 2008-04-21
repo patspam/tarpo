@@ -64,98 +64,53 @@ Ext.onReady(function(){
 		}],
 		
         items: [
-			Forms.common.d,
-			Forms.common.listId,
+			{xtype: 'tx.form.d'},
+			{xtype: 'tx.form.listId'},
 			
-			Forms.common.dual_column(
-				Forms.common.house,
-				Forms.common.loc
+			tx.form.dual_column(
+				{xtype: 'tx.form.house'},
+				{xtype: 'tx.form.loc'}
 			),
 			
-			Forms.common.dual_column(
-				Forms.common.balanda,
-				Forms.common.charge
+			tx.form.dual_column(
+				{xtype: 'tx.form.balanda'},
+				{xtype: 'tx.form.charge'}
 			),
 			
-			Forms.common.dual_column(
-				Forms.common.owner,
-				Forms.common.domicile
+			tx.form.dual_column(
+				{xtype: 'tx.form.owner'},
+				{xtype: 'tx.form.domicile'}
 			),
 			
-			Forms.common.dual_column(
-				Forms.common.animal_type,
-				Forms.common.breed
+			tx.form.dual_column(
+				{xtype: 'tx.form.type'},
+				{xtype: 'tx.form.breed'}
 			),
 			
-			Forms.common.microchip,
+			{xtype: 'tx.form.mc'},
 			
-			Forms.common.dual_column(				
-				Forms.common.name,				
-				Forms.common.colour
+			tx.form.dual_column(				
+				{xtype: 'tx.form.name'},
+				{xtype: 'tx.form.colour'}
 			),
 			
-			Forms.common.dual_column(
-				Forms.common.sex,
-				Forms.common.desexed				
+			tx.form.dual_column(
+				{xtype: 'tx.form.sex'},
+				{xtype: 'tx.form.desexed'}
 			),
 			
-			Forms.common.dual_column(
-				Forms.common.bcs,
-				Forms.common.mange
+			tx.form.dual_column(
+				{xtype: 'tx.form.bcs'},
+				{xtype: 'tx.form.mange'}
 			),
 			
-			Forms.common.dual_column(
-				new Ext.form.ComboBox({
-					fieldLabel: 'Reason',
-			        name: 'reason',
-			        anchor: '100%',
-					allowBlank: false,					
-					tpl: Templates.simpleCombo,
-					store: new Ext.data.SimpleStore({
-					    fields: ['singleField'],
-					    data : [ ['Fight Wound'], ['Hunting Wound'], ['Car Accident'], ['Other']]
-					}),
-					displayField: 'singleField',
-					typeAhead: true,
-				    mode: 'local',
-				    triggerAction: 'all',
-				    selectOnFocus:true,
-					editable: false,
-			    }),
-				
-				new Ext.form.Checkbox({
-					fieldLabel: 'Vaccination',
-			        name: 'vacc'
-			    })
+			tx.form.dual_column(
+				{xtype: 'tx.form.reason'},
+				{xtype: 'tx.form.vacc'}
 			),
 			
-			new Ext.form.ComboBox({
-				fieldLabel: 'Euthanasia',
-		        name: 'euth',
-		        anchor: '100%',
-				
-				tpl: Templates.simpleCombo,
-				store: new Ext.data.SimpleStore({
-				    fields: ['singleField'],
-				    data : [ [Forms.common.clearComboMarker], ['Unwanted'], ['Humane'], ['Cheeky']]
-				}),
-				displayField: 'singleField',
-				typeAhead: true,
-			    mode: 'local',
-			    triggerAction: 'all',
-			    selectOnFocus:true,
-				editable: false,
-				listeners: {
-					select: Forms.common.clearCombo
-				}
-		    }),
-			
-			new Ext.form.TextArea({
-				fieldLabel: 'Details',
-		        name: 'details',
-		        anchor: '100%',
-				height: 100,
-		    }),
+			{xtype: 'tx.form.euth'},
+			{xtype: 'tx.form.details'},
 		]
     });
 	
