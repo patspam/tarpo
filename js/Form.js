@@ -257,8 +257,8 @@
 	}));
 	
 	Ext.reg('tx.form.comments', tx.form.comments = Ext.extend(Ext.form.TextArea, {
-		fieldLabel: 'Details',
-        name: 'details',
+		fieldLabel: 'Comments',
+        name: 'comments',
         anchor: '100%',
 		height: 100,
 	}));

@@ -57,8 +57,8 @@ Ext.air.NativeWindowManager.getAboutWindow = function(){
 		win = new Ext.air.NativeWindow({
 			id: winId,
 			file: 'about.html',
-			width:350,
-			height:300,
+			width:550,
+			height:550,
 			resizable: false,
             type:'utility'
         });
