@@ -135,6 +135,11 @@ VisitGrid = function(){
         ],
 
         view: new VisitView()
+//		bbar: new Ext.PagingToolbar({
+//            pageSize: 10,
+//            store: tx.data.visits,
+//            displayInfo: true
+//        })
 	});
 	
 	this.on('rowcontextmenu', this.onRowContext, this);

@@ -59,6 +59,20 @@ Ext.onReady(function(){
 		return Math.round(x*100)/100;
 	}
 	
+	function get_children(listId) {
+		if (querySingle('select isFolder from list where listId = "' + listId + '"') == 0) {
+			return ['"' + listId + '"'];
+		} else {
+			var cs = tx.data.conn.queryBy('select listId from list where parentId = "' + listId + '"');
+			var l = [];
+			for (var i = 0; i < cs.length; i++) {
+				var c = cs[i]['listId'];
+				l = l.concat(get_children(c));
+			}
+			return l;
+		}
+	}
+	
 	// Shared actions used by Ext toolbars, menus, etc.
 	var actions = {
 		newVisit: new Ext.Action({
@@ -93,14 +107,22 @@ Ext.onReady(function(){
 			iconCls: 'icon-report',
 			tooltip: 'Report on All Data (right-click on individual list for more specific Report)',
 			handler: function(listId){
-				
 				var xF, filter_for;
-				if (listId && typeof listId === 'string' && querySingle('select isFolder from list where listId = "' + listId + '"') == 0) {
-					xF = ' AND listId="' + listId + '"';
-					filter_for = tx.data.lists.getName(listId);
+				if (listId && typeof listId === 'string') {
+					if (querySingle('select isFolder from list where listId = "' + listId + '"') == 1) {
+						var children = get_children(listId);
+						if (children) {
+							children = children.join(',');
+							xF = ' AND listId in (' + children + ')';
+							filter_for = 'Data In Folder "' + tx.data.lists.getName(listId) + '"';
+						}
+					} else {
+						xF = ' AND listId="' + listId + '"';
+						filter_for = 'Data In List "' + tx.data.lists.getName(listId) + '"';
+					}
 				} else {
 					xF = '';
-					filter_for = 'All Data';
+					filter_for = 'All Tarpo Data';
 				}
 				
 				var houses_with_dogs = querySingle('select count(distinct house) from visit where type="Dog"' + xF);
@@ -367,6 +389,23 @@ Ext.onReady(function(){
 			medGrid.setTitle(medGrid.titleNode.text);
 		}
 	});
+	
+	var limit_field = new Ext.form.NumberField({
+		allowBlank: false,
+		allowNegative: false,
+		allowDecimals: false,
+		fieldLabel: 'Max Rows',
+		minValue: 1,
+		width: 40,
+		value: tx.data.row_limit,
+		listeners: {
+			change: {
+				fn: function(target, new_val, old_val){
+					tx.data.row_limit = new_val;
+				}
+			}
+		}
+	});
 
     var tb = new Ext.Toolbar({
 		region:'north',
@@ -378,7 +417,9 @@ Ext.onReady(function(){
 			actions.newMed,
 			'-',
 			actions.report,
-            '->', ' ', ' ', ' '		
+			'-',
+			'Max Rows: ', limit_field,
+            '->', ' ', ' ', ' '
 		]
 	});
 	

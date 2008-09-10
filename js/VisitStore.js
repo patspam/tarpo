@@ -52,13 +52,13 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 			}
 			this.load({
 				params: {
-					where: 'where listId in (' + ps.join(',') + ')',
+					where: 'where listId in (' + ps.join(',') + ') limit ' + tx.data.row_limit,
 					args: listId
 				}
 			});
 		}else{
 			this.load({params: {
-				where: 'where listId = ?',
+				where: 'where listId = ? limit ' + tx.data.row_limit,
 				args: [listId]
 			}});
 		}		
@@ -113,6 +113,9 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
     init: function(){
 		tx.data.lists.load();
         this.load({
+			params: {
+				where: ' limit ' + tx.data.row_limit
+			},
             callback: function(){                
                 if (this.getCount() < 1) {
                     Ext.Msg.confirm('Create Visits?', 'Your database is currently empty. Would you like to insert some demo data?', function(btn){

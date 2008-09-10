@@ -1,3 +1,5 @@
+tx.data.row_limit = 60;
+
 // Define the Visit data type
 tx.data.Visit = Ext.data.Record.create([
     {name: 'id', type:'string'},

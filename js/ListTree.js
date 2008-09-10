@@ -121,9 +121,17 @@ Ext.extend(ListTree, Ext.tree.TreePanel, {
         this.ctxNode = node;
         this.ctxNode.ui.addClass('x-node-ctx');
 		
+		// Hide New List, New Folder and Separator if List selected
+		this.menu.items.get(0).setVisible(!!node.attributes.isFolder);
 		this.menu.items.get(1).setVisible(!!node.attributes.isFolder);
 		this.menu.items.get(2).setVisible(!!node.attributes.isFolder);
-		this.menu.items.get(0).setVisible(!node.attributes.isFolder);
+		
+		this.menu.items.get(5).setText(!!node.attributes.isFolder ? 'Report On This Folder' : 'Report On This List');
+//		if (!!node.attributes.isFolder) {}
+//		this.menu.items.get(1).setVisible(!!node.attributes.isFolder);
+		
+//		this.menu.items.get(2).setVisible(!!node.attributes.isFolder);
+//		this.menu.items.get(0).setVisible(!node.attributes.isFolder);
 		
 		this.menu.showAt(e.getXY());
     },

@@ -142,7 +142,7 @@
 		tpl: Templates.simpleCombo,
 		store: new Ext.data.SimpleStore({
 			fields: ['singleField'],
-			data: _clearableComboSort([[clearComboMarker], ['Black'], ['Black/White'], ['Black/Tan'], ['Blue'], ['Blue/White'], ['Blue Roan'], ['Blue Roan/White'], ['Brindle'], ['Brindle/White'], ['Brown'], ['Brown/White'], ['Chestnut'], ['Chestnut/White'], ['Chocolate'], ['Chocolate/White'], ['Fawn'], ['Fawn/White'], ['Golden'], ['Golden/White'], ['Liver'], ['Liver/White'], ['Red'], ['Red/Brown'], ['Red Roan'], ['Red Roan/White'], ['Tan'], ['Tan/White'], ['Tri'], ['Tri/White'], ['White/Black'], ['White/Blue'], ['White/Brindle'], ['White/Brown'], ['White/Fawn'], ['White/Tan'], ['White/Tri'], ])
+			data: _clearableComboSort([[clearComboMarker], ['Black'], ['Black/White'], ['Black/Tan'], ['Blue'], ['Blue/White'], ['Blue Roan'], ['Blue Roan/White'], ['Blue Roan/Black'], ['Brindle'], ['Brindle/White'], ['Brown'], ['Brown/White'], ['Chestnut'], ['Chestnut/White'], ['Chocolate'], ['Chocolate/White'], ['Fawn'], ['Fawn/White'], ['Ginger'], ['Golden'], ['Golden/White'], ['Liver'], ['Liver/White'], ['Red'], ['Red/Brown'], ['Red Roan'], ['Red Roan/White'], ['Red Roan/Tan'], ['Tabby'], ['Tan'], ['Tan/White'], ['Tri'], ['Tri/White'], ['White'], ['White/Black'], ['White/Blue'], ['White/Brindle'], ['White/Brown'], ['White/Fawn'], ['White/Tan'], ['White/Tri'], ])
 		}),
 		displayField: 'singleField',
 		mode: 'local',
@@ -158,7 +158,7 @@
         tpl: Templates.simpleCombo,
         store: new Ext.data.SimpleStore({
             fields: ['singleField'],
-            data: [['M'], ['F'], ]
+            data: [['M'], ['F'], ['Unknown']]
         }),
         displayField: 'singleField',
         typeAhead: true,
@@ -276,7 +276,7 @@
         tpl: Templates.simpleCombo,
         store: new Ext.data.SimpleStore({
             fields: ['singleField'],
-            data: _clearableComboSort([[clearComboMarker], ['Boxer'], ['Staffie'], ['Dingo'], ['Pit Bull'], ['Mastiff X'], ['Labrador'], ['Golder Retriever'], ['German Shephers'], ['Rottweiler'], ['Jack Russell'], ['Ridgeback'], ['Kelpie'], ['Border Collie'], ['Blue Heeler'], ['Red Heeler'], ['GSP'], ['Shar Pei X'], ['Pig Dog Crossbreed'], ['Small crossbreed'], ['Bull Arab']])
+            data: _clearableComboSort([[clearComboMarker], ['Camp Dog'], ['Boxer'], ['Staffie'], ['Dingo'], ['Irish Wolfhound X'], ['DSH'], ['DLH'], ['Pit Bull'], ['Mastiff X'], ['Labrador'], ['Golder Retriever'], ['German Shephers'], ['Rottweiler'], ['Jack Russell'], ['Ridgeback'], ['Kelpie'], ['Border Collie'], ['Blue Heeler'], ['Red Heeler'], ['GSP'], ['Shar Pei X'], ['Pig Dog Crossbreed'], ['Small crossbreed'], ['Bull Arab']])
         }),
         displayField: 'singleField',
         mode: 'local',

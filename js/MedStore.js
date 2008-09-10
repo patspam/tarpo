@@ -52,13 +52,13 @@ tx.data.MedStore = Ext.extend(Ext.data.GroupingStore, {
 			}
 			this.load({
 				params: {
-					where: 'where listId in (' + ps.join(',') + ')',
+					where: 'where listId in (' + ps.join(',') + ') limit ' + tx.data.row_limit,
 					args: listId
 				}
 			});
 		}else{
 			this.load({params: {
-				where: 'where listId = ?',
+				where: 'where listId = ? limit ' + tx.data.row_limit,
 				args: [listId]
 			}});
 		}		
@@ -111,7 +111,7 @@ tx.data.MedStore = Ext.extend(Ext.data.GroupingStore, {
     },
     
     init: function(){
-		tx.data.lists.load();
+//		tx.data.lists.load();
     },
     
     lookup: function(id){
