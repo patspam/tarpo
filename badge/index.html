@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Tarpo Install</title>
+	
+	<style  type="text/css">
+		body {
+
+			background-color: #FFFFFF;
+
+		}
+	</style>
+	
+	<!-- SWFObject embed by Geoff Stearns geoff@deconcept.com http://blog.deconcept.com/swfobject/ -->
+<script type="text/javascript" src="lib/badge/swfobject.js"></script>
+	
+</head>
+<body>
+	
+	<H2>Tarpo Install</H2>
+	<p>
+		If you are installing for the first time, the Adobe AIR Runtime will also be automatically installed 
+		(you can download it manually <a href="http://get.adobe.com/air/">here</a> if you like). 
+		For more information on Tarpo, see the <a href="http://blog.patspam.com/2008/04/14/tarpotarpo/">blog post</a>.
+	</p>
+
+<!-- BEGIN EMBED CODE -->
+	
+	<!-- IMPORTANT: Make sure you also copy the swfobject script tag from the head above -->
+	
+		<div id="flashcontent" style="width:215px; height:180px; ">
+		<strong>Please upgrade your Flash Player</strong>
+		This is the content that would be shown if the user does not have Flash Player 6.0.65 or higher installed.
+</div>
+
+
+	<script type="text/javascript">
+	// <![CDATA[ 
+	// version 9.0.115 or greater is required for launching AIR apps.
+
+		 var so = new SWFObject("lib/badge/AIRInstallBadge.swf", "Badge", "215", "180", "9.0.115", "#FFFFFF");
+		so.addVariable("airversion", "1.5");
+		so.addVariable("appname", "Tarpo");
+		so.addVariable("appurl", "http://patspam.com/tarpo/1.0.2/Tarpo.air");
+		so.addVariable("appid", "com.patspam.tarpo");
+		so.addVariable("imageurl", "tarpo-badge.jpg");
+		so.addVariable("hidehelp", "false");
+		so.addVariable("skiptransition", "false");
+		so.addVariable("appversion", "1.0.2");
+		so.addVariable("backgroundColor", "#FFFFFF");
+		so.write('flashcontent');
+	// ]]>
+	</script>
+
+	<div>Back to <a href="http://patspam.com">patspam.com</a></div>
+
+	</body>
+</html>
