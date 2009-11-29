@@ -84,7 +84,7 @@ html, body {
 }
 
 #list-tree .x-tool {
-    background-image:url(ext-2.0/resources/images/default/panel/tools-sprites-trans.gif);
+    background-image:url(extjs/resources/images/default/panel/tools-sprites-trans.gif);
 }
 
 /*#list-tree .special-node span {

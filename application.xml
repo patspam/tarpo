@@ -1,19 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <application xmlns="http://ns.adobe.com/air/application/1.0">
 
-<!-- Adobe AIR Application Descriptor File Template.
-
-	Specifies parameters for identifying, installing, and launching AIR applications.
-	See http://www.adobe.com/go/air_1.0_application_descriptor for complete documentation.
-
-	xmlns - The Adobe AIR namespace: http://ns.adobe.com/air/application/1.0.M6 
-			The last segment of the namespace specifies the version 
-			of the AIR runtime required for this application to run.
-			
-	minimumPatchLevel - The minimum patch level of the AIR runtime required to run 
-			the application. Optional.
--->
-
 	<!-- The application identifier string, unique to this application. Required. -->
 	<id>com.patspam.tarpo</id>
 
@@ -86,12 +73,11 @@
 	<!-- The icon the system uses for the application. For at least one resolution,
 		 specify the path to a PNG file included in the AIR package. Optional. -->
 	<icon>
-	  	<image16x16>icons/extlogo16.png</image16x16>
-		<image32x32>icons/extlogo32.png</image32x32>
-		<image48x48>icons/extlogo48.png</image48x48>
-		<image128x128>icons/extlogo128.png</image128x128>
+	  	<image16x16>extjs/air/resources/icons/extlogo16.png</image16x16>
+		<image32x32>extjs/air/resources/icons/extlogo32.png</image32x32>
+		<image48x48>extjs/air/resources/icons/extlogo48.png</image48x48>
+		<image128x128>extjs/air/resources/icons/extlogo128.png</image128x128>
 	</icon>
-	<fileTypes></fileTypes>
 
 	<!-- Whether the application handles the update when a user double-clicks an update version
 	of the AIR file (true), or the default AIR application installer handles the update (false).
@@ -104,24 +90,24 @@
 
 	<!-- Listing of file types for which the application can register. Optional. -->
 	<fileTypes>
-<!-- Defines one file type. Optional. -->
-<!-- <fileType> -->
-<!-- The name that the system displays for the registered file type. Required. -->
-<!-- <name></name> -->
-<!-- The extension to register. Required. -->
-<!-- <extension></extension> -->
-<!-- The description of the file type. Optional. -->
-<!-- <description></description> -->
-<!-- The MIME type. Optional. -->
-<!-- <contentType></contentType> -->
-<!-- The icon to display for the file type. Optional. -->
-<!-- <icon>
-				<image16x16></image16x16>
-				<image32x32></image32x32>
-				<image48x48></image48x48>
-				<image128x128></image128x128>
-			</icon> -->
-<!-- </fileType> -->
-</fileTypes>
+	<!-- Defines one file type. Optional. -->
+	<!-- <fileType> -->
+	<!-- The name that the system displays for the registered file type. Required. -->
+	<!-- <name></name> -->
+	<!-- The extension to register. Required. -->
+	<!-- <extension></extension> -->
+	<!-- The description of the file type. Optional. -->
+	<!-- <description></description> -->
+	<!-- The MIME type. Optional. -->
+	<!-- <contentType></contentType> -->
+	<!-- The icon to display for the file type. Optional. -->
+	<!-- <icon>
+					<image16x16></image16x16>
+					<image32x32></image32x32>
+					<image48x48></image48x48>
+					<image128x128></image128x128>
+				</icon> -->
+	<!-- </fileType> -->
+	</fileTypes>
 
 </application>

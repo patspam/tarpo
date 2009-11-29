@@ -6,14 +6,6 @@
  * http://extjs.com/license
  */
 
-/*
- * Ext JS Library 2.3.0
- * Copyright(c) 2006-2009, Ext JS, LLC.
- * licensing@extjs.com
- * 
- * http://extjs.com/license
- */
-
 
 Ext.namespace('Ext.air','Ext.sql');Ext.Template.prototype.compile=function(){var fm=Ext.util.Format;var useF=this.disableFormats!==true;var prevOffset=0;var arr=[];var tpl=this;var fn=function(m,name,format,args,offset,s){if(prevOffset!=offset){var action={type:1,value:s.substr(prevOffset,offset-prevOffset)};arr.push(action);}
 prevOffset=offset+m.length;if(format&&useF){if(args){var re=/^\s*['"](.*)["']\s*$/;args=args.split(/,(?=(?:[^"]*"[^"]*")*(?![^"]*"))/);for(var i=0,len=args.length;i<len;i++){args[i]=args[i].replace(re,"$1");}
