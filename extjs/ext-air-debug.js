@@ -1,14 +1,14 @@
 /*
- * Ext JS Library 0.20
- * Copyright(c) 2006-2008, Ext JS, LLC.
+ * Ext JS Library 0.30
+ * Copyright(c) 2006-2009, Ext JS, LLC.
  * licensing@extjs.com
  * 
  * http://extjs.com/license
  */
 
 /*
- * Ext JS Library 2.0.1
- * Copyright(c) 2006-2008, Ext JS, LLC.
+ * Ext JS Library 2.3.0
+ * Copyright(c) 2006-2009, Ext JS, LLC.
  * licensing@extjs.com
  * 
  * http://extjs.com/license
@@ -20,7 +20,7 @@ Ext.namespace('Ext.air', 'Ext.sql');
 Ext.Template.prototype.compile = function() {
 	var fm = Ext.util.Format;
 	var useF = this.disableFormats !== true;
-	
+	//
 	var prevOffset = 0;
 	var arr = [];
 	var tpl = this;
@@ -278,8 +278,8 @@ Ext.DomQuery = function(){
     };
 
  
-    
-    
+    // this eval is stop the compressor from
+    // renaming the variable to something shorter
     eval("var batch = 30803;");
 
     var key = 30803;
@@ -343,9 +343,9 @@ Ext.DomQuery = function(){
 
        function search(path, root, type) {
 		    type = type || "select";
-            
+            //
             var n = root || document;
-            
+            //
             var q = path, mode, lq;
             var tk = Ext.DomQuery.matchers;
             var tklen = tk.length;
@@ -744,20 +744,64 @@ Ext.query = Ext.DomQuery.select;
 Date.precompileFormats = function(s){
 	var formats = s.split('|');
 	for(var i = 0, len = formats.length;i < len;i++){
-		Date.createNewFormat(formats[i]);
+		Date.createFormat(formats[i]);
 		Date.createParser(formats[i]);
 	}
 }
 
 Date.precompileFormats("D n/j/Y|n/j/Y|n/j/y|m/j/y|n/d/y|m/j/Y|n/d/Y|YmdHis|F d, Y|l, F d, Y|H:i:s|g:i A|g:ia|g:iA|g:i a|g:i A|h:i|g:i|H:i|ga|ha|gA|h a|g a|g A|gi|hi|gia|hia|g|H|m/d/y|m/d/Y|m-d-y|m-d-Y|m/d|m-d|md|mdy|mdY|d|Y-m-d|Y-m-d H:i:s|d/m/y|d/m/Y|d-m-y|d-m-Y|d/m|d-m|dm|dmy|dmY|Y-m-d|l|D m/d|D m/d/Y|m/d/Y");
 
-
+// precompile instead of lazy init
 Ext.ColorPalette.prototype.tpl = new Ext.XTemplate(
     '<tpl for="."><a href="#" class="color-{.}" hidefocus="on"><em><span style="background:#{.}" unselectable="on">&#160;</span></em></a></tpl>'
 );
 
+Ext.override(Ext.grid.GroupingView, {
+    startGroup: new Ext.XTemplate(
+        '<div id="{groupId}" class="x-grid-group {cls}">',
+        '<div id="{groupId}-hd" class="x-grid-group-hd" style="{style}"><div>', this.groupTextTpl ,'</div></div>',
+        '<div id="{groupId}-bd" class="x-grid-group-body">'
+    )
+});
 
+// Unique task ids, if the time isn't unique enough, the addition 
+// of random chars should be
+Ext.uniqueId = function(){
+	var t = String(new Date().getTime()).substr(4);
+	var s = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	for(var i = 0; i < 4; i++){
+		t += s.charAt(Math.floor(Math.random()*26));
+	}
+	return t;
+};
 
+Ext.data.JsonReader.override({
+    getJsonAccessor: function(){
+        var re = /[\[\.]/;
+        return function(expr) {
+            try {
+		if (re.test(expr)) {
+			var arr = expr.split('.');
+			var ln = arr.length;
+			return function(obj) {				
+				var l = obj;
+				for (var i = 0; i < ln; i++) {
+					l = l[arr[i]];
+				}
+				return l;				
+			};
+		} else {
+			return function(obj){
+				return obj[expr];
+			};
+		}
+            } catch(e){
+		Ext.air.dir(e);
+	    }
+            return Ext.emptyFn;
+        };
+    }()
+});
 
 
 
@@ -784,9 +828,11 @@ Ext.air.FileProvider = function(config){
 };
 
 Ext.extend(Ext.air.FileProvider, Ext.state.Provider, {
+	
 	file: 'extstate.data',
 	
 	
+	// private
     readState : function(){
 		var stateFile = air.File.applicationStorageDirectory.resolvePath(this.file);
 		if(!stateFile.exists){
@@ -802,7 +848,7 @@ Ext.extend(Ext.air.FileProvider, Ext.state.Provider, {
 		return stateData || this.defaultState || {};
     },
 
-    
+    // private
     saveState : function(name, value){
         var stateFile = air.File.applicationStorageDirectory.resolvePath(this.file);
 		var stream = new air.FileStream();
@@ -811,6 +857,8 @@ Ext.extend(Ext.air.FileProvider, Ext.state.Provider, {
 		stream.close();
     }
 });
+
+
 Ext.air.NativeObservable = Ext.extend(Ext.util.Observable, {
 	addListener : function(name){
 		this.proxiedEvents = this.proxiedEvents || {};
@@ -833,16 +881,25 @@ Ext.air.NativeObservable.prototype.on = Ext.air.NativeObservable.prototype.addLi
 Ext.air.NativeWindow = function(config){
 	Ext.apply(this, config);
 	
+	
 	this.id = this.id || Ext.uniqueId();
 	
 	this.addEvents(
+		
 		'close', 
+		
 		'closing',
+		
 		'move',
+		
 		'moving',
+		
 		'resize',
+		
 		'resizing',
+		
 		'displayStateChange',
+		
 		'displayStateChanging'
 	);
 	
@@ -858,7 +915,12 @@ Ext.air.NativeWindow = function(config){
 		options.transparent = this.transparent;
 		
 		this.loader = window.runtime.flash.html.HTMLLoader.createRootWindow(false, options, false);
-		this.loader.load(new air.URLRequest(this.file));
+		if (this.file) {
+			this.loader.load(new air.URLRequest(this.file));	
+		} else {
+			this.loader.loadString(this.html || '');
+		}
+		
 	
 		this.instance = this.loader.window.nativeWindow;
 	}else{
@@ -903,6 +965,7 @@ Ext.air.NativeWindow = function(config){
 	Ext.air.NativeWindowManager.register(this);
 	this.on('close', this.unregister, this);
 	
+	
 	if(this.minimizeToTray){
 		this.initMinimizeToTray(this.trayIcon, this.trayMenu);
 	}
@@ -910,18 +973,35 @@ Ext.air.NativeWindow = function(config){
 };
 
 Ext.extend(Ext.air.NativeWindow, Ext.air.NativeObservable, {
-	chrome: 'standard', 
-	type: 'normal',	
+	
+	
+	
+	
+	
+		
+	
+	
+	chrome: 'standard', // can also be none
+	
+	type: 'normal',	// can be normal, utility or lightweight
+	
 	width:600,
+	
 	height:400,
+	
 	resizable: true,
+	
 	minimizable: true,
+	
 	maximizable: true,
+	
 	transparent: false,
+	
 	
 	getNative : function(){
 		return this.instance;
 	},
+	
 	
 	getCenterXY : function(){
 		var b = air.Screen.mainScreen.visibleBounds;
@@ -931,6 +1011,7 @@ Ext.extend(Ext.air.NativeWindow, Ext.air.NativeObservable, {
 		};
 	},
 	
+	
 	show :function(){
 		if(this.trayed){
 			Ext.air.SystemTray.hideIcon();
@@ -939,31 +1020,60 @@ Ext.extend(Ext.air.NativeWindow, Ext.air.NativeObservable, {
 		this.instance.visible = true;
 	},
 	
+	
 	activate : function(){
 		this.show();
 		this.instance.activate();
 	},
 	
+	
 	hide :function(){
 		this.instance.visible = false;
 	},
+	
 	
 	close : function(){
 		this.instance.close();	
 	},
 	
+	
 	isMinimized :function(){
 		return this.instance.displayState == air.NativeWindowDisplayState.MINIMIZED;
 	},
+	
 	
 	isMaximized :function(){
 		return this.instance.displayState == air.NativeWindowDisplayState.MAXIMIZED;
 	},
 	
+	
 	moveTo : function(x, y){
 		this.x = this.instance.x = x;
 		this.y = this.instance.y = y;	
 	},
+	
+	fullscreen: function(nonInteractive) {
+		var SDS = runtime.flash.display.StageDisplayState;
+		this.instance.stage.displayState = nonInteractive ? SDS.FULL_SCREEN : SDS.FULL_SCREEN_INTERACTIVE; 
+	},
+	
+	bringToFront: function() {
+		this.instance.orderToFront();
+	},
+	
+	bringInFrontOf: function(win) {
+		this.instance.orderInFrontOf(win.instance ? win.instance : win);
+	},
+	
+	sendToBack: function() {
+		this.instance.orderToBack();
+	},
+	
+	sendBehind: function(win) {
+		this.instance.orderInBackOf(win.instance ? win.instance : win);
+	},
+	
+	
 	
 	resize : function(width, height){
 		this.width = this.instance.width = width;
@@ -976,6 +1086,7 @@ Ext.extend(Ext.air.NativeWindow, Ext.air.NativeObservable, {
 	
 	initMinimizeToTray : function(icon, menu){
 		var tray = Ext.air.SystemTray;
+		
 		tray.setIcon(icon, this.trayTip);
 		this.on('displayStateChanging', function(e){
 			if(e.afterDisplayState == 'minimized'){
@@ -996,30 +1107,37 @@ Ext.extend(Ext.air.NativeWindow, Ext.air.NativeObservable, {
 	}
 });
 
+
 Ext.air.NativeWindow.getRootWindow = function(){
 	return air.NativeApplication.nativeApplication.openedWindows[0];
 };
+
 
 Ext.air.NativeWindow.getRootHtmlWindow = function(){
 	return Ext.air.NativeWindow.getRootWindow().stage.getChildAt(0).window;
 };
 
+
 Ext.air.NativeWindowGroup = function(){
     var list = {};
 
     return {
+		
         register : function(win){
             list[win.id] = win;
         },
 
+        
         unregister : function(win){
             delete list[win.id];
         },
 
+        
         get : function(id){
             return list[id];
         },
 
+        
         closeAll : function(){
             for(var id in list){
                 if(list.hasOwnProperty(id)){
@@ -1043,7 +1161,7 @@ Ext.air.NativeWindowGroup = function(){
 
 
 Ext.air.NativeWindowManager = new Ext.air.NativeWindowGroup();
-
+// Abstract base class for Connection classes
 Ext.sql.Connection = function(config){
 	Ext.apply(this, config);
 	Ext.sql.Connection.superclass.constructor.call(this);
@@ -1058,7 +1176,7 @@ Ext.extend(Ext.sql.Connection, Ext.util.Observable, {
 	maxResults: 10000,
 	openState : false,
 
-    
+    // abstract methods
     open : function(file){
 	},
 
@@ -1077,7 +1195,7 @@ Ext.extend(Ext.sql.Connection, Ext.util.Observable, {
 	queryBy : function(sql, args){
 	},
 
-    
+    // protected/inherited method
     isOpen : function(){
 		return this.openState;
 	},
@@ -1090,7 +1208,7 @@ Ext.extend(Ext.sql.Connection, Ext.util.Observable, {
 		var tableName = o.name;
 		var keyName = o.key;
 		var fs = o.fields;
-		if(!Ext.isArray(fs)){ 
+		if(!Ext.isArray(fs)){ // Ext fields collection
 			fs = fs.items;
 		}
 		var buf = [];
@@ -1127,12 +1245,39 @@ Ext.extend(Ext.sql.Connection, Ext.util.Observable, {
 
 
 Ext.sql.Connection.getInstance = function(db, config){
-    if(Ext.isAir){ 
+    if(Ext.isAir){ // air
         return new Ext.sql.AirConnection(config);
-    } else { 
+    } else { // gears
         return new Ext.sql.GearsConnection(config);
     }
 };
+
+Ext.sql.SQLiteStore = Ext.extend(Ext.data.Store, {
+    
+    
+    
+    
+    constructor: function(config) {
+        config = config || {};
+        config.reader = new Ext.data.JsonReader({
+            id: config.key,
+            fields: config.fields
+        });
+        var conn = Ext.sql.Connection.getInstance();
+        
+        conn.open(config.dbFile);
+        // Create the database table if it does
+        // not exist
+        conn.createTable({
+            name: config.tableName,
+            key: config.key,
+            fields: config.reader.recordType.prototype.fields
+        });                
+        Ext.sql.SQLiteStore.superclass.constructor.call(this, config);
+        this.proxy = new Ext.sql.Proxy(conn, config.tableName, config.key, this, false);        
+    }
+});
+
 Ext.sql.Table = function(conn, name, keyName){
 	this.conn = conn;
 	this.name = name;
@@ -1219,6 +1364,7 @@ Ext.sql.Table.prototype = {
 		this.conn.execBy(sql, args);
 	}
 };
+
 Ext.sql.Proxy = function(conn, table, keyName, store, readonly){
     Ext.sql.Proxy.superclass.constructor.call(this);
     this.conn = conn;
@@ -1236,7 +1382,7 @@ Ext.sql.Proxy.DATE_FORMAT = 'Y-m-d H:i:s';
 
 Ext.extend(Ext.sql.Proxy, Ext.data.DataProxy, {
     load : function(params, reader, callback, scope, arg){
-    	if(!this.conn.isOpen()){ 
+    	if(!this.conn.isOpen()){ // assume that the connection is in the process of opening
     		this.conn.on('open', function(){
     			this.load(params, reader, callback, scope, arg);
     		}, this, {single:true});
@@ -1312,7 +1458,7 @@ Ext.extend(Ext.sql.Proxy, Ext.data.DataProxy, {
     }
 });
  Ext.sql.AirConnection = Ext.extend(Ext.sql.Connection, {
-	
+	// abstract methods
     open : function(db){
         this.conn = new air.SQLConnection();
 		var file = air.File.applicationDirectory.resolvePath(db);
@@ -1389,26 +1535,27 @@ Ext.extend(Ext.sql.Proxy, Ext.data.DataProxy, {
         return r;
     }
 });
+
 Ext.air.SystemTray = function(){
 	var app = air.NativeApplication.nativeApplication;
 	var icon, isWindows = false, bitmaps;
 	
-	
+	// windows
 	if(air.NativeApplication.supportsSystemTrayIcon) {
-        icon = app.icon;
-		isWindows = true;
-    }
+                icon = app.icon;
+                isWindows = true;
+        }
     
-	
-    if(air.NativeApplication.supportsDockIcon) {
-		icon = app.icon;
-    }
+	// mac
+        if(air.NativeApplication.supportsDockIcon) {
+            icon = app.icon;
+        }
 	
 	return {
 		
 		setIcon : function(icon, tooltip, initWithIcon){
-			if(!icon){ 
-				return;
+			if(!icon){ // not supported OS
+                        	return;
 			}
 			var loader = new air.Loader();
 			loader.contentLoaderInfo.addEventListener(air.Event.COMPLETE, function(e){
@@ -1417,12 +1564,14 @@ Ext.air.SystemTray = function(){
 					icon.bitmaps = bitmaps;
 				}
 			});
-        	loader.load(new air.URLRequest(icon));
+                        
+                        loader.load(new air.URLRequest(icon));
 			if(tooltip && air.NativeApplication.supportsSystemTrayIcon) {
 				app.icon.tooltip = tooltip;
 			}
 		},
 		
+                
 		bounce : function(priority){
 			icon.bounce(priority);
 		},
@@ -1433,22 +1582,25 @@ Ext.air.SystemTray = function(){
 			});
 		},
 		
+                
 		hideIcon : function(){
-			if(!icon){ 
+			if(!icon){ // not supported OS
 				return;
 			}
 			icon.bitmaps = [];
 		},
 		
+                
 		showIcon : function(){
-			if(!icon){ 
+			if(!icon){ // not supported OS
 				return;
 			}
 			icon.bitmaps = bitmaps;
 		},
 		
+                
 		setMenu: function(actions, _parentMenu){
-			if(!icon){ 
+			if(!icon){ // not supported OS
 				return;
 			}
 			var menu = new air.NativeMenu();
@@ -1476,12 +1628,20 @@ Ext.air.SystemTray = function(){
 
 
 Ext.air.DragType = {
+	
 	TEXT : 'text/plain',
+	
 	HTML : 'text/html',
+	
 	URL : 'text/uri-list',
+	
 	BITMAP : 'image/x-vnd.adobe.air.bitmap',
+	
 	FILES : 'application/x-vnd.adobe.air.file-list'
 };
+
+
+// workaround for DD dataTransfer Clipboard not having hasFormat
 
 Ext.apply(Ext.EventObjectImpl.prototype, {
 	hasFormat : function(format){
@@ -1502,7 +1662,9 @@ Ext.apply(Ext.EventObjectImpl.prototype, {
 
 
 
+
 Ext.air.Sound = {
+	
 	play : function(file, startAt){
 		var soundFile = air.File.applicationDirectory.resolvePath(file);
 		var sound = new air.Sound();
@@ -1514,13 +1676,13 @@ Ext.air.Sound = {
 
 Ext.air.SystemMenu = function(){
 	var menu;
-	
+	// windows
 	if(air.NativeWindow.supportsMenu && nativeWindow.systemChrome != air.NativeWindowSystemChrome.NONE) {
         menu = new air.NativeMenu();
         nativeWindow.menu = menu;
     }
     
-	
+	// mac
     if(air.NativeApplication.supportsMenu) {
 		menu = air.NativeApplication.nativeApplication.menu;
     }
@@ -1535,6 +1697,7 @@ Ext.air.SystemMenu = function(){
     }
 
     return {
+		
 		add: function(text, actions, mindex){
 
             var item = find(menu, text);
@@ -1550,13 +1713,14 @@ Ext.air.SystemMenu = function(){
             return item.submenu;
         },
 		
+		
 		get : function(){
 			return menu;
 		}
 	};	
 }();
 
-
+// ability to bind native menu items to an Ext.Action
 Ext.air.MenuItem = function(action){
 	if(!action.isAction){
 		action = new Ext.Action(action);
@@ -1587,7 +1751,7 @@ Ext.air.MenuItem = function(action){
 		},
 		
 		setVisible : function(v){
-			
+			// could not find way to hide in air so disable?
 			nativeItem.enabled = !v;
 		},
 		
@@ -1595,10 +1759,396 @@ Ext.air.MenuItem = function(action){
 			handler = newHandler;
 			scope = newScope;
 		},
-		
+		// empty function
 		on : function(){}
 	});
 	
 	return nativeItem;
 }
+
+Ext.ns('Ext.air');
+
+Ext.air.MusicPlayer = Ext.extend(Ext.util.Observable, {
+	
+	activeSound: null,
+	
+	activeChannel: null,
+	
+	activeTransform: new air.SoundTransform(1, 0),
+	// private 
+	pausePosition: 0,
+	
+	progressInterval: 500,
+	
+	constructor: function(config) {
+		config = config || {};
+		Ext.apply(this, config);
+		
+		this.addEvents(
+			
+			'stop',
+			
+			'pause',
+			
+			'play',
+			
+			'load',
+			
+			'id3info',
+			
+			'complete',
+			
+			'progress',
+			
+			'skip'
+		);
+		
+		Ext.air.MusicPlayer.superclass.constructor.call(this, config);
+		this.onSoundFinishedDelegate = this.onSoundFinished.createDelegate(this);
+		this.onSoundLoadDelegate = this.onSoundLoad.createDelegate(this);
+		this.onSoundID3LoadDelegate = this.onSoundID3Load.createDelegate(this);
+
+		Ext.TaskMgr.start({
+			run: this.notifyProgress,
+			scope: this,
+			interval: this.progressInterval
+		});		
+	},	
+
+	
+	adjustVolume: function(percent) {
+		this.activeTransform.volume = percent;
+		if (this.activeChannel) {		
+			this.activeChannel.soundTransform = this.activeTransform;		
+		}		
+	},
+	
+	stop: function() {
+		this.pausePosition = 0;		
+		if (this.activeChannel) {
+			this.activeChannel.stop();			
+			this.activeChannel = null;			
+		}		
+		if (this.activeSound) {
+			this.activeSound.removeEventListener(air.Event.COMPLETE, this.onSoundLoadDelegate);
+			this.activeSound.removeEventListener(air.Event.ID3, this.onSoundID3LoadDelegate);
+			this.activeSound.removeEventListener(air.Event.SOUND_COMPLETE, this.onSoundFinishedDelegate);						
+		}
+	},
+	
+	pause: function() {
+		if (this.activeChannel) {
+			this.pausePosition = this.activeChannel.position;
+			this.activeChannel.stop();			
+		}		
+	},
+	
+	play: function(url) {
+		if (url) {			
+			this.stop();			
+			var req = new air.URLRequest(url);
+			this.activeSound = new air.Sound();
+			this.activeSound.addEventListener(air.Event.SOUND_COMPLETE, this.onSoundFinishedDelegate);						
+			this.activeSound.addEventListener(air.Event.COMPLETE, this.onSoundLoadDelegate);			
+			this.activeSound.addEventListener(air.Event.ID3, this.onSoundID3LoadDelegate);
+			this.activeSound.load(req);						
+		} else {
+			this.onSoundLoad();	
+		}	
+	},
+	
+	
+	skipTo: function(pos) {
+		if (this.activeChannel) {
+			this.activeChannel.stop();		
+			this.activeChannel = this.activeSound.play(pos);	
+			this.activeChannel.soundTransform = this.activeTransform;		
+			this.fireEvent('skip', this.activeChannel, this.activeSound, pos);
+		}
+	},
+	
+	
+	hasActiveChannel: function() {
+		return !!this.activeChannel;
+	},
+	
+	// private
+	onSoundLoad: function(event) {
+		if (this.activeSound) {
+			if (this.activeChannel) {
+				this.activeChannel.stop();
+			}
+			this.activeChannel = this.activeSound.play(this.pausePosition);
+			this.activeChannel.soundTransform = this.activeTransform;
+			this.fireEvent('load', this.activeChannel, this.activeSound);
+		}		
+	},
+	// private
+	onSoundFinished: function(event) {
+		// relay AIR event
+		this.fireEvent('complete', event);
+	},
+	// private
+	onSoundID3Load: function(event) {
+		this.activeSound.removeEventListener(air.Event.ID3, this.onSoundID3LoadDelegate);		
+		var id3 = event.target.id3;		
+		this.fireEvent('id3info', id3);
+	},
+	// private
+	notifyProgress: function() {
+		if (this.activeChannel && this.activeSound) {
+			var playbackPercent = 100 * (this.activeChannel.position / this.activeSound.length);			
+			// SOUND_COMPLETE does not seem to work consistently.
+			if (playbackPercent > 99.7) {
+				this.onSoundFinished();				
+			} else {
+				this.fireEvent('progress', this.activeChannel, this.activeSound);
+			}	
+		}		
+	}		
+});
+Ext.air.Notify = Ext.extend(Ext.air.NativeWindow, {
+	winType: 'notify',
+	type: 'lightweight',
+	width: 400,
+	height: 50,
+	chrome: 'none',
+	transparent: true,
+	alwaysOnTop: true,
+	extraHeight: 22,
+	hideDelay: 3000,
+	msgId: 'msg',
+	iconId: 'icon',
+	icon: Ext.BLANK_IMAGE_URL,
+	boxCls: 'x-box',
+	extAllCSS: '../extjs/resources/css/ext-all.css',
+	xtpl: new Ext.XTemplate(
+		'<html><head><link rel="stylesheet" href="{extAllCSS}" /></head>',
+			'<body>',
+				'<div class="{boxCls}-tl"><div class="{boxCls}-tr"><div class="{boxCls}-tc"></div></div></div><div class="{boxCls}-ml"><div class="{boxCls}-mr"><div class="{boxCls}-mc">',
+			    	'<div id="{msgId}">',
+			    		'<span>{msg}</span>',
+						'<div id="{iconId}" style="float: right;"><img src="{icon}"></div>',
+			    	'</div>',
+				'</div></div></div><div class="{boxCls}-bl"><div class="{boxCls}-br"><div class="{boxCls}-bc"></div></div></div>',
+			'</body>',
+		'</html>'
+	),
+	constructor: function(config) {
+		config = config || {};
+		Ext.apply(this, config);
+		config.html = this.xtpl.apply(this);
+		Ext.air.Notify.superclass.constructor.call(this, config);
+		this.getNative().alwaysInFront = true;
+		this.onCompleteDelegate = this.onComplete.createDelegate(this);
+		this.loader.addEventListener(air.Event.COMPLETE, this.onCompleteDelegate);
+	},
+	onComplete: function(event) {
+		this.loader.removeEventListener(air.Event.COMPLETE, this.onCompleteDelegate);
+		this.show(event);												
+	}, 
+	show: function(event) {
+		var h = event.target.window.document.getElementById(this.msgId).clientHeight + this.extraHeight;
+		var main = air.Screen.mainScreen;
+		var xy = [0,0];						
+		xy[0] = main.visibleBounds.bottomRight.x - this.width;
+		xy[1] = main.visibleBounds.bottomRight.y - this.height;	
+		this.moveTo(xy[0], xy[1]);
+		Ext.air.Notify.superclass.show.call(this);
+		this.close.defer(this.hideDelay, this);
+	}
+});	
+
+Ext.air.Clipboard = function() {
+    var clipboard = air.Clipboard.generalClipboard;
+    
+    return {
+        
+        hasData: function(format) {
+            return clipboard.hasFormat(format);
+        },
+        
+        setData: function(format, data) {
+            clipboard.setData(format, data);
+        },
+        
+        setDataHandler: function(format, fn) {
+            clipboard.setDataHandler(format, fn);
+        },
+        
+        getData: function(format, transferMode) {
+            clipboard.getData(format, transferMode);
+        },
+        
+        clear: function() {
+            clipboard.clear();
+        },
+        
+        clearData: function(format) {
+            clipboard.clearData(format);
+        }
+    };
+}();
+Ext.air.App = function() {
+    return {
+        launchOnStartup: function(launch) {
+            air.NativeApplication.nativeApplication.startAtLogin = !!launch;
+        },
+        getActiveWindow: function() {
+            return air.NativeApplication.activeWindow;
+        }
+    };
+}();
+
+Ext.air.dir = function (obj, indent) {
+    indent = indent || 0;
+    var indentString = "";    
+    
+    for (var i = 0; i < indent; i++) {
+        indentString += "\t";
+    }
+    
+    var val;
+    for (var prop in obj) {
+        val = obj[prop];
+        if (typeof(val) == "object") {
+            air.trace(indentString + " " + prop + ": [Object]");
+            Ext.air.dir(val, indent + 1);
+        } else {
+            air.trace(indentString + " " + prop + ": " + val);
+        }
+    }
+};
+Ext.tree.LocalTreeLoader = Ext.extend(Ext.tree.TreeLoader, {
+    requestData : function(node, callback){
+        if(this.fireEvent("beforeload", this, node, callback) !== false){
+            var p = Ext.urlDecode(this.getParams(node));
+            var response = this.dataFn(node);
+            this.processResponse(response, node, callback);
+            this.fireEvent("load", this, node, response);			
+        }else{
+            // if the load is cancelled, make sure we notify
+            // the node that we are done
+            if(typeof callback == "function"){
+                callback();
+            }
+        }
+    },	
+    processResponse : function(o, node, callback){
+        try {
+            node.beginUpdate();
+            for(var i = 0, len = o.length; i < len; i++){
+                var n = this.createNode(o[i]);
+                if(n){
+                    node.appendChild(n);
+                }
+            }
+            node.endUpdate();
+            if(typeof callback == "function"){
+                callback(this, node);
+            }
+        }catch(e){
+            this.handleFailure(response);
+        }
+    },
+    load : function(node, callback){
+        if(this.clearOnLoad){
+            while(node.firstChild){
+                node.removeChild(node.firstChild);
+            }
+        }
+        if(this.doPreload(node)){ // preloaded json children
+            if(typeof callback == "function"){
+                callback();
+            }
+        }else if(this.dataFn||this.fn){
+            this.requestData(node, callback);
+        }
+    }		
+});
+
+
+Ext.air.FileTreeLoader = Ext.extend(Ext.tree.LocalTreeLoader, {
+    extensionFilter: false,
+    dataFn: function(currNode) {
+        var currDir;
+        if (currNode.attributes.url) {
+                currDir = this.directory.resolvePath(currNode.attributes.url);
+        } else {
+                currDir = this.directory;
+        }
+        var files = []; 
+        var c = currDir.getDirectoryListing();
+        for (i = 0; i < c.length; i++) {
+            if (c[i].isDirectory || this.extensionFilter === false || this.extensionFilter === c[i].extension)
+            files.push({
+                text: c[i].name,
+                url: c[i].url,
+                extension: c[i].extension,
+                leaf: !c[i].isDirectory
+            });
+        }
+        return files;			
+    }
+});
+
+Ext.air.VideoPanel = Ext.extend(Ext.Panel, {
+    // Properties
+    autoResize: true,
+
+    // Overriden methods
+    initComponent: function() {
+	var connection = new air.NetConnection();
+	connection.connect(null);
+
+	this.stream = new runtime.flash.net.NetStream(connection);
+	this.stream.client = {
+	    onMetaData: Ext.emptyFn
+	};
+	
+        Ext.air.VideoPanel.superclass.initComponent.call(this);
+	this.on('bodyresize', this.onVideoResize, this);
+    },
+    
+    afterRender: function() {
+        Ext.air.VideoPanel.superclass.afterRender.call(this);
+	(function() {
+            var box = this.body.getBox();
+            this.video = new air.Video(this.getInnerWidth(), this.getInnerHeight());
+            if (this.url) {
+                this.video.attachNetStream(this.stream);
+                this.stream.play(this.url);
+            }
+            nativeWindow.stage.addChild(this.video);
+            this.video.x = box.x;
+            this.video.y = box.y;
+	}).defer(500, this);
+    },
+    
+    // Custom Methods
+    onVideoResize: function(pnl, w, h) {
+	if (this.video && this.autoResize) {
+            var iw = this.getInnerWidth();
+            var ih = this.getInnerHeight();
+            this.video.width = iw
+            this.video.height = ih;
+            var xy = this.body.getXY();
+            if (xy[0] !== this.video.x) {
+                    this.video.x = xy[0];
+            }
+            if (xy[1] !== this.video.y) {
+                    this.video.y = xy[1];
+            }
+	}
+    },
+    
+    loadVideo: function(url) {
+	this.stream.close();
+	this.video.attachNetStream(this.stream);
+	this.stream.play(url);		
+    }
+    
+});
+Ext.reg('videopanel', Ext.air.VideoPanel);
+
 

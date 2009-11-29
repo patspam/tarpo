@@ -20,7 +20,7 @@ Ext.onReady(function(){
 		id: 'mainWindow',
 		instance: window.nativeWindow,
 		minimizeToTray: true,
-		trayIcon: 'ext-air/resources/icons/extlogo16.png',
+		trayIcon: 'icons/extlogo16.png',
 		trayTip: 'Tarpo',
 		trayMenu : [{
 			text: 'Open Tarpo',

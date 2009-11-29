@@ -24,13 +24,13 @@
 	<name>Tarpo</name>
 
 	<!-- An application version designator (such as "v1", "2.5", or "Alpha 1"). Required. -->
-	<version>1.0.1</version>
+	<version>1.0.2</version>
 
 	<!-- Description, displayed in the AIR application installer. Optional. -->
 	<description>Tarpo by Patrick Donelan</description>
 
 	<!-- Copyright information. Optional -->
-	<copyright>(c) 2008 - Patrick Donelan</copyright>
+	<copyright>(c) 2009 - Patrick Donelan</copyright>
 
 	<!-- Settings for the application's initial window. Required. -->
 	<initialWindow>
@@ -86,11 +86,12 @@
 	<!-- The icon the system uses for the application. For at least one resolution,
 		 specify the path to a PNG file included in the AIR package. Optional. -->
 	<icon>
-	  	<image16x16>ext-air/resources/icons/extlogo16.png</image16x16>
-		<image32x32>ext-air/resources/icons/extlogo32.png</image32x32>
-		<image48x48>ext-air/resources/icons/extlogo48.png</image48x48>
-		<image128x128>ext-air/resources/icons/extlogo128.png</image128x128>
+	  	<image16x16>icons/extlogo16.png</image16x16>
+		<image32x32>icons/extlogo32.png</image32x32>
+		<image48x48>icons/extlogo48.png</image48x48>
+		<image128x128>icons/extlogo128.png</image128x128>
 	</icon>
+	<fileTypes></fileTypes>
 
 	<!-- Whether the application handles the update when a user double-clicks an update version
 	of the AIR file (true), or the default AIR application installer handles the update (false).
