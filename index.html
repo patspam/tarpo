@@ -40,7 +40,6 @@
             
             .description {
                 font-size: 1.2em;
-                margin-bottom: 30px;
                 margin-top: 30px;
                 font-style: italic;
             }
@@ -67,8 +66,8 @@
                 font-style: italic;
             }
         </style>
-        <script type="text/javascript" src="lib/badge/swfobject.js">
-        </script>
+		<link rel="stylesheet" href="thickbox/thickbox.css" type="text/css"/>
+        <script type="text/javascript" src="lib/badge/swfobject.js"></script>
     </head>
     <body>
         <a href="http://github.com/pdonelan/tarpo"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
@@ -80,8 +79,8 @@
                 Data collection tool for Dog health programs in remote Indigenous Australian communities. 
             </div>
 			<div>
-				<img src="img/tarpo.jpg"> 
-				<img src="img/screenshot.png">
+				<a href="img/tarpo.jpg" title="Tarpo Logo" class="thickbox"><img src="img/tarpo.jpg" border="0" alt="Tarpo Logo"/></a> 
+				<a href="img/screenshot.png" title="Tarpo Screenshot" class="thickbox"><img src="img/screenshot.png" border="0" alt="Tarpo Screenshot"/></a>
 			</div>
 			<h2>Why</h2>
             <p>
@@ -138,6 +137,8 @@
                 Tarpo is open source software, released under the <a href="http://www.gnu.org/licenses/gpl.html">GPL Version 3</a>.
             </p>
         </div>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+		<script type="text/javascript" src="thickbox/thickbox.js"></script>
         <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
