@@ -59,3 +59,10 @@ hr {
     padding-top: 30px;
     font-style: italic;
 }
+
+.badge {
+    text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	width: 200px;
+}
