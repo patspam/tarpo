@@ -98,7 +98,7 @@ tx.data.med = new tx.data.MedStore();
 tx.data.lists = new tx.data.ListStore();
 
 Ext.util.Format.bool = function(value){
-	return value ? '<img src="/images/icon-complete.gif"></input>' : '';
+	return value ? '<img src="../images/icon-complete.gif"></input>' : '';
 };
 
 tx.data.demoData = function() {
