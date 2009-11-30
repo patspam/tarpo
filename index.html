@@ -4,92 +4,111 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <title>Tarpo</title>
         <link rel="stylesheet" href="style.css" type="text/css"/>
-		<link rel="stylesheet" href="lib/thickbox/thickbox.css" type="text/css"/>
+        <link rel="stylesheet" href="lib/fancybox/jquery.fancybox-1.2.6.css" type="text/css"/>
     </head>
     <body>
         <a href="http://github.com/pdonelan/tarpo"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
         <div id="container">
             <div class="download">
                 <a href="http://github.com/pdonelan/tarpo/zipball/master"><img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a><a href="http://github.com/pdonelan/tarpo/tarball/master"><img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
-            </div><h1><a href="http://github.com/pdonelan/tarpo">Tarpo</a></h1>
-            <div class="description">
-				Open source, cross platform Data Management desktop application for <a href="http://www.amrric.org">Dog Health programs in rural and remote Indigenous Australian communities</a>, written entirely in Javascript.
             </div>
-			<div>
-				<a href="img/tarpo.jpg" title="Tarpo Logo" class="thickbox"><img src="img/tarpo.jpg" border="0" alt="Tarpo Logo"/></a> 
-				<a href="img/screenshot.png" title="Tarpo Screenshot" class="thickbox"><img src="img/screenshot-t.png" border="0" alt="Tarpo Screenshot"/></a>
-			</div>
-			<h2>Why</h2>
+			<h1>
+				<a class="logo" href="img/tarpo.jpg" title="Tarpo Logo"><img src="img/tarpo-t.jpg"></a>
+				<a href="http://github.com/pdonelan/tarpo">Tarpo</a>
+			</h1>
+            <div class="description">
+                Open source, cross platform Data Management desktop application for <a href="http://www.amrric.org">Dog Health programs in rural and remote Indigenous Australian communities</a>, written entirely in Javascript.
+            </div>
+            <div>
+                <a class="screenshot" rel="screenshot" href="img/screenshot-visit.jpg" title="House Visit"><img src="img/screenshot-visit-t.jpg"></a><a class="screenshot" rel="screenshot" href="img/screenshot-surg.jpg" title="Surgical Case"><img src="img/screenshot-surg-t.jpg"></a><a class="screenshot" rel="screenshot" href="img/screenshot-list.jpg" title="Data Management"><img src="img/screenshot-list-t.jpg"></a><a class="screenshot" rel="screenshot" href="img/screenshot-stats.jpg" title="Reporting"><img src="img/screenshot-stats-t.jpg"></a>
+            </div><h2>Why</h2>
             <p>
                 See <a href="http://blog.patspam.com/2008/tarpo">blog.patspam.com/2008/tarpo</a>
             </p>
             <h2>Install</h2>
-			<p>
-				Tarpo is a cross platform desktop application. Click the "Install Now" button below to install Tarpo onto your computer. 
-			</p>
-			
-			<div class="badge">
-	            <!-- BEGIN EMBED CODE -->
-				<script type="text/javascript" src="lib/badge/swfobject.js"></script>
-	            <div id="flashcontent" style="width:215px; height:180px; ">
-	                <strong>Please upgrade your Flash Player</strong>
-	                You do not appear to have Flash Player 6.0.65 or higher installed.
-	            </div>
-	            <script type="text/javascript">
-	                // <![CDATA[ 
-	                // version 9.0.115 or greater is required for launching AIR apps.
-	                
-	                var so = new SWFObject("lib/badge/AIRInstallBadge.swf", "Badge", "215", "180", "9.0.115", "#FFFFFF");
-	                so.addVariable("airversion", "1.5");
-	                so.addVariable("appname", "Tarpo");
-	                so.addVariable("appurl", "http://cloud.github.com/downloads/pdonelan/tarpo/tarpo-1.0.2-beta.air");
-	                so.addVariable("appid", "com.patspam.tarpo");
-	                so.addVariable("imageurl", "img/tarpo-badge.jpg");
-	                so.addVariable("hidehelp", "false");
-	                so.addVariable("skiptransition", "false");
-	                so.addVariable("appversion", "1.0.2");
-	                so.addVariable("backgroundColor", "#FFFFFF");
-	                so.write('flashcontent');
-	                // ]]>
-	            </script>
-			</div>
-			
-            <div>
-                If you are installing for the first time, the <a href="http://get.adobe.com/air/">Adobe AIR Runtime</a> will be automatically installed.
+            <p>
+                Tarpo is a cross platform desktop application. Click the "Install Now" button below to install Tarpo onto your computer. 
+            </p>
+            <div class="badge">
+                <!-- BEGIN EMBED CODE -->
+                <script type="text/javascript" src="lib/badge/swfobject.js">
+                </script>
+                <div id="flashcontent" style="width:215px; height:180px; ">
+                    <strong>Please upgrade your Flash Player</strong>
+                    You do not appear to have Flash Player 6.0.65 or higher installed.
+                </div>
+                <script type="text/javascript">
+                    // <![CDATA[ 
+                    // version 9.0.115 or greater is required for launching AIR apps.
+                    
+                    var so = new SWFObject("lib/badge/AIRInstallBadge.swf", "Badge", "215", "180", "9.0.115", "#FFFFFF");
+                    so.addVariable("airversion", "1.5");
+                    so.addVariable("appname", "Tarpo");
+                    so.addVariable("appurl", "http://cloud.github.com/downloads/pdonelan/tarpo/tarpo-1.0.2-beta.air");
+                    so.addVariable("appid", "com.patspam.tarpo");
+                    so.addVariable("imageurl", "img/tarpo-badge.jpg");
+                    so.addVariable("hidehelp", "false");
+                    so.addVariable("skiptransition", "false");
+                    so.addVariable("appversion", "1.0.2");
+                    so.addVariable("backgroundColor", "#FFFFFF");
+                    so.write('flashcontent');
+                    // ]]>
+                </script>
             </div>
-			
+            <div>
+                If you are installing for the first time, the <a href="http://get.adobe.com/air/">Adobe AIR Runtime</a>
+                will be automatically installed.
+            </div>
             <h2>Community</h2>
             <p>
                 Visit the <a href="http://github.com/pdonelan/tarpo">Tarpo Project Page on GitHub</a>.
             </p>
-			<p>
-				Visit the <a href="http://github.com/pdonelan/tarpo/issues">Issue Tracker</a> to submit bugs and feature requests.
             <p>
-                You can clone the project with <a href="http://git-scm.com">Git</a>
-                by running:<pre>$ git clone git://github.com/pdonelan/tarpo</pre>
-            </p>
-            <h2>Authors</h2>
-            <p>
-                <a href="http://patspam.com">Patrick Donelan</a><br><br>
-				<a href="http://www.iomoon.com.au">Andrew Smith</a> (Tarpo logo)
-            </p>
-            <div class="footer">
-                Tarpo is open source software, released under the <a href="http://www.gnu.org/licenses/gpl.html">GPL Version 3</a>.
-            </div>
-        </div>
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
-		<script type="text/javascript" src="lib/thickbox/thickbox.js"></script>
-        <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-        </script>
-        <script type="text/javascript">
-            try {
-                var pageTracker = _gat._getTracker("UA-11830954-1");
-                pageTracker._trackPageview();
-            } 
-            catch (err) {
-            }
-        </script>
-    </body>
-</html>
+                Visit the <a href="http://github.com/pdonelan/tarpo/issues">Issue Tracker</a>
+                to submit bugs and feature requests.
+                <p>
+                    You can clone the project with <a href="http://git-scm.com">Git</a>
+                    by running:<pre>$ git clone git://github.com/pdonelan/tarpo</pre>
+                </p>
+                <h2>Authors</h2>
+                <p>
+                    <a href="http://patspam.com">Patrick Donelan</a>
+                    <br>
+                    <br>
+                    <a href="http://www.iomoon.com.au">Andrew Smith</a>
+                    (Tarpo logo)
+                </p>
+                <div class="footer">
+                    Tarpo is open source software, released under the <a href="http://www.gnu.org/licenses/gpl.html">GPL Version 3</a>.
+                </div>
+                </div>
+                <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js">
+                </script>
+                <script type="text/javascript" src="lib/fancybox/jquery.fancybox-1.2.6.pack.js">
+                </script>
+                <script type="text/javascript">
+                    $(document).ready(function(){
+						$("a.logo").fancybox({
+                            'zoomSpeedIn': 300,
+                            'zoomSpeedOut': 300
+                        });
+                        $("a.screenshot").fancybox({
+                            'zoomSpeedIn': 300,
+                            'zoomSpeedOut': 300
+                        });
+                    });
+                </script>
+                <script type="text/javascript">
+                    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+                    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+                </script>
+                <script type="text/javascript">
+                    try {
+                        var pageTracker = _gat._getTracker("UA-11830954-1");
+                        pageTracker._trackPageview();
+                    } 
+                    catch (err) {
+                    }
+                </script>
+            </body>
+            </html>

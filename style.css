@@ -35,6 +35,7 @@ h3 {
 .description {
     font-size: 1.2em;
     margin-top: 30px;
+	margin-bottom: 5px;
     font-style: italic;
 }
 
@@ -62,7 +63,18 @@ hr {
 
 .badge {
     text-align: center;
-	margin-left: auto;
-	margin-right: auto;
-	width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+}
+
+.logo img {
+    margin-bottom: -20px;
+	margin-right: -10px;
+}
+
+.logo img, .screenshot img {
+	text-decoration: none;
+	border: 0 none;
+	padding: 5px;
 }
