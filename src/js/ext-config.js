@@ -1,4 +1,4 @@
-Ext.BLANK_IMAGE_URL = 'images/s.gif';
+Ext.BLANK_IMAGE_URL = '../images/s.gif';
 
 tx = {data:{}, ui: {}};
 

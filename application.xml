@@ -22,7 +22,7 @@
 	<!-- Settings for the application's initial window. Required. -->
 	<initialWindow>
 		<!-- The main HTML file of the application. Required. -->
-		<content>main.html</content>
+		<content>src/html/main.html</content>
 		
 		<!-- The title of the main window. Optional. -->
 		 <title>Tarpo</title>
@@ -35,15 +35,6 @@
 
 		<!-- Whether the window is initially visible. Optional. Default false. -->
 		<visible>false</visible>
-
-		<!-- Whether the user can minimize the window. Optional. Default true. -->
-		<minimizable>true</minimizable>
-
-		<!-- Whether the user can maximize the window. Optional. Default true. -->
-		<maximizable>true</maximizable>
-
-		<!-- Whether the user can resize the window. Optional. Default true. -->
-		<resizable>true</resizable>
 
 		<!-- The window's initial width. Optional. -->
 		<width>1024</width>
@@ -70,44 +61,12 @@
 	<!-- The subpath of the Windows Start/Programs menu to use. Optional. -->
 	<!-- <programMenuFolder>Tarpo</programMenuFolder> -->
 
-	<!-- The icon the system uses for the application. For at least one resolution,
-		 specify the path to a PNG file included in the AIR package. Optional. -->
+	<!-- The icon the system uses for the application -->
 	<icon>
-	  	<image16x16>extjs/air/resources/icons/extlogo16.png</image16x16>
-		<image32x32>extjs/air/resources/icons/extlogo32.png</image32x32>
-		<image48x48>extjs/air/resources/icons/extlogo48.png</image48x48>
-		<image128x128>extjs/air/resources/icons/extlogo128.png</image128x128>
+	  	<image16x16>src/extjs/air/resources/icons/extlogo16.png</image16x16>
+		<image32x32>src/extjs/air/resources/icons/extlogo32.png</image32x32>
+		<image48x48>src/extjs/air/resources/icons/extlogo48.png</image48x48>
+		<image128x128>src/extjs/air/resources/icons/extlogo128.png</image128x128>
 	</icon>
-
-	<!-- Whether the application handles the update when a user double-clicks an update version
-	of the AIR file (true), or the default AIR application installer handles the update (false).
-	Optional. Default false. -->
-	<!-- <customUpdateUI></customUpdateUI> -->
-	
-	<!-- Whether the application can be launched when the user clicks a link in a web browser.
-	Optional. Default false. -->
-	<!-- <allowBrowserInvocation></allowBrowserInvocation> -->
-
-	<!-- Listing of file types for which the application can register. Optional. -->
-	<fileTypes>
-	<!-- Defines one file type. Optional. -->
-	<!-- <fileType> -->
-	<!-- The name that the system displays for the registered file type. Required. -->
-	<!-- <name></name> -->
-	<!-- The extension to register. Required. -->
-	<!-- <extension></extension> -->
-	<!-- The description of the file type. Optional. -->
-	<!-- <description></description> -->
-	<!-- The MIME type. Optional. -->
-	<!-- <contentType></contentType> -->
-	<!-- The icon to display for the file type. Optional. -->
-	<!-- <icon>
-					<image16x16></image16x16>
-					<image32x32></image32x32>
-					<image48x48></image48x48>
-					<image128x128></image128x128>
-				</icon> -->
-	<!-- </fileType> -->
-	</fileTypes>
 
 </application>

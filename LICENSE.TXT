@@ -1,9 +1,0 @@
-Tarpo
-Copyright 2008 - Patrick Donelan
-http://patspam.com
-
-Distributed under the terms of the GNU GPL v3.
-http://www.gnu.org/licenses/gpl-3.0.html
-
-Tarpo is based on the ExtJS Simple Tasks v2 sample code (GPL v3).
-http://extjs.com
