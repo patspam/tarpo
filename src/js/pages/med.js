@@ -1,20 +1,19 @@
 Ext.onReady(function(){
 
-	
     Ext.QuickTips.init();
 	
 	// globals in function scope
 	var win = window.nativeWindow;
 	var opener = Ext.air.NativeWindow.getRootHtmlWindow();
-	var surgId = String(window.location).split('=')[1];
-	var isNew = surgId == 'New';
+	var medId = String(window.location).split('=')[1];
+	var isNew = medId == 'New';
 	var addCount = 1;
 	
 	if (isNew) {
-		surgId = Ext.uniqueId();
-		win.title = 'New Surgical Case #' + addCount;
+		medId = Ext.uniqueId();
+		win.title = 'New Medical Case #' + addCount;
 	} else {
-		win.title = 'Surgical Case - ' + Ext.util.Format.ellipsis(getView().data.mc, 40);
+		win.title = 'Medical Case - ' + Ext.util.Format.ellipsis(getView().data.mc, 40);
 	}	
 	
 	var tb = new Ext.Toolbar({
@@ -23,9 +22,9 @@ Ext.onReady(function(){
 		id:'main-tb',
 		items:[
 			{iconCls: 'icon-delete', text: 'Delete', handler: function(){
-				Ext.Msg.confirm('Confirm Delete', 'Are you sure you want to delete this Surgical Case?', function(btn){
+				Ext.Msg.confirm('Confirm Delete', 'Are you sure you want to delete this Medical Case?', function(btn){
 					if(btn == 'yes'){
-						opener.tx.data.surg.remove(getView());
+						opener.Tarpo.store.med.remove(getView());
 						win.close();
 					}
 				});
@@ -47,8 +46,8 @@ Ext.onReady(function(){
 				if(validate()) {
 					saveData();
 					isNew = true;
-					surgId = Ext.uniqueId();
-					win.title = 'New Surgical Case #' + ++addCount;
+					medId = Ext.uniqueId();
+					win.title = 'New Medical Case #' + ++addCount;
 				}
 			}
 		},{
@@ -65,57 +64,53 @@ Ext.onReady(function(){
 		}],
 		
         items: [
-			{xtype: 'tx.form.d'},
-			{xtype: 'tx.form.listId'},
+			{xtype: 'Tarpo.form.d'},
+			{xtype: 'Tarpo.form.listId'},
 			
-			tx.form.dual_column(
-				{xtype: 'tx.form.house'},
-				{xtype: 'tx.form.loc'}
+			Tarpo.form.dual_column(
+				{xtype: 'Tarpo.form.house'},
+				{xtype: 'Tarpo.form.loc'}
 			),
 			
-			tx.form.dual_column(
-				{xtype: 'tx.form.balanda'},
-				{xtype: 'tx.form.charge'}
+			Tarpo.form.dual_column(
+				{xtype: 'Tarpo.form.balanda'},
+				{xtype: 'Tarpo.form.charge'}
 			),
 			
-			tx.form.dual_column(
-				{xtype: 'tx.form.owner'},
-				{xtype: 'tx.form.domicile'}
+			Tarpo.form.dual_column(
+				{xtype: 'Tarpo.form.owner'},
+				{xtype: 'Tarpo.form.domicile'}
 			),
 			
-			tx.form.dual_column(
-				{xtype: 'tx.form.type'},
-				{xtype: 'tx.form.breed'}
+			Tarpo.form.dual_column(
+				{xtype: 'Tarpo.form.type'},
+				{xtype: 'Tarpo.form.breed'}
 			),
 			
-			{xtype: 'tx.form.mc'},
+			{xtype: 'Tarpo.form.mc'},
 			
-			tx.form.dual_column(				
-				{xtype: 'tx.form.name'},
-				{xtype: 'tx.form.colour'}
+			Tarpo.form.dual_column(				
+				{xtype: 'Tarpo.form.name'},
+				{xtype: 'Tarpo.form.colour'}
 			),
 			
-			tx.form.dual_column(
-				{xtype: 'tx.form.sex'},
-				{xtype: 'tx.form.desexed'}
+			Tarpo.form.dual_column(
+				{xtype: 'Tarpo.form.sex'},
+				{xtype: 'Tarpo.form.desexed'}
 			),
 			
-			tx.form.dual_column(
-				{xtype: 'tx.form.bcs'},
-				{xtype: 'tx.form.mange'}
+			Tarpo.form.dual_column(
+				{xtype: 'Tarpo.form.bcs'},
+				{xtype: 'Tarpo.form.mange'}
 			),
 			
-			tx.form.dual_column(
-				{xtype: 'tx.form.desex'},
-				{xtype: 'tx.form.other_procedures'}
+			Tarpo.form.dual_column(
+				{xtype: 'Tarpo.form.reason'},
+				{xtype: 'Tarpo.form.vacc'}
 			),
 			
-			tx.form.dual_column(
-				{xtype: 'tx.form.tvt'},
-				{xtype: 'tx.form.vacc'}
-			),
-			
-			{xtype: 'tx.form.details'},
+			{xtype: 'Tarpo.form.euth'},
+			{xtype: 'Tarpo.form.details'},
 		]
     });
 	
@@ -141,7 +136,7 @@ Ext.onReady(function(){
 	function saveData(){
 		var view;
 		if(isNew){
-			view = opener.tx.data.surg.createSurg(
+			view = opener.Tarpo.store.med.createMed(
 				form.getForm().findField('listId').getRawValue()
 			);
 		}else{
@@ -163,10 +158,10 @@ Ext.onReady(function(){
 	}
 	
 	function getView(){
-		var t = opener.tx.data.surg.lookup(surgId);
+		var t = opener.Tarpo.store.med.lookup(medId);
 		if(t){
 			//workaround WebKit cross-frame date issue
-			fixDateMember(t.data, 'd');
+			Tarpo.Util.fixDateMember(t.data, 'd');
 		}
 		return t;
 	}

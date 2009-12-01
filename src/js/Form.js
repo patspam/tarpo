@@ -5,7 +5,7 @@
 (function(){
     var opener = Ext.air.NativeWindow.getRootHtmlWindow();
     var clearComboMarker = '---';
-	Ext.namespace('tx.form');
+	Ext.namespace('Tarpo.form');
     
 	/* 
 	 * @private - used to sort combo data alphabetically whilst leaving 
@@ -27,7 +27,7 @@
 	 * Used to quickly and easily add 2 form items into a 2-column layout
 	 * 
 	 */
-	tx.form.dual_column = function(a, b){
+	Tarpo.form.dual_column = function(a, b){
         return {
             layout: 'column',
             anchor: '100%',
@@ -47,7 +47,7 @@
         }
     };
 
-	Ext.reg('tx.form.d', tx.form.d = Ext.extend(Ext.form.DateField, {
+	Ext.reg('Tarpo.form.d', Tarpo.form.d = Ext.extend(Ext.form.DateField, {
 	    fieldLabel: 'Date',
 		name: 'd',
 	    width: 135,
@@ -56,10 +56,10 @@
 		allowBlank: false,
 	}));
 	
-	Ext.reg('tx.form.listId', tx.form.listId = Ext.extend(ListSelector, {
+	Ext.reg('Tarpo.form.listId', Tarpo.form.listId = Ext.extend(ListSelector, {
 		fieldLabel: 'List',
 		name: 'listId',
-		store: opener.tx.data.lists,
+		store: opener.Tarpo.store.list,
 		anchor: '100%',
 		allowBlank: false,
 		
@@ -67,7 +67,7 @@
 	    onRender: function(){
 	        // Before parent code
 	        // Call parent (required)
-	        tx.form.listId.superclass.onRender.apply(this, arguments);
+	        Tarpo.form.listId.superclass.onRender.apply(this, arguments);
 	 
 	        // After parent code
 			this.menu.on('beforeshow', function(m){
@@ -76,26 +76,26 @@
 	    }
 	}));
 	
-	Ext.reg('tx.form.house', tx.form.house = Ext.extend(Ext.form.TextField, {
+	Ext.reg('Tarpo.form.house', Tarpo.form.house = Ext.extend(Ext.form.TextField, {
 		fieldLabel: 'House',
 		name: 'house',
 		allowBlank: false,
 		anchor: '100%'
 	}));
 	
-	Ext.reg('tx.form.loc', tx.form.loc = Ext.extend(Ext.form.TextField, {
+	Ext.reg('Tarpo.form.loc', Tarpo.form.loc = Ext.extend(Ext.form.TextField, {
 		fieldLabel: 'Location',
 		name: 'loc',
 		anchor: '100%'
 	}));
 	
-	Ext.reg('tx.form.owner', tx.form.owner = Ext.extend(Ext.form.TextField, {
+	Ext.reg('Tarpo.form.owner', Tarpo.form.owner = Ext.extend(Ext.form.TextField, {
 		fieldLabel: 'Owner',
 		name: 'owner',
 		anchor: '100%'
 	}));
 	
-	Ext.reg('tx.form.name', tx.form.name = Ext.extend(Ext.form.TextField, {
+	Ext.reg('Tarpo.form.name', Tarpo.form.name = Ext.extend(Ext.form.TextField, {
 		fieldLabel: 'Name',
 		name: 'name',
 		anchor: '100%'
@@ -117,7 +117,7 @@
 		},
 	});
 	
-	Ext.reg('tx.form.type', tx.form.type = Ext.extend(Ext.form.ComboBox, {
+	Ext.reg('Tarpo.form.type', Tarpo.form.type = Ext.extend(Ext.form.ComboBox, {
 		fieldLabel: 'Type',
         name: 'type',
         anchor: '100%',
@@ -135,7 +135,7 @@
 		editable: false,
 	}));
 	
-	Ext.reg('tx.form.colour', tx.form.colour = Ext.extend(Ext.ux.ClearableCombo, {
+	Ext.reg('Tarpo.form.colour', Tarpo.form.colour = Ext.extend(Ext.ux.ClearableCombo, {
 		fieldLabel: 'Colour',
 		name: 'colour',
 		anchor: '100%',
@@ -150,7 +150,7 @@
 		selectOnFocus: true,
 	}));
 	
-	Ext.reg('tx.form.sex', tx.form.sex = Ext.extend(Ext.form.ComboBox, {
+	Ext.reg('Tarpo.form.sex', Tarpo.form.sex = Ext.extend(Ext.form.ComboBox, {
 		fieldLabel: 'Sex',
         name: 'sex',
         anchor: '100%',
@@ -168,12 +168,12 @@
         editable: false,
 	}));
 	
-	Ext.reg('tx.form.desexed', tx.form.desexed = Ext.extend(Ext.form.Checkbox, {
+	Ext.reg('Tarpo.form.desexed', Tarpo.form.desexed = Ext.extend(Ext.form.Checkbox, {
 		fieldLabel: 'Desexed',
         name: 'desexed'
 	}));
 	
-	Ext.reg('tx.form.bcs', tx.form.bcs = Ext.extend(Ext.ux.ClearableCombo, {
+	Ext.reg('Tarpo.form.bcs', Tarpo.form.bcs = Ext.extend(Ext.ux.ClearableCombo, {
 	 	fieldLabel: 'BCS',
         name: 'bcs',
         anchor: '100%',
@@ -190,7 +190,7 @@
         editable: false,
 	}));
 	
-	Ext.reg('tx.form.mange', tx.form.mange = Ext.extend(Ext.ux.ClearableCombo, {
+	Ext.reg('Tarpo.form.mange', Tarpo.form.mange = Ext.extend(Ext.ux.ClearableCombo, {
 	 	fieldLabel: 'Mange',
         name: 'mange',
         anchor: '100%',
@@ -207,7 +207,7 @@
         editable: false,
 	}));
 	
-	Ext.reg('tx.form.ticks', tx.form.ticks = Ext.extend(Ext.ux.ClearableCombo, {
+	Ext.reg('Tarpo.form.ticks', Tarpo.form.ticks = Ext.extend(Ext.ux.ClearableCombo, {
 	 	fieldLabel: 'Ticks',
         name: 'ticks',
         anchor: '100%',
@@ -224,7 +224,7 @@
 		editable: false,
 	}));
 	
-	Ext.reg('tx.form.fleas', tx.form.fleas = Ext.extend(Ext.ux.ClearableCombo, {
+	Ext.reg('Tarpo.form.fleas', Tarpo.form.fleas = Ext.extend(Ext.ux.ClearableCombo, {
 	 	fieldLabel: 'Fleas',
         name: 'fleas',
         anchor: '100%',
@@ -241,35 +241,35 @@
 		editable: false,
 	}));
 	
-	Ext.reg('tx.form.ivermectin', tx.form.ivermectin = Ext.extend(Ext.form.Checkbox, {
+	Ext.reg('Tarpo.form.ivermectin', Tarpo.form.ivermectin = Ext.extend(Ext.form.Checkbox, {
 		fieldLabel: 'Ivermectin',
         name: 'ivermectin'
 	}));
 	
-	Ext.reg('tx.form.covinan', tx.form.covinan = Ext.extend(Ext.form.Checkbox, {
+	Ext.reg('Tarpo.form.covinan', Tarpo.form.covinan = Ext.extend(Ext.form.Checkbox, {
 		fieldLabel: 'Covinan',
         name: 'covinan'
 	}));
 	
-	Ext.reg('tx.form.tvt', tx.form.tvt = Ext.extend(Ext.form.Checkbox, {
+	Ext.reg('Tarpo.form.tvt', Tarpo.form.tvt = Ext.extend(Ext.form.Checkbox, {
 		fieldLabel: 'TVT',
         name: 'tvt'
 	}));
 	
-	Ext.reg('tx.form.comments', tx.form.comments = Ext.extend(Ext.form.TextArea, {
+	Ext.reg('Tarpo.form.comments', Tarpo.form.comments = Ext.extend(Ext.form.TextArea, {
 		fieldLabel: 'Comments',
         name: 'comments',
         anchor: '100%',
 		height: 100,
 	}));
 	
-	Ext.reg('tx.form.details', tx.form.details = Ext.extend(Ext.form.TextArea, {
+	Ext.reg('Tarpo.form.details', Tarpo.form.details = Ext.extend(Ext.form.TextArea, {
 		fieldLabel: 'Details',
 		name: 'details',
 		anchor: '100%'
 	}));
 	
-	Ext.reg('tx.form.breed', tx.form.breed = Ext.extend(Ext.ux.ClearableCombo, {
+	Ext.reg('Tarpo.form.breed', Tarpo.form.breed = Ext.extend(Ext.ux.ClearableCombo, {
 	 	fieldLabel: 'Breed',
         name: 'breed',
         anchor: '100%',
@@ -284,7 +284,7 @@
         selectOnFocus: true,
 	}));
 	
-	Ext.reg('tx.form.mc', tx.form.mc = Ext.extend(Ext.form.TextField, {
+	Ext.reg('Tarpo.form.mc', Tarpo.form.mc = Ext.extend(Ext.form.TextField, {
 		fieldLabel: 'Microchip',
         name: 'mc',
         anchor: '100%',
@@ -292,12 +292,12 @@
         minLength: 15,
 	}));
 	
-	Ext.reg('tx.form.balanda', tx.form.balanda = Ext.extend(Ext.form.Checkbox, {
+	Ext.reg('Tarpo.form.balanda', Tarpo.form.balanda = Ext.extend(Ext.form.Checkbox, {
 		fieldLabel: 'Balanda',
         name: 'balanda'
 	}));
 	
-	Ext.reg('tx.form.charge', tx.form.charge = Ext.extend(Ext.form.NumberField, {
+	Ext.reg('Tarpo.form.charge', Tarpo.form.charge = Ext.extend(Ext.form.NumberField, {
 		fieldLabel: 'Charge',
         name: 'charge',
         anchor: '100%',
@@ -306,7 +306,7 @@
         allowBlank: false,
 	}));
     
-	Ext.reg('tx.form.domicile', tx.form.domicile = Ext.extend(Ext.ux.ClearableCombo, {
+	Ext.reg('Tarpo.form.domicile', Tarpo.form.domicile = Ext.extend(Ext.ux.ClearableCombo, {
 	 	fieldLabel: 'Domicile',
         name: 'domicile',
         anchor: '100%',
@@ -323,7 +323,7 @@
         editable: false,
 	}));
 	
-	Ext.reg('tx.form.desex', tx.form.desex = Ext.extend(Ext.ux.ClearableCombo, {
+	Ext.reg('Tarpo.form.desex', Tarpo.form.desex = Ext.extend(Ext.ux.ClearableCombo, {
 	 	fieldLabel: 'Desex',
         name: 'desex',
         anchor: '100%',
@@ -340,17 +340,17 @@
 		editable: false,
 	}));
 	
-	Ext.reg('tx.form.other_procedures', tx.form.other_procedures = Ext.extend(Ext.form.Checkbox, {
+	Ext.reg('Tarpo.form.other_procedures', Tarpo.form.other_procedures = Ext.extend(Ext.form.Checkbox, {
 		fieldLabel: 'Other Procedures',
         name: 'other_procedures'
 	}));
 	
-	Ext.reg('tx.form.vacc', tx.form.vacc = Ext.extend(Ext.form.Checkbox, {
+	Ext.reg('Tarpo.form.vacc', Tarpo.form.vacc = Ext.extend(Ext.form.Checkbox, {
 		fieldLabel: 'Vaccination',
         name: 'vacc'
 	}));
 	
-	Ext.reg('tx.form.reason', tx.form.reason = Ext.extend(Ext.form.ComboBox, {
+	Ext.reg('Tarpo.form.reason', Tarpo.form.reason = Ext.extend(Ext.form.ComboBox, {
 		fieldLabel: 'Reason',
         name: 'reason',
         anchor: '100%',
@@ -368,7 +368,7 @@
 		editable: false,
 	}));
 	
-	Ext.reg('tx.form.euth', tx.form.euth = Ext.extend(Ext.ux.ClearableCombo, {
+	Ext.reg('Tarpo.form.euth', Tarpo.form.euth = Ext.extend(Ext.ux.ClearableCombo, {
 	 	fieldLabel: 'Euthanasia',
         name: 'euth',
         anchor: '100%',

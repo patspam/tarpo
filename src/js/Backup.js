@@ -1,18 +1,24 @@
-tx.Backup = function(){
-	var original = air.File.applicationDirectory;
-	original = original.resolvePath("db");
+Tarpo.Backup = function(){
+	/**
+	 * Backup is done by making a file copy of the SQLite database file
+	 * 
+	 * N.B. Should be close/flush the db before doing this, or does sqlite take
+	 * care of that for us?
+	 */
 	
-	var destination = air.File.desktopDirectory;
-	destination =  destination.resolvePath("Tarpo.backup");
+	// Construct backup filename from date
+	var destinationFilename = 'tarpo-' + new Date().format('Y-m-d-hms') + '.sqlite';
 	
-	original.addEventListener(air.Event.COMPLETE, fileCopyCompleteHandler);
-	original.addEventListener(air.IOErrorEvent.IO_ERROR, fileCopyIOErrorEventHandler);
+	// Backup goes to user's Desktop
+	var destination = air.File.desktopDirectory.resolvePath(destinationFilename);
+	var original = air.File.applicationDirectory.resolvePath(Tarpo.Config.DB_FILENAME);
+	
+	original.addEventListener(air.Event.COMPLETE, function (event){
+	    Ext.Msg.alert("Backup Complete", 'Tarpo has been backed up to the file: "' + destinationFilename + '" on your desktop');
+	});
+	original.addEventListener(air.IOErrorEvent.IO_ERROR, function (event) {
+	    Ext.Msg.alert("I/O Error.", 'An error occurred'); 
+	});
+	
 	original.copyToAsync(destination);
-	
-	function fileCopyCompleteHandler(event){
-	    Ext.Msg.alert("Backup Complete", "Tarpo has been backed up to the file \"Tarpo.backup\" on your desktop");
-	}
-	function fileCopyIOErrorEventHandler(event) {
-	    alert("I/O Error."); 
-	}
 };

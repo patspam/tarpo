@@ -1,7 +1,12 @@
-tx.data.row_limit = 60;
+/**
+ * Tarpo.Data
+ */
+Ext.namespace('Tarpo.Data');
+
+Tarpo.Data.row_limit = 60;
 
 // Define the Visit data type
-tx.data.Visit = Ext.data.Record.create([
+Tarpo.Data.Visit = Ext.data.Record.create([
     {name: 'id', type:'string'},
 	{name: 'listId', type:'string'},
 	{name: 'd', type:'date', dateFormat: Ext.sql.Proxy.DATE_FORMAT, defaultValue: ''},
@@ -24,7 +29,7 @@ tx.data.Visit = Ext.data.Record.create([
 ]);
 
 // Define the Surg data type
-tx.data.Surg = Ext.data.Record.create([
+Tarpo.Data.Surg = Ext.data.Record.create([
     {name: 'id', type:'string'},
 	{name: 'listId', type:'string'},
 	{name: 'd', type:'date', dateFormat: Ext.sql.Proxy.DATE_FORMAT, defaultValue: ''},
@@ -54,7 +59,7 @@ tx.data.Surg = Ext.data.Record.create([
 ]);
 
 // Define the Med data type
-tx.data.Med = Ext.data.Record.create([
+Tarpo.Data.Med = Ext.data.Record.create([
     {name: 'id', type:'string'},
 	{name: 'listId', type:'string'},
 	{name: 'd', type:'date', dateFormat: Ext.sql.Proxy.DATE_FORMAT, defaultValue: ''},
@@ -83,35 +88,33 @@ tx.data.Med = Ext.data.Record.create([
 ]);
 
 // Define the List data type
-tx.data.List = Ext.data.Record.create([
+Tarpo.Data.List = Ext.data.Record.create([
     {name: 'listId', type:'string'},
     {name: 'parentId', type:'string'},
     {name: 'listName', type:'string'},
     {name: 'isFolder', type:'boolean'}
 ]);
 
-tx.data.conn = Ext.sql.Connection.getInstance();
+Tarpo.Data.demoData = function(){
+    Tarpo.Data.getConnection().exec('delete from list');
+    Tarpo.Data.getConnection().exec('delete from visit');
+    Tarpo.Data.getConnection().exec('delete from surg');
+    Tarpo.Data.getConnection().exec('delete from med');
+    Tarpo.store.list.reload();
+    Tarpo.store.visit.reload();
+    Tarpo.store.surg.reload();
+    Tarpo.store.med.reload();
+    Tarpo.store.list.demoData();
+    Tarpo.store.visit.demoData();
+    Tarpo.store.surg.demoData();
+    Tarpo.store.med.demoData();
+}
 
-tx.data.visits = new tx.data.VisitStore();
-tx.data.surg = new tx.data.SurgStore();
-tx.data.med = new tx.data.MedStore();
-tx.data.lists = new tx.data.ListStore();
-
-Ext.util.Format.bool = function(value){
-	return value ? '<img src="../images/icon-complete.gif"></input>' : '';
-};
-
-tx.data.demoData = function() {
-	tx.data.conn.exec('delete from list');
-	tx.data.conn.exec('delete from visit');
-	tx.data.conn.exec('delete from surg');
-	tx.data.conn.exec('delete from med');
-	tx.data.lists.reload();
-	tx.data.visits.reload();
-	tx.data.surg.reload();
-	tx.data.med.reload();
-	tx.data.lists.demoData();
-	tx.data.visits.demoData();
-	tx.data.surg.demoData();
-	tx.data.med.demoData();
+/**
+ * Return a singleton instance
+ */
+Tarpo.Data.getConnection = function() {
+	var connection = Ext.sql.Connection.getInstance();
+	Tarpo.Data.getConnection = function(){ return connection};
+	return connection;
 }

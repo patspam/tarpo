@@ -1,4 +1,4 @@
-tx.VisitCsvExporter = function(){
+Tarpo.VisitCsvExporter = function(){
 	function filter(k){
 		var s = String(k);
 		s = s.replace(/\n/g, ' ');
@@ -8,7 +8,7 @@ tx.VisitCsvExporter = function(){
 	
 	var csv = '';
 	
-	var visits = tx.data.conn.queryBy('select visit.*, list.listName from visit, list where visit.listId = list.listId');
+	var visits = Tarpo.Data.getConnection().queryBy('select visit.*, list.listName from visit, list where visit.listId = list.listId');
 	
 	// Heading row
 	var atts = [];
@@ -47,7 +47,7 @@ tx.VisitCsvExporter = function(){
 	file.browseForSave('Save As');
 };
 
-tx.SurgCsvExporter = function(){
+Tarpo.SurgCsvExporter = function(){
 	function filter(k){
 		var s = String(k);
 		s = s.replace(/\n/g, ' ');
@@ -57,7 +57,7 @@ tx.SurgCsvExporter = function(){
 	
 	var csv = '';
 	
-	var surgeries = tx.data.conn.queryBy('select surg.*, list.listName from surg, list where surg.listId = list.listId');
+	var surgeries = Tarpo.Data.getConnection().queryBy('select surg.*, list.listName from surg, list where surg.listId = list.listId');
 	
 	// Heading row
 	var atts = [];
@@ -96,7 +96,7 @@ tx.SurgCsvExporter = function(){
 	file.browseForSave('Save As');
 };
 
-tx.MedCsvExporter = function(){
+Tarpo.MedCsvExporter = function(){
 	function filter(k){
 		var s = String(k);
 		s = s.replace(/\n/g, ' ');
@@ -106,7 +106,7 @@ tx.MedCsvExporter = function(){
 	
 	var csv = '';
 	
-	var meds = tx.data.conn.queryBy('select med.*, list.listName from med, list where med.listId = list.listId');
+	var meds = Tarpo.Data.getConnection().queryBy('select med.*, list.listName from med, list where med.listId = list.listId');
 	
 	// Heading row
 	var atts = [];

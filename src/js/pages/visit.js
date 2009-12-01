@@ -24,7 +24,7 @@ Ext.onReady(function(){
 			{iconCls: 'icon-delete', text: 'Delete', handler: function(){
 				Ext.Msg.confirm('Confirm Delete', 'Are you sure you want to delete this visit?', function(btn){
 					if(btn == 'yes'){
-						opener.tx.data.visits.remove(getView());
+						opener.Tarpo.store.visit.remove(getView());
 						win.close();
 					}
 				});
@@ -83,17 +83,17 @@ Ext.onReady(function(){
 				
 		
         items: [
-			{xtype: 'tx.form.d'},
-			{xtype: 'tx.form.listId'},
+			{xtype: 'Tarpo.form.d'},
+			{xtype: 'Tarpo.form.listId'},
 			
-			tx.form.dual_column(
-				{xtype: 'tx.form.house'},
-				{xtype: 'tx.form.loc'}
+			Tarpo.form.dual_column(
+				{xtype: 'Tarpo.form.house'},
+				{xtype: 'Tarpo.form.loc'}
 			),
 			
-			{xtype: 'tx.form.owner'},
+			{xtype: 'Tarpo.form.owner'},
 			{
-				xtype: 'tx.form.type',
+				xtype: 'Tarpo.form.type',
 				store: new Ext.data.SimpleStore({
 				    fields: ['singleField'],
 				    data : [ ['Dog'], ['Cat'], ['Puppy'], ['Kitten'], ['Pig'], ['Other'], ['Note']]
@@ -106,30 +106,30 @@ Ext.onReady(function(){
 				},
 			},
 	
-			tx.form.dual_column(				
-				{xtype: 'tx.form.name'},
-				{xtype: 'tx.form.colour'}
+			Tarpo.form.dual_column(				
+				{xtype: 'Tarpo.form.name'},
+				{xtype: 'Tarpo.form.colour'}
 			),
 			
-			tx.form.dual_column(
-				{xtype: 'tx.form.sex'},
-				{xtype: 'tx.form.desexed'}
+			Tarpo.form.dual_column(
+				{xtype: 'Tarpo.form.sex'},
+				{xtype: 'Tarpo.form.desexed'}
 			),
 			
-			tx.form.dual_column(
-				{xtype: 'tx.form.bcs'},
-				{xtype: 'tx.form.mange'}
+			Tarpo.form.dual_column(
+				{xtype: 'Tarpo.form.bcs'},
+				{xtype: 'Tarpo.form.mange'}
 			),
 			
-			tx.form.dual_column(
-				{xtype: 'tx.form.ticks'},
-				{xtype: 'tx.form.fleas'}
+			Tarpo.form.dual_column(
+				{xtype: 'Tarpo.form.ticks'},
+				{xtype: 'Tarpo.form.fleas'}
 			),
 			
-			{xtype: 'tx.form.ivermectin'},
-			{xtype: 'tx.form.covinan'},
-			{xtype: 'tx.form.tvt'},
-			{xtype: 'tx.form.comments'},
+			{xtype: 'Tarpo.form.ivermectin'},
+			{xtype: 'Tarpo.form.covinan'},
+			{xtype: 'Tarpo.form.tvt'},
+			{xtype: 'Tarpo.form.comments'},
 		]
     });
 	
@@ -156,7 +156,7 @@ Ext.onReady(function(){
 	function saveData(){
 		var view;
 		if(isNew){
-			view = opener.tx.data.visits.createVisit(
+			view = opener.Tarpo.store.visit.createVisit(
 				form.getForm().findField('listId').getRawValue()
 			);
 		}else{
@@ -178,10 +178,10 @@ Ext.onReady(function(){
 	}
 	
 	function getView(){
-		var t = opener.tx.data.visits.lookup(visitId);
+		var t = opener.Tarpo.store.visit.lookup(visitId);
 		if(t){
 			//workaround WebKit cross-frame date issue
-			fixDateMember(t.data, 'd');
+			Tarpo.Util.fixDateMember(t.data, 'd');
 		}
 		return t;
 	}

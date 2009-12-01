@@ -1,8 +1,14 @@
-Ext.air.NativeWindowManager.getVisitWindow = function(visitId){
+Ext.namespace('Tarpo.WindowManager');
+
+Tarpo.WindowManager.getMainWindow = function(){
+	return Ext.air.NativeWindowManager.get('mainWindow');
+}
+
+Tarpo.WindowManager.getVisitWindow = function(visitId){
 	var visitId = visitId || 'New';
 	var win, winId = 'visit' + visitId;
 
-	if(win = this.get(winId)) {
+	if(win = Ext.air.NativeWindowManager.get(winId)) {
 		win.instance.orderToFront();
 	} else {
 		win = new Ext.air.NativeWindow({
@@ -15,11 +21,11 @@ Ext.air.NativeWindowManager.getVisitWindow = function(visitId){
 	return win;
 }
 
-Ext.air.NativeWindowManager.getSurgWindow = function(surgId){
+Tarpo.WindowManager.getSurgWindow = function(surgId){
 	var surgId = surgId || 'New';
 	var win, winId = 'surg' + surgId;
 
-	if(win = this.get(winId)) {
+	if(win = Ext.air.NativeWindowManager.get(winId)) {
 		win.instance.orderToFront();
 	} else {
 		win = new Ext.air.NativeWindow({
@@ -32,11 +38,11 @@ Ext.air.NativeWindowManager.getSurgWindow = function(surgId){
 	return win;
 }
 
-Ext.air.NativeWindowManager.getMedWindow = function(medId){
+Tarpo.WindowManager.getMedWindow = function(medId){
 	var medId = medId || 'New';
 	var win, winId = 'med' + medId;
 
-	if(win = this.get(winId)) {
+	if(win = Ext.air.NativeWindowManager.get(winId)) {
 		win.instance.orderToFront();
 	} else {
 		win = new Ext.air.NativeWindow({
@@ -49,9 +55,9 @@ Ext.air.NativeWindowManager.getMedWindow = function(medId){
 	return win;
 }
 
-Ext.air.NativeWindowManager.getAboutWindow = function(){
+Tarpo.WindowManager.getAboutWindow = function(){
 	var win, winId = 'about';
-	if(win = this.get(winId)) {
+	if(win = Ext.air.NativeWindowManager.get(winId)) {
 		win.instance.orderToFront();
 	} else {
 		win = new Ext.air.NativeWindow({

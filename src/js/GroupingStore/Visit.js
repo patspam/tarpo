@@ -1,6 +1,10 @@
-tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
+/**
+ * Tarpo.GroupingStore.Visit
+ */
+Ext.namespace('Tarpo.GroupingStore.Visit');
+Tarpo.GroupingStore.Visit = Ext.extend(Ext.data.GroupingStore, {
     constructor: function(){
-        tx.data.VisitStore.superclass.constructor.call(this, {
+        Tarpo.GroupingStore.Visit.superclass.constructor.call(this, {
             sortInfo: {
                 field: 'd',
                 direction: "ASC"
@@ -9,11 +13,11 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
             visitFilter: 'all',
             reader: new Ext.data.JsonReader({
                 id: 'id',
-                fields: tx.data.Visit
+                fields: Tarpo.Data.Visit
             })
         });
-        this.conn = tx.data.conn;
-        this.proxy = new Ext.sql.Proxy(tx.data.conn, 'visit', 'id', this);
+        this.conn = Tarpo.Data.getConnection();
+        this.proxy = new Ext.sql.Proxy(Tarpo.Data.getConnection(), 'visit', 'id', this);
     },
     
     applyFilter: function(filter){
@@ -52,13 +56,13 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
 			}
 			this.load({
 				params: {
-					where: 'where listId in (' + ps.join(',') + ') limit ' + tx.data.row_limit,
+					where: 'where listId in (' + ps.join(',') + ') limit ' + Tarpo.Data.row_limit,
 					args: listId
 				}
 			});
 		}else{
 			this.load({params: {
-				where: 'where listId = ? limit ' + tx.data.row_limit,
+				where: 'where listId = ? limit ' + Tarpo.Data.row_limit,
 				args: [listId]
 			}});
 		}		
@@ -78,20 +82,20 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
             this.createTable({
                 name: 'visit',
                 key: 'id',
-                fields: tx.data.Visit.prototype.fields
+                fields: Tarpo.Data.Visit.prototype.fields
             });
         } 
         catch (e) {
-            console.log(e);
+            Tarpo.log(e);
         }
     },
     
     createVisit: function(listText){
 		var listId = '';
 		if(!Ext.isEmpty(listText)){
-			listId = tx.data.lists.addList(Ext.util.Format.htmlEncode(listText)).id;
+			listId = Tarpo.store.list.addList(Ext.util.Format.htmlEncode(listText)).id;
 		}else{
-			listId = tx.data.lists.newList(false).id;
+			listId = Tarpo.store.list.newList(false).id;
 		}
 		var newId = Ext.uniqueId();
         this.addVisit({
@@ -106,21 +110,21 @@ tx.data.VisitStore = Ext.extend(Ext.data.GroupingStore, {
             this.applyGrouping();
         }
         //workaround WebKit cross-frame date issue
-        fixDateMember(r.data, 'd');
-        tx.data.VisitStore.superclass.afterEdit.apply(this, arguments);
+        Tarpo.Util.fixDateMember(r.data, 'd');
+        Tarpo.GroupingStore.Visit.superclass.afterEdit.apply(this, arguments);
     },
     
     init: function(){
-		tx.data.lists.load();
+		Tarpo.store.list.load();
         this.load({
 			params: {
-				where: ' limit ' + tx.data.row_limit
+				where: ' limit ' + Tarpo.Data.row_limit
 			},
             callback: function(){                
                 if (this.getCount() < 1) {
                     Ext.Msg.confirm('Create Visits?', 'Your database is currently empty. Would you like to insert some demo data?', function(btn){
                         if (btn == 'yes') {
-                            tx.data.demoData();
+                            Tarpo.Data.demoData();
                         }
                     }, this);
                 }

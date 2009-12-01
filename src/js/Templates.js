@@ -1,13 +1,12 @@
 // In AIR, XTemplates must be created at load time
-Templates = {
-	simpleCombo: new Ext.XTemplate(
-		'<tpl for="."><div class="x-combo-list-item">{singleField}</div></tpl>'
-	)
-};
+Ext.namespace('Tarpo.Templates');
+Tarpo.Templates.simpleCombo = new Ext.XTemplate(
+	'<tpl for="."><div class="x-combo-list-item">{singleField}</div></tpl>'
+);
 
 Date.precompileFormats('D d/m/Y');
 
-Templates.report = new Ext.XTemplate(
+Tarpo.Templates.report = new Ext.XTemplate(
 '<div class="report">',
 
 	'<H2>House Visits</H2>',

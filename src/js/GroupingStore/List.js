@@ -1,15 +1,19 @@
-tx.data.ListStore = Ext.extend(Ext.data.Store, {
+/**
+ * Tarpo.GroupingStore.List
+ */
+Ext.namespace('Tarpo.GroupingStore.List');
+Tarpo.GroupingStore.List = Ext.extend(Ext.data.Store, {
 	constructor: function(){
-		tx.data.ListStore.superclass.constructor.call(this, {
+		Tarpo.GroupingStore.List.superclass.constructor.call(this, {
 	        sortInfo:{field: 'listName', direction: "ASC"},
 	        reader: new Ext.data.JsonReader({
 	            id: 'listId',
-				fields: tx.data.List
+				fields: Tarpo.Data.List
 	        })
 	    });
 		
-	    this.conn = tx.data.conn;
-	    this.proxy = new Ext.sql.Proxy(tx.data.conn, 'list', 'listId', this);
+	    this.conn = Tarpo.Data.getConnection();
+	    this.proxy = new Ext.sql.Proxy(Tarpo.Data.getConnection(), 'list', 'listId', this);
 	},
 	
     getName : function(id){
@@ -21,7 +25,7 @@ tx.data.ListStore = Ext.extend(Ext.data.Store, {
 		var l = this.findList(name);
 		if(!l){
 			var id = id || Ext.uniqueId();
-			l = new tx.data.List({listId: id, listName: name, isFolder: isFolder === true, parentId: parentId || 'root'}, id);
+			l = new Tarpo.Data.List({listId: id, listName: name, isFolder: isFolder === true, parentId: parentId || 'root'}, id);
 			this.add(l);
 		}
 		return l;
@@ -85,8 +89,8 @@ tx.data.ListStore = Ext.extend(Ext.data.Store, {
         this.createTable({
             name: 'list',
             key: 'listId',
-            fields: tx.data.List.prototype.fields
+            fields: Tarpo.Data.List.prototype.fields
         });
-        }catch(e){console.log(e);}
+        }catch(e){Tarpo.log(e);}
     }
 });

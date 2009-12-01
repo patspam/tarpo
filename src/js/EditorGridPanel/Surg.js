@@ -1,8 +1,10 @@
-SurgGrid = function(){	
+Ext.namespace('Tarpo.EditorGridPanel.Surg');
+
+Tarpo.EditorGridPanel.Surg = function(){	
 	var offset = 9;
-	SurgGrid.superclass.constructor.call(this, {
+	Tarpo.EditorGridPanel.Surg.superclass.constructor.call(this, {
 		id:'surg-grid',
-        store: tx.data.surg,
+        store: Tarpo.store.surg,
         sm: new Ext.grid.RowSelectionModel({moveEditorOnEnter: false}),
         clicksToEdit: 'auto',
         enableColumnHide:false,
@@ -18,7 +20,7 @@ SurgGrid = function(){
                 header: "Date",
                 width: 75 + offset,
                 sortable: true,
-                renderer: dateFormatter,
+                renderer: Tarpo.Util.dateFormatter,
                 dataIndex: 'd',
 				id: 'air-bug-first-row-requires-id',
             },
@@ -162,18 +164,18 @@ SurgGrid = function(){
             
         ],
 
-        view: new SurgView()
+        view: new Tarpo.GroupingView.Surg()
 	});
 	
 	this.on('rowcontextmenu', this.onRowContext, this);
 };
 
-Ext.extend(SurgGrid, Ext.grid.EditorGridPanel, {
+Ext.extend(Tarpo.EditorGridPanel.Surg, Ext.grid.EditorGridPanel, {
 	onCellDblClick: function(g, row){
 		clearTimeout(this.autoEditTimer); // allow dbl click without starting edit
 		var id = this.store.getAt(row).id;
 		
-		Ext.air.NativeWindowManager.getSurgWindow(id);
+		Tarpo.WindowManager.getSurgWindow(id);
 	},
 
     // private
@@ -194,14 +196,14 @@ Ext.extend(SurgGrid, Ext.grid.EditorGridPanel, {
 	onRowContext : function(grid, row, e){
         if(!this.menu){ // create context menu on first right click
             this.menu = new Ext.menu.Menu({
-                id:'surg-ctx',
+                id:'surg-cTarpo',
 				listWidth: 200,
                 items: [{
                     text:'Open',
                     scope: this,
                     handler:function(){
 						Ext.each(this.selModel.getSelections(), function(r){
-							Ext.air.NativeWindowManager.getSurgWindow(r.id);
+							Tarpo.WindowManager.getSurgWindow(r.id);
 						});
                     }
                 }
@@ -216,8 +218,11 @@ Ext.extend(SurgGrid, Ext.grid.EditorGridPanel, {
     }
 })
 
-
-SurgView = Ext.extend(Ext.grid.GroupingView, {
+/**
+ * Tarpo.GroupingView.Surg
+ */
+Ext.namespace('Tarpo.GroupingView.Surg');
+Tarpo.GroupingView.Surg = Ext.extend(Ext.grid.GroupingView, {
 	forceFit:false,
     ignoreAdd: true,
     emptyText: 'There are no Surgical Cases to show in this list.',

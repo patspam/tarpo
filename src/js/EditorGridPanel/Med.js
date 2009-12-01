@@ -1,14 +1,16 @@
-VisitGrid = function(){
-	
-	VisitGrid.superclass.constructor.call(this, {
-		id:'visits-grid',
-        store: tx.data.visits,
+Ext.namespace('Tarpo.EditorGridPanel.Med');
+
+Tarpo.EditorGridPanel.Med = function(){	
+	var offset = 9;
+	Tarpo.EditorGridPanel.Med.superclass.constructor.call(this, {
+		id:'med-grid',
+        store: Tarpo.store.med,
         sm: new Ext.grid.RowSelectionModel({moveEditorOnEnter: false}),
         clicksToEdit: 'auto',
         enableColumnHide:false,
         enableColumnMove:true,
 		autoEncode: true,
-        title:'House Visits',
+        title:'Medical Cases',
         iconCls:'icon-folder',
         region:'center',
 		margins:'3 3 3 0',
@@ -16,58 +18,96 @@ VisitGrid = function(){
         columns: [
 			{
                 header: "Date",
-                width: 100,
+                width: 75 + offset,
                 sortable: true,
-                renderer: dateFormatter,
+                renderer: Tarpo.Util.dateFormatter,
                 dataIndex: 'd',
 				id: 'air-bug-first-row-requires-id',
             },
 			{
                 header: "Location",
-                width:65,
+                width:50 + offset,
                 sortable: true,
                 dataIndex: 'loc',
             },
-            {
+			{
                 header: "House",
-                width:50,
+                width:40 + offset,
                 sortable: true,
                 dataIndex: 'house',
             },
-            {
+			{
+                header: "Balanda",
+                width:40 + offset,
+                sortable: true,
+                dataIndex: 'balanda',
+				renderer: Ext.util.Format.bool,
+            },
+			{
+                header: "Charge",
+                width:40 + offset,
+                sortable: true,
+                dataIndex: 'charge',
+            },
+			{
                 header: "Owner",
-                width:50,
+                width:40 + offset,
                 sortable: true,
                 dataIndex: 'owner',
             },
 			{
+                header: "Domicile",
+                width:60 + offset,
+                sortable: true,
+                dataIndex: 'domicile',
+            },
+			{
                 header: "Type",
-                width:40,
+                width:40 + offset,
                 sortable: true,
                 dataIndex: 'type',
             },
 			{
+                header: "Microchip",
+                width:90 + offset,
+                sortable: true,
+                dataIndex: 'mc',
+				renderer: function(val){
+					if (!val)
+						return val;
+					if (val.length != 15)
+						return val;
+					return val.substr(0,9) + "<span class='mc-highlight'>" + val.substr(9) + "</span>";
+				},
+            },
+            {
                 header: "Name",
-                width:40,
+                width:40 + offset,
                 sortable: true,
                 dataIndex: 'name',
             },
+            {
+                header: "Breed",
+                width:40 + offset,
+                sortable: true,
+                dataIndex: 'breed',
+            },
 			{
                 header: "Colour",
-                width:40,
+                width:35 + offset,
                 sortable: true,
                 dataIndex: 'colour',
             },
 			{
                 header: "Sex",
-                width:40,
+                width:25 + offset,
                 sortable: true,
                 dataIndex: 'sex',
 				align: 'center',
             },
 			{
                 header: "Desexed",
-                width:55,
+                width:45 + offset,
                 sortable: true,
                 dataIndex: 'desexed',
 				renderer: Ext.util.Format.bool,
@@ -75,82 +115,59 @@ VisitGrid = function(){
             },
 			{
                 header: "BCS",
-                width:30,
+                width:30 + offset,
                 sortable: true,
                 dataIndex: 'bcs',
 				align: 'center',
             },
 			{
                 header: "Mange",
-                width:40,
+                width:35 + offset,
                 sortable: true,
                 dataIndex: 'mange',
 				align: 'center',
             },
 			{
-                header: "Ticks",
-                width:40,
+                header: "Reason",
+                width:40 + offset,
                 sortable: true,
-                dataIndex: 'ticks',
-				align: 'center',
+                dataIndex: 'reason',
             },
 			{
-                header: "Fleas",
-                width:40,
+                header: "Vaccination",
+                width:60 + offset,
                 sortable: true,
-                dataIndex: 'fleas',
-				align: 'center',
-            },
-			{
-                header: "Ivermectin",
-                width:45,
-                sortable: true,
-                dataIndex: 'ivermectin',
+                dataIndex: 'vacc',
 				renderer: Ext.util.Format.bool,
 				align: 'center',
             },
 			{
-                header: "Covinan",
-                width:45,
+                header: "Euthanasia",
+                width:50 + offset,
                 sortable: true,
-                dataIndex: 'covinan',
-				renderer: Ext.util.Format.bool,
-				align: 'center',
+                dataIndex: 'euth',
             },
 			{
-                header: "TVT",
-                width:30,
-                sortable: true,
-                dataIndex: 'tvt',
-				renderer: Ext.util.Format.bool,
-				align: 'center',
-            },
-			{
-                header: "Comments",
+                header: "Details",
                 width:180,
                 sortable: true,
-                dataIndex: 'comments',
+                dataIndex: 'details',
             },
             
         ],
 
-        view: new VisitView()
-//		bbar: new Ext.PagingToolbar({
-//            pageSize: 10,
-//            store: tx.data.visits,
-//            displayInfo: true
-//        })
+        view: new Tarpo.GroupingView.Med()
 	});
 	
 	this.on('rowcontextmenu', this.onRowContext, this);
 };
 
-Ext.extend(VisitGrid, Ext.grid.EditorGridPanel, {
+Ext.extend(Tarpo.EditorGridPanel.Med, Ext.grid.EditorGridPanel, {
 	onCellDblClick: function(g, row){
 		clearTimeout(this.autoEditTimer); // allow dbl click without starting edit
 		var id = this.store.getAt(row).id;
 		
-		Ext.air.NativeWindowManager.getVisitWindow(id);
+		Tarpo.WindowManager.getMedWindow(id);
 	},
 
     // private
@@ -171,14 +188,14 @@ Ext.extend(VisitGrid, Ext.grid.EditorGridPanel, {
 	onRowContext : function(grid, row, e){
         if(!this.menu){ // create context menu on first right click
             this.menu = new Ext.menu.Menu({
-                id:'visits-ctx',
+                id:'med-cTarpo',
 				listWidth: 200,
                 items: [{
                     text:'Open',
                     scope: this,
                     handler:function(){
 						Ext.each(this.selModel.getSelections(), function(r){
-							Ext.air.NativeWindowManager.getVisitWindow(r.id);
+							Tarpo.WindowManager.getMedWindow(r.id);
 						});
                     }
                 }
@@ -193,11 +210,14 @@ Ext.extend(VisitGrid, Ext.grid.EditorGridPanel, {
     }
 })
 
-
-VisitView = Ext.extend(Ext.grid.GroupingView, {
-	forceFit:true,
+/**
+ * Tarpo.GroupingView.Med
+ */
+Ext.namespace('Tarpo.GroupingView.Med');
+Tarpo.GroupingView.Med = Ext.extend(Ext.grid.GroupingView, {
+	forceFit:false,
     ignoreAdd: true,
-    emptyText: 'There are no visits to show in this list.',
+    emptyText: 'There are no Medical Cases to show in this list.',
 	getRowClass : function(r){
 		return r.data.type;
     }

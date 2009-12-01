@@ -1,5 +1,5 @@
-tx.Exporter = function(){
-	var lists = tx.data.conn.query('select * from list');
+Tarpo.Exporter = function(){
+	var lists = Tarpo.Data.getConnection().query('select * from list');
 	
 	var doc = new runtime.flash.xml.XMLDocument();
 	
@@ -20,7 +20,7 @@ tx.Exporter = function(){
 			}
 		}
 		
-		var visits = tx.data.conn.queryBy('select * from visit where listId = ?', [list.listId]);
+		var visits = Tarpo.Data.getConnection().queryBy('select * from visit where listId = ?', [list.listId]);
 		for(var j = 0, jlen = visits.length; j < jlen; j++){
 			var visit = visits[j];
 			
@@ -34,7 +34,7 @@ tx.Exporter = function(){
 			}
 		}
 		
-		var surgeries = tx.data.conn.queryBy('select * from surg where listId = ?', [list.listId]);
+		var surgeries = Tarpo.Data.getConnection().queryBy('select * from surg where listId = ?', [list.listId]);
 		for(var j = 0, jlen = surgeries.length; j < jlen; j++){
 			var surg = surgeries[j];
 			
@@ -48,7 +48,7 @@ tx.Exporter = function(){
 			}
 		}
 		
-		var meds = tx.data.conn.queryBy('select * from med where listId = ?', [list.listId]);
+		var meds = Tarpo.Data.getConnection().queryBy('select * from med where listId = ?', [list.listId]);
 		for(var j = 0, jlen = meds.length; j < jlen; j++){
 			var med = meds[j];
 			

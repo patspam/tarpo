@@ -21,15 +21,15 @@ Ext.extend(ListTree, Ext.tree.TreePanel, {
 	
 	initComponent : function(){
 		this.bbar = [
-			tx.actions.newList, 
-			tx.actions.deleteList, 
+			Tarpo.Actions.newList, 
+			Tarpo.Actions.deleteList, 
 			'-', 
-			tx.actions.newFolder,
-			tx.actions.deleteFolder
+			Tarpo.Actions.newFolder,
+			Tarpo.Actions.deleteFolder
 		];
 		
 		this.loader = new ListLoader({
-			store: tx.data.lists
+			store: Tarpo.store.list
 		});
 		ListTree.superclass.initComponent.call(this);
 		
@@ -78,48 +78,48 @@ Ext.extend(ListTree, Ext.tree.TreePanel, {
 	onContextMenu : function(node, e){
         if(!this.menu){ // create context menu on first right click
             this.menu = new Ext.menu.Menu({
-                id:'lists-ctx',
+                id:'lists-cTarpo',
 				listWidth: 200,
                 items: [{
                     iconCls:'icon-list-new',
                     text:'New List',
                     scope: this,
                     handler:function(){
-						this.ctxNode.select();
-						tx.actions.newList.execute();
+						this.cTarpoNode.select();
+						Tarpo.Actions.newList.execute();
                     }
                 },{
                     iconCls:'icon-folder-new',
                     text:'New Folder',
                     scope: this,
                     handler:function(){
-						this.ctxNode.select();
-						tx.actions.newFolder.execute();
+						this.cTarpoNode.select();
+						Tarpo.Actions.newFolder.execute();
                     }
                 },'-',{
 					text:'Delete',
                     iconCls:'icon-list-delete',
                     scope: this,
                     handler:function(){
-                        this.removeList(this.ctxNode);
+                        this.removeList(this.cTarpoNode);
                     }
                 },'-',{
 					text:'Report On This List',
                     iconCls:'icon-report',
                     scope: this,
                     handler:function(){
-                        tx.actions.report.execute(this.ctxNode.id);
+                        Tarpo.Actions.report.execute(this.cTarpoNode.id);
                     }
                 }]
             });
             this.menu.on('hide', this.onContextHide, this);
         }
-        if(this.ctxNode){
-            this.ctxNode.ui.removeClass('x-node-ctx');
-            this.ctxNode = null;
+        if(this.cTarpoNode){
+            this.cTarpoNode.ui.removeClass('x-node-cTarpo');
+            this.cTarpoNode = null;
         }
-        this.ctxNode = node;
-        this.ctxNode.ui.addClass('x-node-ctx');
+        this.cTarpoNode = node;
+        this.cTarpoNode.ui.addClass('x-node-cTarpo');
 		
 		// Hide New List, New Folder and Separator if List selected
 		this.menu.items.get(0).setVisible(!!node.attributes.isFolder);
@@ -137,9 +137,9 @@ Ext.extend(ListTree, Ext.tree.TreePanel, {
     },
 
     onContextHide : function(){
-        if(this.ctxNode){
-            this.ctxNode.ui.removeClass('x-node-ctx');
-            this.ctxNode = null;
+        if(this.cTarpoNode){
+            this.cTarpoNode.ui.removeClass('x-node-cTarpo');
+            this.cTarpoNode = null;
         }
     },
 	
@@ -169,10 +169,10 @@ Ext.extend(ListTree, Ext.tree.TreePanel, {
 							s.previousSibling.select();
 						}
 					s.parentNode.removeChild(s);
-					tx.data.lists.remove(this.store.getById(s.id));
-					tx.data.visits.removeList(s.id);
-					tx.data.surg.removeList(s.id);
-					tx.data.med.removeList(s.id);
+					Tarpo.store.list.remove(this.store.getById(s.id));
+					Tarpo.store.visit.removeList(s.id);
+					Tarpo.store.surg.removeList(s.id);
+					Tarpo.store.med.removeList(s.id);
 				}
 			}, this);
 		}
