@@ -11,7 +11,7 @@ Tarpo.Backup = function(){
 	
 	// Backup goes to user's Desktop
 	var destination = air.File.desktopDirectory.resolvePath(destinationFilename);
-	var original = air.File.applicationDirectory.resolvePath(Tarpo.Config.DB_FILENAME);
+	var original = air.File.applicationDirectory.resolvePath(Tarpo.Settings.DB_FILENAME);
 	
 	original.addEventListener(air.Event.COMPLETE, function (event){
 	    Ext.Msg.alert("Backup Complete", 'Tarpo has been backed up to the file: "' + destinationFilename + '" on your desktop');

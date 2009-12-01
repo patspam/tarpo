@@ -32,7 +32,7 @@ Ext.onReady(function(){
     };
     
     // Connect to the SQLite database file
-    Tarpo.Data.getConnection().open(Tarpo.Config.DB_FILENAME);
+    Tarpo.Data.getConnection().open(Tarpo.Settings.DB_FILENAME);
     
     // Instantiate the Grids, and store them in the main window object
     // (other windows can access them via Tarpo.WindowManager.getMainWindow)

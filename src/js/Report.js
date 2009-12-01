@@ -4,7 +4,7 @@ Ext.namespace('Tarpo.Report');
 Tarpo.Report.querySingle = function(sql){
     // This is hacky and should be fixed
     var instance = Ext.sql.Connection.getInstance();
-    instance.open(Tarpo.Config.DB_FILENAME);
+    instance.open(Tarpo.Settings.DB_FILENAME);
     
     var result = instance.query(sql)[0];
     var results = new Array();

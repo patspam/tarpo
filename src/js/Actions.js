@@ -195,16 +195,14 @@ Tarpo.Actions = {
     }),
     
     resetDefaults: new Ext.Action({
-        itemText: 'Reset Program Defaults',
+        itemText: 'Reset Settings',
         tooltip: 'Reset program defaults such as column widths',
         iconCls: 'icon-list-delete',
         handler: function(){
-            Ext.Msg.confirm('Confirm', 'This will reset all program customisations you have made such as individual column positions and widths. Are you sure you want to continue?', function(btn){
+            Ext.Msg.confirm('Confirm', 'This will reset all program settings to their defaults, such as individual column positions and widths. Are you sure you want to continue?', function(btn){
                 if (btn == 'yes') {
-                    air.NativeApplication.nativeApplication.addEventListener('exiting', function(){
-                        Ext.state.Manager.getProvider().clearAllState();
-                    });
-                    Ext.Msg.alert('Program Defaults Reset', 'Please restart the application to fully apply the changes')
+					Tarpo.Settings.reset();
+                    Ext.Msg.alert('Settings Reset', 'Settings have been reset to their defaults. Please restart Tarpo to complete the process.')
                 }
             });
         }
