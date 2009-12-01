@@ -34,7 +34,6 @@ Tarpo.Actions = {
         iconCls: 'icon-report',
         tooltip: 'Report on All Data (right-click on individual list for more specific Report)',
 		handler: Tarpo.Report.show,
-        
     }),
     
     deleteVisit: new Ext.Action({

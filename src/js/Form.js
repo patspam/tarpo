@@ -122,7 +122,7 @@
         name: 'type',
         anchor: '100%',
 		allowBlank: false,
-		tpl: Templates.simpleCombo,
+		tpl: Tarpo.Templates.simpleCombo,
 		store: new Ext.data.SimpleStore({
 		    fields: ['singleField'],
 		    data : [ ['Dog'], ['Cat'], ['Puppy'], ['Kitten'], ['Pig'], ['Other']]
@@ -139,7 +139,7 @@
 		fieldLabel: 'Colour',
 		name: 'colour',
 		anchor: '100%',
-		tpl: Templates.simpleCombo,
+		tpl: Tarpo.Templates.simpleCombo,
 		store: new Ext.data.SimpleStore({
 			fields: ['singleField'],
 			data: _clearableComboSort([[clearComboMarker], ['Black'], ['Black/White'], ['Black/Tan'], ['Blue'], ['Blue/White'], ['Blue Roan'], ['Blue Roan/White'], ['Blue Roan/Black'], ['Brindle'], ['Brindle/White'], ['Brown'], ['Brown/White'], ['Chestnut'], ['Chestnut/White'], ['Chocolate'], ['Chocolate/White'], ['Fawn'], ['Fawn/White'], ['Ginger'], ['Golden'], ['Golden/White'], ['Liver'], ['Liver/White'], ['Red'], ['Red/Brown'], ['Red Roan'], ['Red Roan/White'], ['Red Roan/Tan'], ['Tabby'], ['Tan'], ['Tan/White'], ['Tri'], ['Tri/White'], ['White'], ['White/Black'], ['White/Blue'], ['White/Brindle'], ['White/Brown'], ['White/Fawn'], ['White/Tan'], ['White/Tri'], ])
@@ -155,7 +155,7 @@
         name: 'sex',
         anchor: '100%',
         allowBlank: false,
-        tpl: Templates.simpleCombo,
+        tpl: Tarpo.Templates.simpleCombo,
         store: new Ext.data.SimpleStore({
             fields: ['singleField'],
             data: [['M'], ['F'], ['Unknown']]
@@ -177,7 +177,7 @@
 	 	fieldLabel: 'BCS',
         name: 'bcs',
         anchor: '100%',
-        tpl: Templates.simpleCombo,
+        tpl: Tarpo.Templates.simpleCombo,
         store: new Ext.data.SimpleStore({
             fields: ['singleField'],
             data: [[clearComboMarker], [1], [2], [3], [4], [5], [6], [7], [8], [9], ]
@@ -194,7 +194,7 @@
 	 	fieldLabel: 'Mange',
         name: 'mange',
         anchor: '100%',
-        tpl: Templates.simpleCombo,
+        tpl: Tarpo.Templates.simpleCombo,
         store: new Ext.data.SimpleStore({
             fields: ['singleField'],
             data: [[clearComboMarker], [1], [2], [3], [4], [5], ]
@@ -211,7 +211,7 @@
 	 	fieldLabel: 'Ticks',
         name: 'ticks',
         anchor: '100%',
-		tpl: Templates.simpleCombo,
+		tpl: Tarpo.Templates.simpleCombo,
 		store: new Ext.data.SimpleStore({
 		    fields: ['singleField'],
 		    data : [[clearComboMarker], [1], [2], [3], [4], ]
@@ -228,7 +228,7 @@
 	 	fieldLabel: 'Fleas',
         name: 'fleas',
         anchor: '100%',
-		tpl: Templates.simpleCombo,
+		tpl: Tarpo.Templates.simpleCombo,
 		store: new Ext.data.SimpleStore({
 		    fields: ['singleField'],
 		    data : [[clearComboMarker], [1], [2], [3], ]
@@ -273,7 +273,7 @@
 	 	fieldLabel: 'Breed',
         name: 'breed',
         anchor: '100%',
-        tpl: Templates.simpleCombo,
+        tpl: Tarpo.Templates.simpleCombo,
         store: new Ext.data.SimpleStore({
             fields: ['singleField'],
             data: _clearableComboSort([[clearComboMarker], ['Camp Dog'], ['Boxer'], ['Staffie'], ['Dingo'], ['Irish Wolfhound X'], ['DSH'], ['DLH'], ['Pit Bull'], ['Mastiff X'], ['Labrador'], ['Golder Retriever'], ['German Shephers'], ['Rottweiler'], ['Jack Russell'], ['Ridgeback'], ['Kelpie'], ['Border Collie'], ['Blue Heeler'], ['Red Heeler'], ['GSP'], ['Shar Pei X'], ['Pig Dog Crossbreed'], ['Small crossbreed'], ['Bull Arab']])
@@ -310,7 +310,7 @@
 	 	fieldLabel: 'Domicile',
         name: 'domicile',
         anchor: '100%',
-        tpl: Templates.simpleCombo,
+        tpl: Tarpo.Templates.simpleCombo,
         store: new Ext.data.SimpleStore({
             fields: ['singleField'],
             data: [[clearComboMarker], ['Community'], ['Outstation']]
@@ -327,7 +327,7 @@
 	 	fieldLabel: 'Desex',
         name: 'desex',
         anchor: '100%',
-		tpl: Templates.simpleCombo,
+		tpl: Tarpo.Templates.simpleCombo,
 		store: new Ext.data.SimpleStore({
 		    fields: ['singleField'],
 		    data : [ [clearComboMarker], ['Spey'], ['Castrate']]
@@ -355,7 +355,7 @@
         name: 'reason',
         anchor: '100%',
 		allowBlank: false,					
-		tpl: Templates.simpleCombo,
+		tpl: Tarpo.Templates.simpleCombo,
 		store: new Ext.data.SimpleStore({
 		    fields: ['singleField'],
 		    data : [ ['Fight Wound'], ['Hunting Wound'], ['Car Accident'], ['Other']]
@@ -372,7 +372,7 @@
 	 	fieldLabel: 'Euthanasia',
         name: 'euth',
         anchor: '100%',
-		tpl: Templates.simpleCombo,
+		tpl: Tarpo.Templates.simpleCombo,
 		store: new Ext.data.SimpleStore({
 		    fields: ['singleField'],
 		    data : [ [clearComboMarker], ['Unwanted'], ['Humane'], ['Cheeky']]

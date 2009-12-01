@@ -100,6 +100,7 @@ Tarpo.Data.demoData = function(){
     Tarpo.Data.getConnection().exec('delete from visit');
     Tarpo.Data.getConnection().exec('delete from surg');
     Tarpo.Data.getConnection().exec('delete from med');
+	
     Tarpo.store.list.reload();
     Tarpo.store.visit.reload();
     Tarpo.store.surg.reload();
