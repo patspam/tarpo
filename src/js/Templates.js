@@ -1,5 +1,10 @@
-// In AIR, XTemplates must be created at load time
+/**
+ * Templates
+ * 
+ * In AIR, XTemplates must be created at load time
+ */
 Ext.namespace('Tarpo.Templates');
+
 Tarpo.Templates.simpleCombo = new Ext.XTemplate(
 	'<tpl for="."><div class="x-combo-list-item">{singleField}</div></tpl>'
 );
