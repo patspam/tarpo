@@ -6,6 +6,7 @@ Ext.namespace('Tarpo.Util');
 // Debug shortcuts that live in the top-level namespace to save keystrokes
 Tarpo.log = air.Introspector && air.Introspector.Console && air.Introspector.Console.log || Ext.emptyFn;
 Tarpo.dump = air.Introspector && air.Introspector.Console && air.Introspector.Console.dump || Ext.emptyFn;
+Tarpo.trace = air.trace; // dumps to stderr 
 
 // work around for broken cross frame Dates in Safari
 Tarpo.Util.fixDate = function(d){
