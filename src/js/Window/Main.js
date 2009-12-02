@@ -8,10 +8,6 @@ Tarpo.Window.Main.init = function(){
 	
 	var win = Tarpo.WindowManager.getMainWindow();
 	
-	if (!Tarpo.Db.openState) {
-		Tarpo.Actions.openDatabase.execute();
-	}
-	
 	// Init the Grouping Stores
 	Tarpo.store = {
 		visit: new Tarpo.GroupingStore.Visit(),
@@ -35,7 +31,7 @@ Tarpo.Window.Main.init = function(){
 	Ext.air.SystemMenu.add('Help', [Tarpo.Actions.about, ]);
 	
 	// Build the List TreePanel
-	tree = new Tarpo.TreePanel.List({
+	var tree = new Tarpo.TreePanel.List({
 		actions: Tarpo.Actions,
 		store: Tarpo.store.list
 	});
@@ -155,8 +151,7 @@ Tarpo.Window.Main.init = function(){
 	
 	win.show();
 	win.instance.activate();
-	
-	Tarpo.Window.Main.load();
+	Tarpo.Actions.openDatabase.execute();
 };
 
 Tarpo.Window.Main.load = function() {

@@ -234,7 +234,6 @@ Tarpo.Actions = {
 			}
             
 			// Subscribe to the SELECT event
-			
 			file.addEventListener( air.Event.SELECT, function (e) {
 				if (Tarpo.Db.openState) {
 					Tarpo.log('Closing open file before opening new one');
@@ -242,7 +241,8 @@ Tarpo.Actions = {
 				}
 				
 				Tarpo.Db.open(file);
-				Tarpo.Settings.set('lastDatabase', file.nativePath);	
+				Tarpo.Settings.set('lastDatabase', file.nativePath);
+				Tarpo.Window.Main.load();
 			});
 			
 			// Subscribe to the CANCEL event
