@@ -149,12 +149,15 @@ Tarpo.Window.Main.init = function(){
 		Tarpo.Actions.deleteMed.setDisabled(disabled);
 	});
 	
-	win.show();
-	win.instance.activate();
 	Tarpo.Actions.openDatabase.execute();
 };
 
 Tarpo.Window.Main.load = function() {
+	
+	// Show the main window
+	var win = Tarpo.WindowManager.getMainWindow();
+	win.show();
+	win.instance.activate();
     
     Tarpo.store.visit.init();
     Tarpo.store.surg.init();

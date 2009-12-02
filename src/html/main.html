@@ -43,11 +43,12 @@
 	
 </head>
 <body>
-<span></span>
 <script>
-	Ext.onReady(function(){
-	    Tarpo.Window.Main.init();
+	var splash = Tarpo.WindowManager.getSplashWindow();
+	splash.on('close', function(e){
+		Tarpo.Window.Main.init();
 	});
+	splash.activate();
 </script>
 </body>
 </html>
