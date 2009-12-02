@@ -37,6 +37,14 @@ Tarpo.Actions = {
 			Tarpo.Report.show()
 		},
     }),
+	
+	about: new Ext.Action({
+        text: 'About',
+        tooltip: 'Show the About dialog',
+		handler: function(){
+			Tarpo.WindowManager.getAboutWindow().activate();
+		},
+    }),
     
     deleteVisit: new Ext.Action({
         itemText: 'Delete House Visit',
@@ -226,8 +234,9 @@ Tarpo.Actions = {
 			}
             
 			// Subscribe to the SELECT event
+			
 			file.addEventListener( air.Event.SELECT, function (e) {
-				if (Tarpo.db.openState) {
+				if (Tarpo.Db.openState) {
 					Tarpo.log('Closing open file before opening new one');
 					Tarpo.Db.close();
 				}

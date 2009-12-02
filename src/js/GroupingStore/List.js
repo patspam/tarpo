@@ -60,6 +60,8 @@ Tarpo.GroupingStore.List = Ext.extend(Ext.data.Store, {
 	},
 	
 	bindTree : function(tree){
+		this.tree = tree;
+		
 		this.on({
 			add: function(ls, records){
 				var pnode = tree.getNodeById(records[0].data.parentId);
