@@ -1,5 +1,10 @@
-// Implementation class for created the tree powered form field
-ListSelector = Ext.extend(Ext.ux.TreeSelector, {
+/**
+ * Tarpo.TreeSelector.List
+ * Tree powered combo box
+ */
+Ext.namespace('Tarpo.TreeSelector.List');
+
+Tarpo.TreeSelector.List = Ext.extend(Ext.ux.TreeSelector, {
 	maxHeight:200,
 	listenForLoad: false,
     initComponent : function(){
@@ -28,7 +33,7 @@ ListSelector = Ext.extend(Ext.ux.TreeSelector, {
             this.store.bindTree(this.tree);
         }, this);
 		
-        ListSelector.superclass.initComponent.call(this);
+        Tarpo.TreeSelector.List.superclass.initComponent.call(this);
 		
 		// selecting folders is not allowed, so filter them
 		this.tree.getSelectionModel().on('beforeselect', this.beforeSelection, this);

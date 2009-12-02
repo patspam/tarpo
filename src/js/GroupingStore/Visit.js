@@ -2,6 +2,7 @@
  * Tarpo.GroupingStore.Visit
  */
 Ext.namespace('Tarpo.GroupingStore.Visit');
+
 Tarpo.GroupingStore.Visit = Ext.extend(Ext.data.GroupingStore, {
     constructor: function(){
         Tarpo.GroupingStore.Visit.superclass.constructor.call(this, {
@@ -16,8 +17,8 @@ Tarpo.GroupingStore.Visit = Ext.extend(Ext.data.GroupingStore, {
                 fields: Tarpo.Data.Visit
             })
         });
-        this.conn = Tarpo.Data.getConnection();
-        this.proxy = new Ext.sql.Proxy(Tarpo.Data.getConnection(), 'visit', 'id', this);
+        this.conn = Tarpo.Db;
+        this.proxy = new Ext.sql.Proxy(Tarpo.Db, 'visit', 'id', this);
     },
     
     applyFilter: function(filter){
@@ -124,7 +125,7 @@ Tarpo.GroupingStore.Visit = Ext.extend(Ext.data.GroupingStore, {
                 if (this.getCount() < 1) {
                     Ext.Msg.confirm('Create Visits?', 'Your database is currently empty. Would you like to insert some demo data?', function(btn){
                         if (btn == 'yes') {
-                            Tarpo.Data.demoData();
+                            Tarpo.Util.loadDemoData(); // TODO: change this
                         }
                     }, this);
                 }

@@ -1,5 +1,12 @@
 /**
- * Tarpo.Data
+ * Tarpo data types are defined here. Each data type
+ * is an instance of Ext.data.Record
+ * 
+ * Currently defined data types are:
+ *  Tarpo.Data.Visit
+ *  Tarpo.Data.Surg
+ *  Tarpo.Data.Med
+ *  Tarpo.Data.List
  */
 Ext.namespace('Tarpo.Data');
 
@@ -94,28 +101,3 @@ Tarpo.Data.List = Ext.data.Record.create([
     {name: 'listName', type:'string'},
     {name: 'isFolder', type:'boolean'}
 ]);
-
-Tarpo.Data.demoData = function(){
-    Tarpo.Data.getConnection().exec('delete from list');
-    Tarpo.Data.getConnection().exec('delete from visit');
-    Tarpo.Data.getConnection().exec('delete from surg');
-    Tarpo.Data.getConnection().exec('delete from med');
-	
-    Tarpo.store.list.reload();
-    Tarpo.store.visit.reload();
-    Tarpo.store.surg.reload();
-    Tarpo.store.med.reload();
-    Tarpo.store.list.demoData();
-    Tarpo.store.visit.demoData();
-    Tarpo.store.surg.demoData();
-    Tarpo.store.med.demoData();
-}
-
-/**
- * Return a singleton instance
- */
-Tarpo.Data.getConnection = function() {
-	var connection = Ext.sql.Connection.getInstance();
-	Tarpo.Data.getConnection = function(){ return connection};
-	return connection;
-}

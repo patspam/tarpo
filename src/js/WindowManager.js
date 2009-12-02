@@ -1,7 +1,31 @@
 Ext.namespace('Tarpo.WindowManager');
 
 Tarpo.WindowManager.getMainWindow = function(){
-	return Ext.air.NativeWindowManager.get('mainWindow');
+	var win, winId = 'mainWindow';
+
+	if (win = Ext.air.NativeWindowManager.get(winId)) {
+		win.instance.orderToFront();
+	} else {
+		win = new Ext.air.NativeWindow({
+	        id: winId,
+	        instance: window.nativeWindow,
+	        minimizeToTray: true,
+	        trayIcon: '../images/icons/extlogo16.png',
+	        trayTip: 'Tarpo',
+	        trayMenu: [{
+	            text: 'Open Tarpo',
+	            handler: function(){
+	                win.activate();
+	            }
+	        }, '-', {
+	            text: 'Exit',
+	            handler: function(){
+	                air.NativeApplication.nativeApplication.exit();
+	            }
+	        }]
+	    });
+	}
+	return win;
 }
 
 Tarpo.WindowManager.getVisitWindow = function(visitId){

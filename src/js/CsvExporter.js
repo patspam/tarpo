@@ -8,7 +8,7 @@ Tarpo.VisitCsvExporter = function(){
 	
 	var csv = '';
 	
-	var visits = Tarpo.Data.getConnection().queryBy('select visit.*, list.listName from visit, list where visit.listId = list.listId');
+	var visits = Tarpo.Db.queryBy('select visit.*, list.listName from visit, list where visit.listId = list.listId');
 	
 	// Heading row
 	var atts = [];
@@ -57,7 +57,7 @@ Tarpo.SurgCsvExporter = function(){
 	
 	var csv = '';
 	
-	var surgeries = Tarpo.Data.getConnection().queryBy('select surg.*, list.listName from surg, list where surg.listId = list.listId');
+	var surgeries = Tarpo.Db.queryBy('select surg.*, list.listName from surg, list where surg.listId = list.listId');
 	
 	// Heading row
 	var atts = [];
@@ -106,7 +106,7 @@ Tarpo.MedCsvExporter = function(){
 	
 	var csv = '';
 	
-	var meds = Tarpo.Data.getConnection().queryBy('select med.*, list.listName from med, list where med.listId = list.listId');
+	var meds = Tarpo.Db.queryBy('select med.*, list.listName from med, list where med.listId = list.listId');
 	
 	// Heading row
 	var atts = [];

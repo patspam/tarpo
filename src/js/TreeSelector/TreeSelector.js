@@ -1,4 +1,7 @@
-// custom menu item to contain Ext trees
+/**
+ * Ext.menu.TreeItem
+ * custom menu item to contain Ext trees
+ */
 Ext.menu.TreeItem = Ext.extend(Ext.menu.Adapter, {
 	constructor : function(config){
         Ext.menu.TreeItem.superclass.constructor.call(this, config.tree, config);
@@ -17,8 +20,10 @@ Ext.menu.TreeItem = Ext.extend(Ext.menu.Adapter, {
     }
 });
 
-
-// custom menu containing a single tree
+/**
+ * Ext.menu.TreeMenu
+ * custom menu containing a single tree
+ */
 Ext.menu.TreeMenu = Ext.extend(Ext.menu.Menu, {
     cls:'x-tree-menu',
 	keyNav: true,
@@ -47,8 +52,10 @@ Ext.menu.TreeMenu = Ext.extend(Ext.menu.Menu, {
 	}
 });
 
-
-// custom form field for displaying a tree, similar to select or combo
+/**
+ * Ext.ux.TreeSelector
+ * custom form field for displaying a tree, similar to select or combo
+ */
 Ext.ux.TreeSelector = Ext.extend(Ext.form.TriggerField, {
 	initComponent : function(){
 		Ext.ux.TreeSelector.superclass.initComponent.call(this);
@@ -176,6 +183,7 @@ Ext.ux.TreeSelector = Ext.extend(Ext.form.TriggerField, {
 });
 
 /*
+ * Ext.tree.ActivationModel
  * Custom tree keyboard navigation that supports node navigation without selection
  */
 Ext.tree.ActivationModel = Ext.extend(Ext.tree.DefaultSelectionModel, {

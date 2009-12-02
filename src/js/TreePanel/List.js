@@ -1,5 +1,10 @@
-ListTree = function(config){
-	ListTree.superclass.constructor.call(this, Ext.apply({
+/**
+ * Tarpo.TreePanel.List
+ */
+Ext.namespace('Tarpo.TreePanel.List');
+
+Tarpo.TreePanel.List = function(config){
+	Tarpo.TreePanel.List.superclass.constructor.call(this, Ext.apply({
 		id:'list-tree',
 		animate:false,
 		//rootVisible:false,
@@ -17,7 +22,7 @@ ListTree = function(config){
 	
 	this.on('contextmenu', this.onContextMenu, this);
 }
-Ext.extend(ListTree, Ext.tree.TreePanel, {
+Ext.extend(Tarpo.TreePanel.List, Ext.tree.TreePanel, {
 	
 	initComponent : function(){
 		this.bbar = [
@@ -31,7 +36,7 @@ Ext.extend(ListTree, Ext.tree.TreePanel, {
 		this.loader = new ListLoader({
 			store: Tarpo.store.list
 		});
-		ListTree.superclass.initComponent.call(this);
+		Tarpo.TreePanel.List.superclass.initComponent.call(this);
 		
 		var root = new Ext.tree.AsyncTreeNode({
 	        text: 'All Lists',

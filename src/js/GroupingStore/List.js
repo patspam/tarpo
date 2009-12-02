@@ -12,8 +12,8 @@ Tarpo.GroupingStore.List = Ext.extend(Ext.data.Store, {
 	        })
 	    });
 		
-	    this.conn = Tarpo.Data.getConnection();
-	    this.proxy = new Ext.sql.Proxy(Tarpo.Data.getConnection(), 'list', 'listId', this);
+	    this.conn = Tarpo.Db;
+	    this.proxy = new Ext.sql.Proxy(Tarpo.Db, 'list', 'listId', this);
 	},
 	
     getName : function(id){

@@ -47,7 +47,7 @@ Tarpo.Actions = {
         handler: function(){
             Ext.Msg.confirm('Confirm', 'Are you sure you want to delete the selected House Visit(s)?', function(btn){
                 if (btn == 'yes') {
-                    Tarpo.WindowManager.getMainWindow.visitGrid.getSelectionModel().each(function(s){
+                    Tarpo.grid.visit.getSelectionModel().each(function(s){
                         Tarpo.store.visit.remove(s);
                     });
                 }
@@ -190,7 +190,7 @@ Tarpo.Actions = {
         handler: function(){
             Ext.Msg.confirm('Confirm', 'This will delete all your existing data and populate the database with some demo data. Are you sure you want to continue?', function(btn){
                 if (btn == 'yes') {
-                    Tarpo.Data.demoData();
+                    Tarpo.Util.loadDemoData();
                 }
             });
         }
@@ -208,5 +208,42 @@ Tarpo.Actions = {
                 }
             });
         }
-    })
+    }),
+	
+	openDatabase: new Ext.Action({
+		itemText: 'Open Database',
+        tooltip: 'Open Tarpo database file',
+        handler: function(){
+			// The "Open File" dialog should default to the location
+			// of the most recently opened database file
+			var lastDatabase = Tarpo.Settings.get('lastDatabase');
+			var file;
+			if (lastDatabase) {
+				file = new air.File(lastDatabase);
+			} else {
+				// Otherwise just default to the documents directory
+				file = air.File.documentsDirectory;
+			}
+            
+			// Subscribe to the SELECT event
+			file.addEventListener( air.Event.SELECT, function (e) {
+				if (Tarpo.db.openState) {
+					Tarpo.log('Closing open file before opening new one');
+					Tarpo.Db.close();
+				}
+				
+				Tarpo.Db.open(file);
+				Tarpo.Settings.set('lastDatabase', file.nativePath);	
+			});
+			
+			// Subscribe to the CANCEL event
+			file.addEventListener( air.Event.CANCEL, function (e) {
+				Tarpo.log('User cancelled Open File dialog');
+			});
+			
+			var filters = new runtime.Array();
+			filters.push( new air.FileFilter( 'Tarpo Databases', '*.sqlite' ) );
+			file.browseForOpen( 'Open Tarpo Database', filters );
+        }
+	}),
 };

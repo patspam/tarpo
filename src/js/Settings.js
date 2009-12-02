@@ -10,10 +10,7 @@ Ext.namespace('Tarpo.Settings');
 /**
  * Start by defining some constants
  */
-Tarpo.Settings = {
-	DB_FILENAME: 'tarpo.sqlite', // this will be removed when we have openable files
-	STATE_FILENAME: 'tarpo.state',
-};
+Tarpo.Settings.STATE_FILENAME = 'tarpo.state';
 
 /** 
  * Next, initialise Ext's global state manager
@@ -39,8 +36,7 @@ Ext.state.Manager.setProvider(
 				height:580,
 				x:10,
 				y:10
-			},
-			recentFiles: [],
+			}
 		}
 	}
 ));
@@ -50,7 +46,9 @@ Tarpo.Settings.get = function(name, defaultValue) {
 };
 
 Tarpo.Settings.set = function(name, value) {
-	return Ext.state.Manager.getProvider().set(name, value);
+	var provider = Ext.state.Manager.getProvider();
+	provider.set(name, value);
+	provider.saveState();
 };
 
 Tarpo.Settings.reset = function() {

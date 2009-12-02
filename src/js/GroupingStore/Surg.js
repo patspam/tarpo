@@ -16,8 +16,8 @@ Tarpo.GroupingStore.Surg = Ext.extend(Ext.data.GroupingStore, {
                 fields: Tarpo.Data.Surg
             })
         });
-        this.conn = Tarpo.Data.getConnection();
-        this.proxy = new Ext.sql.Proxy(Tarpo.Data.getConnection(), 'surg', 'id', this);
+        this.conn = Tarpo.Db;
+        this.proxy = new Ext.sql.Proxy(Tarpo.Db, 'surg', 'id', this);
     },
     
     applyFilter: function(filter){

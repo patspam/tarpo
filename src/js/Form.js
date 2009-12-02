@@ -56,7 +56,7 @@
 		allowBlank: false,
 	}));
 	
-	Ext.reg('Tarpo.form.listId', Tarpo.form.listId = Ext.extend(ListSelector, {
+	Ext.reg('Tarpo.form.listId', Tarpo.form.listId = Ext.extend(Tarpo.TreeSelector.List, {
 		fieldLabel: 'List',
 		name: 'listId',
 		store: opener.Tarpo.store.list,

@@ -1,61 +1,44 @@
 Ext.onReady(function(){
     Ext.QuickTips.init();
     
-    // maintain window state automatically
-    var main = new Ext.air.NativeWindow({
-        id: 'mainWindow',
-        instance: window.nativeWindow,
-        minimizeToTray: true,
-        trayIcon: '../images/icons/extlogo16.png',
-        trayTip: 'Tarpo',
-        trayMenu: [{
-            text: 'Open Tarpo',
-            handler: function(){
-                main.activate();
-            }
-        }, '-', {
-            text: 'Exit',
-            handler: function(){
-                air.NativeApplication.nativeApplication.exit();
-            }
-        }]
-    });
+	// Instantiate the main window
+    var main = Tarpo.WindowManager.getMainWindow();
     
-    // Instantiate the data stores, and store them in a singleton
-    // object
-    // N.B. We can't use Ext.namespace() here b/c of AIR security
+    // Init the Grouping Stores
     Tarpo.store = {
         visit: new Tarpo.GroupingStore.Visit(),
         surg: new Tarpo.GroupingStore.Surg(),
         med: new Tarpo.GroupingStore.Med(),
-        list: new Tarpo.GroupingStore.List()
+        list: new Tarpo.GroupingStore.List(),
     };
-    
-    // Connect to the SQLite database file
-    Tarpo.Data.getConnection().open(Tarpo.Settings.DB_FILENAME);
-    
-    // Instantiate the Grids, and store them in the main window object
-    // (other windows can access them via Tarpo.WindowManager.getMainWindow)
-    main.visitGrid = new Tarpo.EditorGridPanel.Visit();
-    main.surgGrid = new Tarpo.EditorGridPanel.Surg();
-    main.medGrid = new Tarpo.EditorGridPanel.Med();
-    
-    var menus = Ext.air.SystemMenu;
-    menus.add('File', [Tarpo.Actions.report, '->', Tarpo.Actions.resetDefaults, Tarpo.Actions.demoData, '-', Tarpo.Actions.backup, Tarpo.Actions.exportVisitCsv, Tarpo.Actions.exportSurgCsv, Tarpo.Actions.exportMedCsv, Tarpo.Actions.exportXml, '-', Tarpo.Actions.debug, '-', Tarpo.Actions.quit]);
-    menus.add('Help', [{
+	
+	// Init the Editor Grid Panels
+	Tarpo.grid = {
+		visit: new Tarpo.EditorGridPanel.Visit(),
+		surg: new Tarpo.EditorGridPanel.Surg(),
+		med: new Tarpo.EditorGridPanel.Med(),
+	};
+	
+	// Init the Menus
+    Ext.air.SystemMenu.add('File', [Tarpo.Actions.openDatabase, Tarpo.Actions.report, '-', Tarpo.Actions.resetDefaults, Tarpo.Actions.demoData, '-', Tarpo.Actions.backup, Tarpo.Actions.exportVisitCsv, Tarpo.Actions.exportSurgCsv, Tarpo.Actions.exportMedCsv, Tarpo.Actions.exportXml, '-', Tarpo.Actions.debug, '-', Tarpo.Actions.quit]);
+    Ext.air.SystemMenu.add('Help', [{
         text: 'About',
         handler: function(){
 			Tarpo.WindowManager.getAboutWindow().activate();
         }
     }]);
+	
+	if (!Tarpo.Db.openState) {
+		Tarpo.Actions.openDatabase.execute();
+		//Ext.Msg.alert('Um..', 'You need to open a data file roger');
+	}
     
-    var tree = new ListTree({
+    // Build the List TreePanel
+    var tree = new Tarpo.TreePanel.List({
         actions: Tarpo.Actions,
         store: Tarpo.store.list
     });
-    
-    var root = tree.getRootNode();
-    
+	var root = tree.getRootNode();
     var listSm = tree.getSelectionModel();
     
     Tarpo.store.list.bindTree(tree);
@@ -63,14 +46,14 @@ Ext.onReady(function(){
         Tarpo.store.visit.applyGrouping();
         Tarpo.store.surg.applyGrouping();
         Tarpo.store.med.applyGrouping();
-        if (main.visitGrid.titleNode) {
-            main.visitGrid.setTitle(main.visitGrid.titleNode.text);
+        if (Tarpo.grid.visit.titleNode) {
+            Tarpo.grid.visit.setTitle(Tarpo.grid.visit.titleNode.text);
         }
-        if (main.surgGrid.titleNode) {
-            main.surgGrid.setTitle(main.surgGrid.titleNode.text);
+        if (Tarpo.grid.surg.titleNode) {
+            Tarpo.grid.surg.setTitle(Tarpo.grid.surg.titleNode.text);
         }
-        if (main.medGrid.titleNode) {
-            main.medGrid.setTitle(main.medGrid.titleNode.text);
+        if (Tarpo.grid.med.titleNode) {
+            Tarpo.grid.med.setTitle(Tarpo.grid.med.titleNode.text);
         }
     });
     
@@ -107,12 +90,12 @@ Ext.onReady(function(){
         items: [new Ext.Panel({
             title: 'House Visits',
             layout: 'fit',
-            items: main.visitGrid,
+            items: Tarpo.grid.visit,
         
         }), new Ext.Panel({
             title: 'Surgical Cases',
             layout: 'fit',
-            items: main.surgGrid,
+            items: Tarpo.grid.surg,
             listeners: {
                 'activate': function(){
                     Tarpo.store.surg.init();
@@ -121,7 +104,7 @@ Ext.onReady(function(){
         }), new Ext.Panel({
             title: 'Medical Cases',
             layout: 'fit',
-            items: main.medGrid,
+            items: Tarpo.grid.med,
             listeners: {
                 'activate': function(){
                     Tarpo.store.med.init();
@@ -136,18 +119,18 @@ Ext.onReady(function(){
         items: [tb, tree, tab]
     });
     
-    main.visitGrid.on('keydown', function(e){
-        if (e.getKey() == e.DELETE && !main.visitGrid.editing) {
+    Tarpo.grid.visit.on('keydown', function(e){
+        if (e.getKey() == e.DELETE && !Tarpo.grid.visit.editing) {
             Tarpo.Actions.deleteVisit.execute();
         }
     });
-    main.surgGrid.on('keydown', function(e){
-        if (e.getKey() == e.DELETE && !main.surgGrid.editing) {
+    Tarpo.grid.surg.on('keydown', function(e){
+        if (e.getKey() == e.DELETE && !Tarpo.grid.surg.editing) {
             Tarpo.Actions.deleteSurg.execute();
         }
     });
-    main.medGrid.on('keydown', function(e){
-        if (e.getKey() == e.DELETE && !main.medGrid.editing) {
+    Tarpo.grid.med.on('keydown', function(e){
+        if (e.getKey() == e.DELETE && !Tarpo.grid.med.editing) {
             Tarpo.Actions.deleteMed.execute();
         }
     });
@@ -158,15 +141,15 @@ Ext.onReady(function(){
         }
     });
     
-    main.visitGrid.getSelectionModel().on('selectionchange', function(sm){
+    Tarpo.grid.visit.getSelectionModel().on('selectionchange', function(sm){
         var disabled = sm.getCount() < 1;
         Tarpo.Actions.deleteVisit.setDisabled(disabled);
     });
-    main.surgGrid.getSelectionModel().on('selectionchange', function(sm){
+    Tarpo.grid.surg.getSelectionModel().on('selectionchange', function(sm){
         var disabled = sm.getCount() < 1;
         Tarpo.Actions.deleteSurg.setDisabled(disabled);
     });
-    main.medGrid.getSelectionModel().on('selectionchange', function(sm){
+    Tarpo.grid.med.getSelectionModel().on('selectionchange', function(sm){
         var disabled = sm.getCount() < 1;
         Tarpo.Actions.deleteMed.setDisabled(disabled);
     });
@@ -209,15 +192,15 @@ Ext.onReady(function(){
                 Tarpo.store.surg.loadList(node.id);
                 Tarpo.store.med.loadList(node.id);
             }
-            main.visitGrid.titleNode = node;
-            main.surgGrid.titleNode = node;
-            main.medGrid.titleNode = node;
-            main.visitGrid.setTitle(node.text);
-            main.surgGrid.setTitle(node.text);
-            main.medGrid.setTitle(node.text);
-            main.visitGrid.setIconClass(node.attributes.iconCls);
-            main.surgGrid.setIconClass(node.attributes.iconCls);
-            main.medGrid.setIconClass(node.attributes.iconCls);
+            Tarpo.grid.visit.titleNode = node;
+            Tarpo.grid.surg.titleNode = node;
+            Tarpo.grid.med.titleNode = node;
+            Tarpo.grid.visit.setTitle(node.text);
+            Tarpo.grid.surg.setTitle(node.text);
+            Tarpo.grid.med.setTitle(node.text);
+            Tarpo.grid.visit.setIconClass(node.attributes.iconCls);
+            Tarpo.grid.surg.setIconClass(node.attributes.iconCls);
+            Tarpo.grid.med.setIconClass(node.attributes.iconCls);
         }
     }
     

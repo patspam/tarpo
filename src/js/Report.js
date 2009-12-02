@@ -18,7 +18,7 @@ Tarpo.Report.getChildren = function(listId){
         return ['"' + listId + '"'];
     }
     else {
-        var cs = Tarpo.Data.getConnection().queryBy('select listId from list where parentId = "' + listId + '"');
+        var cs = Tarpo.Db.queryBy('select listId from list where parentId = "' + listId + '"');
         var l = [];
         for (var i = 0; i < cs.length; i++) {
             var c = cs[i]['listId'];

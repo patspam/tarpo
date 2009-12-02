@@ -33,3 +33,23 @@ Tarpo.Util.dateFormatter = function(v){
 Tarpo.Util.sigFigs = function(x){
     return Math.round(x * 100) / 100;
 }
+
+/**
+ * Loads demo data into the database
+ */
+Tarpo.Util.loadDemoData = function(){
+	var connection = Tarpo.Db;
+    connection.exec('delete from list');
+    connection.exec('delete from visit');
+    connection.exec('delete from surg');
+    connection.exec('delete from med');
+	
+    Tarpo.store.list.reload();
+    Tarpo.store.visit.reload();
+    Tarpo.store.surg.reload();
+    Tarpo.store.med.reload();
+    Tarpo.store.list.demoData();
+    Tarpo.store.visit.demoData();
+    Tarpo.store.surg.demoData();
+    Tarpo.store.med.demoData();
+}
