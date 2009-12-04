@@ -132,20 +132,19 @@ Tarpo.Window.Launch.woof = function() {
 Tarpo.Window.Launch.recentDatabases = function(recent) {
 	// If an object is provided, use that (and munge it), otherwise look it up
 	recent = recent || Tarpo.Settings.get('recentDatabases', []);
-	recent = recent.map(function(e){ 
-		return {
-			text: e.nativePath,
-			leaf: true,
-			qtip: new Date(e.timestamp).format('D d/m/Y h:m:s'),
-		};
-	});
+	
 	if (recent.length == 0) {
-		recent = {
-			text: 'No recently opened items',
-			leaf: true,
-		}
+		return [];
+	} else {
+		return recent.map(function(e){
+			var date = e.timestamp ? new Date(e.timestamp) : new Date();
+			return {
+				text: e.nativePath || 'Unknown',
+				leaf: true,
+				qtip: date.format('D d/m/Y h:m:s'),
+			};
+		});
 	}
-	return recent;
 }
 
 /**

@@ -91,16 +91,24 @@ Tarpo.Window.Main.tarpoDatabaseChosen = function(e) {
 	
 	// The connection was successfully opened, so update the list of recent databases
 	var recent = Tarpo.Settings.get('recentDatabases', []);
-	var newRecent = recent.filter(function(e){return e.nativePath != nativePath});
-	newRecent.splice(0,0,{
+	recent = recent.filter(function(e){
+		return e.nativePath != nativePath
+	});
+	var newest = {
 		nativePath: file.nativePath,
 		timestamp: new Date().getTime(),
-	});
-	Tarpo.Settings.set('recentDatabases', newRecent);
+	};
+	if (recent.length == 0) {
+		recent = [newest];
+	} else {
+		recent.splice(0, 0, newest);
+	}
+
+	Tarpo.Settings.set('recentDatabases', recent);
 	
 	// We want to send this updated list back to the Launch window so that it can
-	// update its TreePanel, so store newRecent in main's JS environment
-	Tarpo.Window.Main.recentDatabases = newRecent;
+	// update its TreePanel, so store recent in main's JS environment
+	Tarpo.Window.Main.recentDatabases = recent;
 	
 	// The Launch window has done its job. Time for it to disappear
 	// N.B. AIR introspector console likes to re-open this window if you send debug messages

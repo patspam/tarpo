@@ -69,3 +69,17 @@ Tarpo.error = function(title, msg, trace) {
 		icon: Ext.MessageBox.ERROR
 	});
 }
+
+/**
+ * All date formats that are used in the app (e.g. new Date().format('my-format') 
+ * have to be precompiled, otherwise you get AIR security requirements. You can
+ * get away with now precompiling some, depending on how and when they're used,
+ * but mostly that's going to give you unpredictable run-time exceptions, so it's
+ * better to aggressively precompile them all here.
+ * 
+ * The odd ack -Q '.format(' through the source tree wouldn't hurt either.
+ */
+Date.precompileFormats('D d/m/Y');
+Date.precompileFormats('D d/m/Y h:m:s');
+Date.precompileFormats('Y-m-d');
+Date.precompileFormats('Y-m-d-hms');
