@@ -117,6 +117,9 @@ Tarpo.Window.Launch.init = function(){
 	});
 };
 
+/**
+ * Plays a woof sound (easter egg)
+ */
 Tarpo.Window.Launch.woof = function() {
 	air.trace('woof');
 	Ext.air.Sound.play('src/sound/woof.mp3', 0);

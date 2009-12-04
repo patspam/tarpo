@@ -2,7 +2,7 @@
 <application xmlns="http://ns.adobe.com/air/application/1.0">
 
 	<!-- The application identifier string, unique to this application. Required. -->
-	<id>com.patspam.tarpo</id>
+	<id>Tarpo</id>
 
 	<!-- Used as the filename for the application. Required. -->
 	<filename>Tarpo</filename>
@@ -14,7 +14,7 @@
 	<version>1.0.2</version>
 
 	<!-- Description, displayed in the AIR application installer. Optional. -->
-	<description>Tarpo by Patrick Donelan</description>
+	<description>Open source, cross platform data management tool for Dog Health Programs</description>
 
 	<!-- Copyright information. Optional -->
 	<copyright>(c) 2009 - Patrick Donelan</copyright>
