@@ -105,8 +105,8 @@ Tarpo.Window.Launch.init = function(){
 			},
 		}, {
 			region: 'center',
-			html: '<img src="../images/splash.png" style="width: 100%; max-width: 250px;">',
-			autoHeight: true
+			html: '<img src="../images/splash.png" style="width: 100%; max-width: 250px;" onclick="Tarpo.Window.Launch.woof();">',
+			autoHeight: true,
 		}, {
 			region: 'south',
 			title: 'Information',
@@ -116,6 +116,11 @@ Tarpo.Window.Launch.init = function(){
 		}]
 	});
 };
+
+Tarpo.Window.Launch.woof = function() {
+	air.trace('woof');
+	Ext.air.Sound.play('src/sound/woof.mp3', 0);
+}
 
 /**
  * This function grabs the list of recent databases out of the state file,

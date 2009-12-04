@@ -191,19 +191,6 @@ Tarpo.Actions = {
         }
     }),
     
-    demoData: new Ext.Action({
-        itemText: 'Load Demo Data',
-        tooltip: 'Re-populate database with demo data',
-        iconCls: 'icon-list-delete',
-        handler: function(){
-            Ext.Msg.confirm('Confirm', 'This will delete all your existing data and populate the database with some demo data. Are you sure you want to continue?', function(btn){
-                if (btn == 'yes') {
-                    Tarpo.Util.loadDemoData();
-                }
-            });
-        }
-    }),
-    
     resetDefaults: new Ext.Action({
         itemText: 'Reset Settings',
         tooltip: 'Reset program defaults such as column widths',
