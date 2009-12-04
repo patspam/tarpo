@@ -70,7 +70,7 @@ Tarpo.Window.Launch.init = function(){
 				icon: '../images/icon-folder-new.gif',
 				cls: 'x-btn-text-icon',
 			}, {
-				text: 'Browse',
+				text: 'Open',
 				handler: function(){
 					Tarpo.Window.Launch.openDatabase();
 				},
@@ -159,7 +159,9 @@ Tarpo.Window.Launch.openDatabase = function() {
 		file = new air.File(mostRecent.nativePath);
 	} else {
 		// Otherwise just default to the documents directory
-		file = air.File.documentsDirectory;
+		// N.B. specify a (probably non-existant) file so that the dialog
+		// shows the inside of the documents folder
+		file = air.File.documentsDirectory.resolvePath('tarpo.tarpo');
 	}
     
 	// Subscribe to the SELECT event

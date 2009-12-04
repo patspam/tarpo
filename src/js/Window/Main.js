@@ -34,11 +34,11 @@ Tarpo.Window.Main.bootstrap = function() {
 	
 	// Closing either window immediately exits the app
 	main.on('close', function(){ 
-		Tarpo.trace('Main window closed, exiting app');
+		//Tarpo.trace('Main window closed, exiting app');
 		air.NativeApplication.nativeApplication.exit(); 
 	});
 	launch.on('close', function(){  
-		Tarpo.trace('Launch window closed, exiting app');
+		//Tarpo.trace('Launch window closed, exiting app');
 		air.NativeApplication.nativeApplication.exit(); 
 	});
 	
@@ -61,7 +61,7 @@ Tarpo.Window.Main.bootstrap = function() {
  * selected database.
  */
 Tarpo.Window.Main.tarpoDatabaseChosen = function(e) {
-	air.trace('Main window responding to tarpoDatabaseChosen event');
+	//air.trace('Main window responding to tarpoDatabaseChosen event');
 	
 	// We need references to both windows (which have already be instantiated)
 	var launch = Tarpo.WindowManager.getLaunchWindow();

@@ -11,9 +11,6 @@ Tarpo.WindowManager.getLaunchWindow = function(){
             file: 'launch.html',
 			width: 500,
             height: 500,
-			//chrome: 'none',
-            //type: 'lightweight',
-			//transparent: true,
         });
     }
 }
@@ -29,7 +26,7 @@ Tarpo.WindowManager.getMainWindow = function(){
             id: winId,
             instance: window.nativeWindow,
             minimizeToTray: true,
-            trayIcon: '../images/icons/extlogo16.png',
+            trayIcon: '../images/icons/48.png',
             trayTip: 'Tarpo',
             trayMenu: [{
                 text: 'Open Tarpo',
@@ -43,7 +40,6 @@ Tarpo.WindowManager.getMainWindow = function(){
                 }
             }]
         });
-		//Tarpo.Window.Main.init(win);
     }
 }
 

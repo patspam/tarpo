@@ -63,10 +63,10 @@
 
 	<!-- The icon the system uses for the application -->
 	<icon>
-	  	<image16x16>src/images/icons/extlogo16.png</image16x16>
-		<image32x32>src/images/icons/extlogo32.png</image32x32>
-		<image48x48>src/images/icons/extlogo48.png</image48x48>
-		<image128x128>src/images/icons/extlogo128.png</image128x128>
+	  	<image16x16>src/images/icons/16.png</image16x16>
+		<image32x32>src/images/icons/32.png</image32x32>
+		<image48x48>src/images/icons/48.png</image48x48>
+		<image128x128>src/images/icons/128.png</image128x128>
 	</icon>
 
 </application>
