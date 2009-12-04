@@ -56,6 +56,15 @@ Tarpo.Util.loadDemoData = function(){
 }
 
 /**
+ * Returns the current Tarpo version (retrieved from application.xml)
+ */
+Tarpo.Util.getVersion = function() {
+	var na = air.NativeApplication.nativeApplication;
+	var appXML = new DOMParser().parseFromString(na.applicationDescriptor, "text/xml");
+	return appXML.getElementsByTagName('version')[0].firstChild.nodeValue;
+}
+
+/**
  * Displays an error box, and optionally outputs trace debugging info
  */
 Tarpo.error = function(title, msg, trace) {

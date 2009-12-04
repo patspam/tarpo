@@ -5,13 +5,14 @@
  */
 Ext.namespace('Tarpo.Window.About');
 
+/**
+ * Builds the dynamic elements on the About page.
+ */
 Tarpo.Window.About.init = function() {
-	var na = air.NativeApplication.nativeApplication;
-	var appXML = new DOMParser().parseFromString(na.applicationDescriptor, "text/xml");
-	var version = appXML.getElementsByTagName('version')[0].firstChild.nodeValue
+	// Figure out the current Tarpo and AIR version numbers
 	var details = [
-		'Tarpo Version', version,
-		'Air Runtime Version', na.runtimeVersion,
+		'Tarpo Version', Tarpo.Util.getVersion(),
+		'Air Runtime Version', air.NativeApplication.nativeApplication.runtimeVersion,
 	];
 	var detailsString = '';
 	for(var i = 0; i < details.length; i += 2) {
@@ -19,7 +20,7 @@ Tarpo.Window.About.init = function() {
 	}
 	document.getElementById('about-version').innerHTML = detailsString;
 	
-	
+	// Pull in the contents of the LICENSE file
 	var license = air.File.applicationDirectory.resolvePath('LICENSE');
 	var stream = new air.FileStream();
 	stream.open(license, air.FileMode.READ);
