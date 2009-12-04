@@ -44,11 +44,7 @@
 </head>
 <body>
 <script>
-	var splash = Tarpo.WindowManager.getSplashWindow();
-	splash.on('close', function(e){
-		Tarpo.Window.Main.init();
-	});
-	splash.activate();
+	Tarpo.Window.Main.appInit();
 </script>
 </body>
 </html>

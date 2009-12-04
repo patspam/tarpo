@@ -42,6 +42,7 @@ Tarpo.Db = Ext.sql.Connection.getInstance();
  */
 Ext.apply(Tarpo.Db, {
 	open: function(file){
+		air.trace('Opening database connection to: ' + file.nativePath);
     	this.conn = new air.SQLConnection();
 		this.conn.open(file);
     	this.openState = true;

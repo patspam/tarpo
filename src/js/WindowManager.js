@@ -1,13 +1,31 @@
 Ext.namespace('Tarpo.WindowManager');
 
+Tarpo.WindowManager.getLaunchWindow = function(){
+    var win, winId = 'launch';
+    if (win = Ext.air.NativeWindowManager.get(winId)) {
+        return win;
+    }
+    else {
+        return new Ext.air.NativeWindow({
+            id: winId,
+            file: 'launch.html',
+			width: 500,
+            height: 500,
+			//chrome: 'none',
+            //type: 'lightweight',
+			//transparent: true,
+        });
+    }
+}
+
 Tarpo.WindowManager.getMainWindow = function(){
     var win, winId = 'mainWindow';
     
     if (win = Ext.air.NativeWindowManager.get(winId)) {
-        win.instance.orderToFront();
+        return win;
     }
     else {
-        win = new Ext.air.NativeWindow({
+        return new Ext.air.NativeWindow({
             id: winId,
             instance: window.nativeWindow,
             minimizeToTray: true,
@@ -25,8 +43,8 @@ Tarpo.WindowManager.getMainWindow = function(){
                 }
             }]
         });
+		//Tarpo.Window.Main.init(win);
     }
-    return win;
 }
 
 Tarpo.WindowManager.getVisitWindow = function(visitId){
@@ -96,25 +114,6 @@ Tarpo.WindowManager.getAboutWindow = function(){
             height: 550,
             resizable: false,
             type: 'utility'
-        });
-    }
-    return win;
-}
-
-Tarpo.WindowManager.getSplashWindow = function(){
-    var win, winId = 'splash';
-    if (win = Ext.air.NativeWindowManager.get(winId)) {
-        win.instance.orderToFront();
-    }
-    else {
-        win = new Ext.air.NativeWindow({
-            id: winId,
-            file: 'splash.html',
-			width: 400,
-            height: 449,
-			chrome: 'none',
-            type: 'lightweight',
-			transparent: true,
         });
     }
     return win;

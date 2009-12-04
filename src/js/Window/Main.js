@@ -3,10 +3,74 @@
  */
 Ext.namespace('Tarpo.Window.Main');
 
-Tarpo.Window.Main.init = function(){
-	Ext.QuickTips.init();
+Tarpo.Window.Main.appInit = function() {
 	
-	var win = Tarpo.WindowManager.getMainWindow();
+	// Open the Launch Window
+	var launch = Tarpo.WindowManager.getLaunchWindow();
+	var main = Tarpo.WindowManager.getMainWindow();
+	
+	// Closing main window exits app
+	main.on('close', function(){ 
+		Tarpo.trace('Main window closed, exiting app');
+		air.NativeApplication.nativeApplication.exit(); 
+	});
+	
+	// Closing Launch window exits app
+	launch.on('close', function(){  
+		Tarpo.trace('Launch window closed, exiting app');
+		air.NativeApplication.nativeApplication.exit(); 
+	});
+	
+	// The launch window's job is to choose a database file.
+	// The main window waits until the launch window fires this event.
+	launch.on('tarpoDatabaseChosen', function(e){
+		air.trace('Main window detected tarpoDatabaseChosen event');
+		
+		// Tunnel out the chosen file from the Launch Window's JS env
+		var file = launch.loader.window.Tarpo.Launch.file;
+		
+		if (Tarpo.Db.openState) {
+			air.trace('Closing open file before opening new one');
+			Tarpo.Db.close();
+		}
+		
+		Tarpo.Db.open(file);
+		var nativePath = file.nativePath;
+		
+		// Update list of recent databases
+		var recent = Tarpo.Settings.get('recentDatabases', []);
+		var newRecent = recent.filter(function(e){return e.nativePath != nativePath});
+		newRecent.splice(0,0,{
+			nativePath: file.nativePath,
+			timestamp: new Date().getTime(),
+		});
+		Tarpo.Settings.set('recentDatabases', newRecent);
+		
+		// Store newRecent somewhere that Launch can grab it from
+		Tarpo.Window.Main.recentDatabases = newRecent;
+		
+		// Connection is now open, so let's hide the launch window
+		// N.B. AIR debug console seems to re-open this window
+		launch.hide();
+		
+		Tarpo.Window.Main.init(main);
+		Tarpo.Window.Main.load();
+		
+		air.trace('Dispatching event so that recent list updates');
+		nativeWindow.dispatchEvent(new air.Event("tarpoRecentDatabasesUpdated"));
+	});
+	
+	launch.activate();
+}
+
+Tarpo.Window.Main.init = function(win){
+	if (Tarpo.Window.Main.initialised) {
+		air.trace('Main window already initialised');
+		return;
+	}
+	
+	air.trace('Initialising main window');
+	Ext.QuickTips.init();
 	
 	// Init the Grouping Stores
 	Tarpo.store = {
@@ -24,7 +88,7 @@ Tarpo.Window.Main.init = function(){
 	};
 	
 	// Init the Menus
-	Ext.air.SystemMenu.add('File', [Tarpo.Actions.openDatabase, Tarpo.Actions.demoData, Tarpo.Actions.debug, Tarpo.Actions.quit, ]);
+	Ext.air.SystemMenu.add('File', [Tarpo.Actions.closeDatabase, Tarpo.Actions.demoData, Tarpo.Actions.debug, Tarpo.Actions.quit, ]);
 	Ext.air.SystemMenu.add('Export', [Tarpo.Actions.backup, Tarpo.Actions.exportVisitCsv, Tarpo.Actions.exportSurgCsv, Tarpo.Actions.exportMedCsv, Tarpo.Actions.exportXml, ]);
 	Ext.air.SystemMenu.add('Report', [Tarpo.Actions.report, ]);
 	Ext.air.SystemMenu.add('Settings', [Tarpo.Actions.resetDefaults, ]);
@@ -149,7 +213,7 @@ Tarpo.Window.Main.init = function(){
 		Tarpo.Actions.deleteMed.setDisabled(disabled);
 	});
 	
-	Tarpo.Actions.openDatabase.execute();
+	Tarpo.Window.Main.initialised = true;
 };
 
 Tarpo.Window.Main.load = function() {

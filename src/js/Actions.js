@@ -218,41 +218,18 @@ Tarpo.Actions = {
         }
     }),
 	
-	openDatabase: new Ext.Action({
-		itemText: 'Open Database',
-        tooltip: 'Open Tarpo database file',
+	closeDatabase: new Ext.Action({
+        itemText: 'Close Database',
+        tooltip: 'Close the currently open database',
         handler: function(){
-			// The "Open File" dialog should default to the location
-			// of the most recently opened database file
-			var lastDatabase = Tarpo.Settings.get('lastDatabase');
-			var file;
-			if (lastDatabase) {
-				file = new air.File(lastDatabase);
-			} else {
-				// Otherwise just default to the documents directory
-				file = air.File.documentsDirectory;
-			}
-            
-			// Subscribe to the SELECT event
-			file.addEventListener( air.Event.SELECT, function (e) {
-				if (Tarpo.Db.openState) {
-					Tarpo.log('Closing open file before opening new one');
-					Tarpo.Db.close();
-				}
-				
-				Tarpo.Db.open(file);
-				Tarpo.Settings.set('lastDatabase', file.nativePath);
-				Tarpo.Window.Main.load();
-			});
+			air.trace('Closing db connection');
+			Tarpo.Db.close();
 			
-			// Subscribe to the CANCEL event
-			file.addEventListener( air.Event.CANCEL, function (e) {
-				Tarpo.log('User cancelled Open File dialog');
-			});
+			air.trace('Hiding main window');
+            Tarpo.WindowManager.getMainWindow().hide();
 			
-			var filters = new runtime.Array();
-			filters.push( new air.FileFilter( 'Tarpo Databases', '*.sqlite' ) );
-			file.browseForOpen( 'Open Tarpo Database', filters );
+			air.trace('Re-showing launch');
+			Tarpo.WindowManager.getLaunchWindow().show();
         }
-	}),
+    }),
 };

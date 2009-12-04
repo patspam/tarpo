@@ -51,6 +51,11 @@ Tarpo.Settings.set = function(name, value) {
 	provider.saveState();
 };
 
+Tarpo.Settings.reload = function() {
+	var provider = Ext.state.Manager.getProvider();
+	provider.readState();
+};
+
 Tarpo.Settings.reset = function() {
 	var provider = Ext.state.Manager.getProvider();
 	
