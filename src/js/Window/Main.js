@@ -3,64 +3,102 @@
  */
 Ext.namespace('Tarpo.Window.Main');
 
-Tarpo.Window.Main.appInit = function() {
+/**
+ * This is the first function called when the application loads.
+ * 
+ * In it, we instantiate the Launch window and the Main window, 
+ * wire up the initial events, and display the Launch window.
+ * 
+ * Everything from then on is event-based.
+ */
+Tarpo.Window.Main.bootstrap = function() {
 	
-	// Open the Launch Window
+	// Instantiate the Launch and the Main window..
 	var launch = Tarpo.WindowManager.getLaunchWindow();
 	var main = Tarpo.WindowManager.getMainWindow();
 	
-	// Closing main window exits app
+	// Now wire up some events..
+	
+	// Closing either window immediately exits the app
 	main.on('close', function(){ 
 		Tarpo.trace('Main window closed, exiting app');
 		air.NativeApplication.nativeApplication.exit(); 
 	});
-	
-	// Closing Launch window exits app
 	launch.on('close', function(){  
 		Tarpo.trace('Launch window closed, exiting app');
 		air.NativeApplication.nativeApplication.exit(); 
 	});
 	
-	// The launch window's job is to choose a database file.
-	// The main window waits until the launch window fires this event.
+	// The main window kicks into gear when the Launch window
+	// fires its tarpoDatabaseChosen event
 	launch.on('tarpoDatabaseChosen', function(e){
-		air.trace('Main window detected tarpoDatabaseChosen event');
-		
-		// Tunnel out the chosen file from the Launch Window's JS env
-		var file = launch.loader.window.Tarpo.Launch.file;
-		
-		if (Tarpo.Db.openState) {
-			air.trace('Closing open file before opening new one');
-			Tarpo.Db.close();
-		}
-		
-		Tarpo.Db.open(file);
-		var nativePath = file.nativePath;
-		
-		// Update list of recent databases
-		var recent = Tarpo.Settings.get('recentDatabases', []);
-		var newRecent = recent.filter(function(e){return e.nativePath != nativePath});
-		newRecent.splice(0,0,{
-			nativePath: file.nativePath,
-			timestamp: new Date().getTime(),
-		});
-		Tarpo.Settings.set('recentDatabases', newRecent);
-		
-		// Store newRecent somewhere that Launch can grab it from
-		Tarpo.Window.Main.recentDatabases = newRecent;
-		
-		// Connection is now open, so let's hide the launch window
-		// N.B. AIR debug console seems to re-open this window
-		launch.hide();
-		
-		Tarpo.Window.Main.init(main);
-		Tarpo.Window.Main.load();
-		
-		air.trace('Dispatching event so that recent list updates');
-		nativeWindow.dispatchEvent(new air.Event("tarpoRecentDatabasesUpdated"));
+		Tarpo.Window.Main.tarpoDatabaseChosen(e);
 	});
 	
+	// Display the Launch window
 	launch.activate();
+}
+
+/**
+ * The Launch window is in control of allowing the user to choose which database
+ * to open, but the Main window is the one that actually does the opening (because
+ * we want to open it in the Main window's JS environment). Thus, the main window
+ * waits for the Launch window to fire the tarpoDatabaseChosen event, and then 
+ * reaches across into the Launch windows JS env to pull out the filename of the
+ * selected database.
+ */
+Tarpo.Window.Main.tarpoDatabaseChosen = function(e) {
+	air.trace('Main window responding to tarpoDatabaseChosen event');
+	
+	// We need references to both windows (which have already be instantiated)
+	var launch = Tarpo.WindowManager.getLaunchWindow();
+	var main = Tarpo.WindowManager.getMainWindow();
+	
+	// Tunnel out the chosen file from the Launch Window's JS env
+	var file = launch.loader.window.Tarpo.Launch.file;
+	
+	if (Tarpo.Db.openState) {
+		air.trace('Closing open file before opening new one');
+		Tarpo.Db.close();
+	}
+	
+	// Open the connection to the db
+	Ext.Msg.alert('Unable to open database', 'Unable to open database file, please check the file and try again');
+	var nativePath = file.nativePath;
+	try {
+		Tarpo.Db.open(file);
+	} catch(err) {
+		// To use Ext.Msg.alert we would have to fire an event back to the Launch Window 
+		// to have the error displayed there
+		alert('Sorry, Tarpo did not recognise that file as a valid database. ' +
+			  "Please check the file and try again.\n\n" +
+			  "The file you tried to open was:\n" + nativePath
+		);
+		return;
+	}
+	
+	// The connection was successfully opened, so update the list of recent databases
+	var recent = Tarpo.Settings.get('recentDatabases', []);
+	var newRecent = recent.filter(function(e){return e.nativePath != nativePath});
+	newRecent.splice(0,0,{
+		nativePath: file.nativePath,
+		timestamp: new Date().getTime(),
+	});
+	Tarpo.Settings.set('recentDatabases', newRecent);
+	
+	// We want to send this updated list back to the Launch window so that it can
+	// update its TreePanel, so store newRecent in main's JS environment
+	Tarpo.Window.Main.recentDatabases = newRecent;
+	
+	// Connection is now open, so let's hide the launch window
+	// N.B. AIR debug console seems to re-open this window
+	launch.hide();
+	
+	Tarpo.Window.Main.init(main);
+	Tarpo.Window.Main.load();
+	
+	air.trace('Dispatching event so that recent list updates');
+	nativeWindow.dispatchEvent(new air.Event("tarpoRecentDatabasesUpdated"));
 }
 
 Tarpo.Window.Main.init = function(win){
