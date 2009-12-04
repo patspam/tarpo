@@ -1,5 +1,16 @@
 /**
  * Tarpo.Window.Main
+ * 
+ * This is the javascript for the "initialWindow" of our AIR app (main.html).
+ * The page itself is opened automatically by AIR (because we tell it so in 
+ * application.xml).
+ * 
+ * The Main window is the one that ends up being used to drive Tarpo,
+ * however the user actually sees the Launch window first up. We create
+ * that window from this one, and use some cross-window event trickery
+ * to make it all hang together.
+ * 
+ * Read on..
  */
 Ext.namespace('Tarpo.Window.Main');
 

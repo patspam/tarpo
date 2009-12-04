@@ -1,32 +1,48 @@
 /**
  * Tarpo.Window.Launch
+ * 
+ * The Launch page is the first window that users see when they start Tarpo.
+ * 
+ * The Launch page is partly a splash screen, and partly functional as it is
+ * the interface used to actually open a database file.
  */
 Ext.namespace('Tarpo.Window.Launch');
 
+/**
+ * This function Initialises the Launch window. It is called from launch.html
+ */
 Tarpo.Window.Launch.init = function(){
+	// Initialise Ext's QuickTips library for the window
 	Ext.QuickTips.init();
 	
+	// Grab a reference to the Main nativeWindow, so that we can respond
+	// to events that it fires 
 	var main = air.NativeApplication.nativeApplication.openedWindows[0];
+	
+	// The main window tells us when it has finished updating the list
+	// of recent databases, so that we can rebuild our list (for the next
+	// time the window is displayed)
 	main.addEventListener('tarpoRecentDatabasesUpdated', function(){
-		//nativeWindow.visible = false;
-		air.trace('tarpoRecentDatabasesUpdated');
 		
-		// Tunnel out the new recentDatabases the Main Window's JS env
+		// You would think we could grab the latest "recentDatabases" list
+		// straight out of the state file (via Tarpo.Settings.get("recentDatabases"),
+		// however that doesn't work - at least I couldn't get it to work, even by
+		// explicitly reloading the state file. Instead, we use our trick of reaching
+		// across into the other window's JS environment and grabbing the data we want
 		var recentDatabases = main.stage.getChildAt(0).window.Tarpo.Window.Main.recentDatabases;
-		air.trace('Tunneled out');
-		air.trace(recentDatabases);
 		
-		// Rebuild the tree
-		var rootNode = Ext.ComponentMgr.get('treepanel').getRootNode();
+		// Rebuild the recentDatabases TreePanel
+		var rootNode = Ext.ComponentMgr.get('recentDatabasesTreePanel').getRootNode();
 		
 		// Annoying hack that we have to do.. first delete all items
 		while(rootNode.hasChildNodes()){
 			rootNode.removeChild(rootNode.item(0));
 		}
-		// Then re-add
+		// Then re-add, using the new recentDatabases
 		rootNode.appendChild(Tarpo.Window.Launch.recentDatabases(recentDatabases));
 	});
 	
+	// Build the pretty Launch page
 	new Ext.Viewport({
 		layout: 'border',
 		items: [{
@@ -51,7 +67,7 @@ Tarpo.Window.Launch.init = function(){
 			collapsible: true,
 			title: 'Recently Opened..',
 			xtype: 'treepanel',
-			id: 'treepanel',
+			id: 'recentDatabasesTreePanel',
 			width: 250,
 			autoScroll: true,
 			loader: new Ext.tree.TreeLoader(),
@@ -68,7 +84,11 @@ Tarpo.Window.Launch.init = function(){
 					if (file.exists) {
 						Tarpo.Window.Launch.setDatabaseChosen(file);
 					} else {
-						Ext.Msg.alert('File not found', 'The selected file does not exist');
+						Ext.Msg.alert(
+							'File not found', 
+							"Sorry, it looks like that file doesn't exist anymore.<br><br>" +
+							"The file path was: " + file.nativePath
+						);
 					}
 				}
 			},
@@ -86,7 +106,12 @@ Tarpo.Window.Launch.init = function(){
 	});
 };
 
+/**
+ * This function grabs the list of recent databases out of the state file,
+ * and turns it into a list of objects that can be passed to the TreePanel
+ */
 Tarpo.Window.Launch.recentDatabases = function(recent) {
+	// If an object is provided, use that (and munge it), otherwise look it up
 	recent = recent || Tarpo.Settings.get('recentDatabases', []);
 	recent = recent.map(function(e){ 
 		return {
@@ -104,6 +129,9 @@ Tarpo.Window.Launch.recentDatabases = function(recent) {
 	return recent;
 }
 
+/**
+ * This function triggers the "open file" dialog
+ */
 Tarpo.Window.Launch.openDatabase = function() {
 	// The "Open File" dialog should default to the location
 	// of the most recently opened database file
@@ -136,6 +164,11 @@ Tarpo.Window.Launch.openDatabase = function() {
 	file.browseForOpen( 'Open Tarpo Database', filters );
 };
 
+/**
+ * This function is called after a database file has been selected.
+ * It triggers an event that the Main window is waiting for, telling it
+ * to go ahead and (try to) open the database. 
+ */
 Tarpo.Window.Launch.setDatabaseChosen = function(file) {
 	// Stash the file object somewhere that the main window can grab it from
 	Tarpo.Window.Launch.file = file;
