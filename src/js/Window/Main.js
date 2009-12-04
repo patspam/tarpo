@@ -13,7 +13,9 @@ Ext.namespace('Tarpo.Window.Main');
  */
 Tarpo.Window.Main.bootstrap = function() {
 	
-	// Instantiate the Launch and the Main window..
+	// Create the Launch and the Main NativeWindows.
+	// We create them both right away so that we can add 
+	// event listeners to them.
 	var launch = Tarpo.WindowManager.getLaunchWindow();
 	var main = Tarpo.WindowManager.getMainWindow();
 	
@@ -55,7 +57,7 @@ Tarpo.Window.Main.tarpoDatabaseChosen = function(e) {
 	var main = Tarpo.WindowManager.getMainWindow();
 	
 	// Tunnel out the chosen file from the Launch Window's JS env
-	var file = launch.loader.window.Tarpo.Launch.file;
+	var file = launch.loader.window.Tarpo.Window.Launch.file;
 	
 	if (Tarpo.Db.openState) {
 		air.trace('Closing open file before opening new one');
@@ -63,7 +65,6 @@ Tarpo.Window.Main.tarpoDatabaseChosen = function(e) {
 	}
 	
 	// Open the connection to the db
-	Ext.Msg.alert('Unable to open database', 'Unable to open database file, please check the file and try again');
 	var nativePath = file.nativePath;
 	try {
 		Tarpo.Db.open(file);
@@ -90,24 +91,36 @@ Tarpo.Window.Main.tarpoDatabaseChosen = function(e) {
 	// update its TreePanel, so store newRecent in main's JS environment
 	Tarpo.Window.Main.recentDatabases = newRecent;
 	
-	// Connection is now open, so let's hide the launch window
-	// N.B. AIR debug console seems to re-open this window
+	// The Launch window has done its job. Time for it to disappear
+	// N.B. AIR introspector console likes to re-open this window if you send debug messages
 	launch.hide();
 	
-	Tarpo.Window.Main.init(main);
+	// Time to display the Main window an load it with data from the database
 	Tarpo.Window.Main.load();
 	
-	air.trace('Dispatching event so that recent list updates');
+	// Finally, fire off an event so that the Launch window knows ot update its list
+	// of recent databases
 	nativeWindow.dispatchEvent(new air.Event("tarpoRecentDatabasesUpdated"));
 }
 
-Tarpo.Window.Main.init = function(win){
+/**
+ * This function initialises the Main window (menus, panels, etc..). 
+ * 
+ * It is automatically called by Tarpo.Window.Main.load()
+ * 
+ * Everything that happens here should be independent of the actual contents of 
+ * the database, so that we don't need to run it again if the user closes
+ * the database and loads another file.
+ */
+Tarpo.Window.Main.init = function(){
 	if (Tarpo.Window.Main.initialised) {
 		air.trace('Main window already initialised');
 		return;
+	} else {
+		air.trace('Initialising main window');
 	}
 	
-	air.trace('Initialising main window');
+	// Initialise Ext's QuickTips library (needs to be called once at page load)
 	Ext.QuickTips.init();
 	
 	// Init the Grouping Stores
@@ -251,16 +264,23 @@ Tarpo.Window.Main.init = function(win){
 		Tarpo.Actions.deleteMed.setDisabled(disabled);
 	});
 	
+	// Whew! Make note that we've initialised the main window, so that we
+	// don't have to go through all that rubbish a second time..
 	Tarpo.Window.Main.initialised = true;
 };
 
+/**
+ * This function loads data from the database into the Main window.
+ * 
+ * The Main window is automatically initialised along the way.
+ */
 Tarpo.Window.Main.load = function() {
 	
-	// Show the main window
-	var win = Tarpo.WindowManager.getMainWindow();
-	win.show();
-	win.instance.activate();
+	// We always call the Main window's initialisation method, but it 
+	// only does real work the first time around. 
+	Tarpo.Window.Main.init();
     
+	// Initialise the data stores
     Tarpo.store.visit.init();
     Tarpo.store.surg.init();
     Tarpo.store.med.init();
@@ -310,8 +330,7 @@ Tarpo.Window.Main.load = function() {
     });
     
     Tarpo.store.list.tree.getRootNode().reload();
-    
-	Tarpo.WindowManager.getMainWindow().on('closing', function(){
-        //Ext.air.WindowManager.closeAll();
-    });
+	
+	// Behold!
+	Tarpo.WindowManager.getMainWindow().activate();
 };

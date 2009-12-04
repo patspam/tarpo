@@ -1,9 +1,9 @@
 /**
- * Tarpo.Launch
+ * Tarpo.Window.Launch
  */
-Ext.namespace('Tarpo.Launch');
+Ext.namespace('Tarpo.Window.Launch');
 
-Tarpo.Launch.init = function(){
+Tarpo.Window.Launch.init = function(){
 	Ext.QuickTips.init();
 	
 	var main = air.NativeApplication.nativeApplication.openedWindows[0];
@@ -24,7 +24,7 @@ Tarpo.Launch.init = function(){
 			rootNode.removeChild(rootNode.item(0));
 		}
 		// Then re-add
-		rootNode.appendChild(Tarpo.Launch.recentDatabases(recentDatabases));
+		rootNode.appendChild(Tarpo.Window.Launch.recentDatabases(recentDatabases));
 	});
 	
 	new Ext.Viewport({
@@ -34,14 +34,14 @@ Tarpo.Launch.init = function(){
 			tbar: [{
 				text: 'New',
 				handler: function(){
-					Tarpo.Launch.newDatabase();
+					Tarpo.Window.Launch.newDatabase();
 				},
 				icon: '../images/icon-folder-new.gif',
 				cls: 'x-btn-text-icon',
 			}, {
 				text: 'Browse',
 				handler: function(){
-					Tarpo.Launch.openDatabase();
+					Tarpo.Window.Launch.openDatabase();
 				},
 				icon: '../images/edit.gif',
 				cls: 'x-btn-text-icon',
@@ -57,7 +57,7 @@ Tarpo.Launch.init = function(){
 			loader: new Ext.tree.TreeLoader(),
 			root: new Ext.tree.AsyncTreeNode({
 				expanded: true,
-				children: Tarpo.Launch.recentDatabases(),
+				children: Tarpo.Window.Launch.recentDatabases(),
 			}),
 			rootVisible: false,
 			listeners: {
@@ -66,7 +66,7 @@ Tarpo.Launch.init = function(){
 					air.trace('Attempting to open file: ' + nativePath);
 					var file = new air.File(nativePath);
 					if (file.exists) {
-						Tarpo.Launch.setDatabaseChosen(file);
+						Tarpo.Window.Launch.setDatabaseChosen(file);
 					} else {
 						Ext.Msg.alert('File not found', 'The selected file does not exist');
 					}
@@ -86,7 +86,7 @@ Tarpo.Launch.init = function(){
 	});
 };
 
-Tarpo.Launch.recentDatabases = function(recent) {
+Tarpo.Window.Launch.recentDatabases = function(recent) {
 	recent = recent || Tarpo.Settings.get('recentDatabases', []);
 	recent = recent.map(function(e){ 
 		return {
@@ -104,7 +104,7 @@ Tarpo.Launch.recentDatabases = function(recent) {
 	return recent;
 }
 
-Tarpo.Launch.openDatabase = function() {
+Tarpo.Window.Launch.openDatabase = function() {
 	// The "Open File" dialog should default to the location
 	// of the most recently opened database file
 	var mostRecent = Tarpo.Settings.get('recentDatabases', [])[0];
@@ -120,7 +120,7 @@ Tarpo.Launch.openDatabase = function() {
 	file.addEventListener( air.Event.SELECT, function (e) {
 		air.trace('User chose file: ' + file.nativePath);
 		if (file.exists) {
-			Tarpo.Launch.setDatabaseChosen(file);
+			Tarpo.Window.Launch.setDatabaseChosen(file);
 		} else {
 			Ext.Msg.alert('Error', 'Unable to open file');
 		}
@@ -136,9 +136,9 @@ Tarpo.Launch.openDatabase = function() {
 	file.browseForOpen( 'Open Tarpo Database', filters );
 };
 
-Tarpo.Launch.setDatabaseChosen = function(file) {
+Tarpo.Window.Launch.setDatabaseChosen = function(file) {
 	// Stash the file object somewhere that the main window can grab it from
-	Tarpo.Launch.file = file;
+	Tarpo.Window.Launch.file = file;
 	
 	// Dispatch a custom event, telling the main window that a file has been chosen
 	nativeWindow.dispatchEvent(new air.Event("tarpoDatabaseChosen"));
