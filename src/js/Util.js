@@ -54,3 +54,18 @@ Tarpo.Util.loadDemoData = function(){
     Tarpo.store.surg.demoData();
     Tarpo.store.med.demoData();
 }
+
+/**
+ * Displays an error box, and optionally outputs trace debugging info
+ */
+Tarpo.error = function(title, msg, trace) {
+	if (trace) {
+		air.trace(trace);
+	}
+	Ext.Msg.show({
+		title: title,
+		msg: msg,
+		buttons: Ext.Msg.OK,
+		icon: Ext.MessageBox.ERROR
+	});
+}
