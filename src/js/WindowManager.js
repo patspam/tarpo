@@ -108,7 +108,6 @@ Tarpo.WindowManager.getAboutWindow = function(){
             file: 'about.html',
             width: 550,
             height: 550,
-            resizable: false,
             type: 'utility'
         });
     }

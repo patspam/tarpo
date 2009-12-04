@@ -284,3 +284,24 @@ span.mc-highlight {
 .x-form-field {
     font:normal 11px arial, tahoma, helvetica, sans-serif;
 }
+
+#about-scroller {
+	height: 100%; 
+	width: 100%; 
+	overflow: auto;
+}
+#about-logo {
+	width: 400px;
+	height: 449px;
+	margin-left: auto;
+	margin-right: auto;
+	background: url(../images/tarpo.jpg) no-repeat 0 0;
+}
+#about-version {
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+#about-license {
+	padding: 5px 0px;
+}

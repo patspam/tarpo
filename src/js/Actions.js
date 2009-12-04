@@ -184,6 +184,27 @@ Tarpo.Actions = {
         }
     }),
 	
+	visitProjectPage: new Ext.Action({
+        text: 'Website',
+        handler: function(){
+            air.navigateToURL(new air.URLRequest('http://pdonelan.github.com/tarpo'));
+        }
+    }),
+	
+	visitBugTracker: new Ext.Action({
+        text: 'Bug Tracker',
+        handler: function(){
+            air.navigateToURL(new air.URLRequest('http://github.com/pdonelan/tarpo/issues'));
+        }
+    }),
+	
+	visitWiki: new Ext.Action({
+        text: 'Wiki',
+        handler: function(){
+            air.navigateToURL(new air.URLRequest('http://wiki.github.com/pdonelan/tarpo'));
+        }
+    }),
+	
 	debug: new Ext.Action({
         text: 'Debug',
         handler: function(){

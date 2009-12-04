@@ -165,7 +165,7 @@ Tarpo.Window.Main.init = function(){
 	if (air.Introspector) {
 		Ext.air.SystemMenu.add('Debug', [Tarpo.Actions.debug]);
 	}
-	Ext.air.SystemMenu.add('Help', [Tarpo.Actions.about]);
+	Ext.air.SystemMenu.add('Help', [Tarpo.Actions.visitProjectPage, Tarpo.Actions.visitWiki, Tarpo.Actions.visitBugTracker, Tarpo.Actions.about]);
 	
 	// Build the List TreePanel
 	var tree = new Tarpo.TreePanel.List({
