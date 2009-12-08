@@ -46,6 +46,25 @@ Ext.apply(Tarpo.Db, {
     	this.conn = new air.SQLConnection();
 		this.conn.open(file);
     	this.openState = true;
+		this.nativePath = file.nativePath,
 		this.fireEvent('open', this);
 	},
+	getSchemaResult: function() {
+		this.conn.loadSchema();
+		return this.conn.getSchemaResult();
+	},
+	backup: function() {
+		// Create a backup of the currently open database
+		var dbFile = new air.File(this.nativePath);
+		var date = new Date().format('Y-m-d-hms');
+		var backupFolderLocation = Tarpo.Db.backupFolderLocation();
+		if (!backupFolderLocation.exists) {
+			backupFolderLocation.createDirectory();
+		}
+		var backup = backupFolderLocation.resolvePath(date + '.tarpo');
+		dbFile.copyTo(backup, true);
+	},
+	backupFolderLocation: function() {
+		return air.File.applicationStorageDirectory.resolvePath('backups');
+	}
 });

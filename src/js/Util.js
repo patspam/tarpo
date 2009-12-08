@@ -80,6 +80,24 @@ Tarpo.error = function(title, msg, trace) {
 }
 
 /**
+ * Produces trace output for Air exceptions
+ */
+Tarpo.trace = function(err) {
+	if (!err) {
+		air.trace('Tried to airTrace empty error object');
+		return;
+	}
+	if (err.stackTrace) {
+		air.trace(err.message);
+		err.stackTrace.forEach(function(obj){
+			air.trace(' in', obj.sourceURL + '::' + obj.functionName + ':' + obj.line);
+		});
+	} else {
+		air.trace(err);
+	}
+}
+
+/**
  * All date formats that are used in the app (e.g. new Date().format('my-format') 
  * have to be precompiled, otherwise you get AIR security requirements. You can
  * get away with now precompiling some, depending on how and when they're used,

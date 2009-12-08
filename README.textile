@@ -7,3 +7,9 @@ Visit the "Download Page":http://pdonelan.github.com/tarpo to get started.
 Visit the "Issue Tracker":http://github.com/pdonelan/tarpo/issues to report bugs and request new features.
 
 Visit the "Project Page on GitHub":http://github.com/pdonelan/tarpo to get involved in development.
+
+h2. Usage
+
+You can launch Tarpo from your Program menu or from the icon that was automatically created on your desktop.
+
+Tarpo automatically creates safe backup copies of any files you open.

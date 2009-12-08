@@ -45,7 +45,13 @@ Tarpo.Window.Main.bootstrap = function() {
 	// The main window kicks into gear when the Launch window
 	// fires its tarpoDatabaseChosen event
 	launch.on('tarpoDatabaseChosen', function(e){
-		Tarpo.Window.Main.tarpoDatabaseChosen(e);
+		try {
+			Tarpo.Window.Main.tarpoDatabaseChosen(e);
+		}
+		catch(err) {
+			Tarpo.trace(err);
+			alert('An error occurred, please try again');
+		}
 	});
 	
 	// Display the Launch window
@@ -87,6 +93,51 @@ Tarpo.Window.Main.tarpoDatabaseChosen = function(e) {
 			  "The file you tried to open was:\n" + nativePath
 		);
 		return;
+	}
+	
+	// First, create an automatic backup
+	try {
+		Tarpo.Db.backup();
+	} catch(err) {
+		Tarpo.trace(err);
+		alert('Unable to create safe backup of database file, please check the file and try again');
+		return;
+	}
+	
+	// Then run sanity check
+	try {
+		Tarpo.Upgrade.sanityCheck();
+	} catch(err) {
+		Tarpo.trace(err);
+		return;
+	}
+	
+	// See if Tarpo is out of date (according to the database)
+	if (Tarpo.Upgrade.tarpoNeedsUpgrade()) {
+		alert(
+			'This database is from a newer version of Tarpo that the one currently installed. ' +
+			'Please upgrade Tarpo!'
+		);
+		return;
+	}
+	
+	// See if the database needs to be upgraded
+	if (Tarpo.Upgrade.dbNeedsUpgrade()) {
+		if (!confirm('This database file is out of date. Can I upgrade it?')) {
+			return;
+		}
+		
+		try {
+			Tarpo.Upgrade.run();
+		} 
+		catch (err) {
+			Tarpo.trace(err);
+			alert('Sorry, problems were encountered during the upgrade and it is possible that ' +
+			'your database was corrupted as a result. Please grab a backup copy of your database ' +
+			'from the collection of backups that Tarpo automatically creates in:\n\n' +
+			Tarpo.Db.backupFolderLocation().nativePath);
+			return;
+		}
 	}
 	
 	// The connection was successfully opened, so update the list of recent databases
