@@ -1,39 +1,14 @@
+/* AIRAliases.js - Revision: 1.5 */
+
 /*
- * Ext JS Library 0.30
- * Copyright(c) 2006-2009, Ext JS, LLC.
- * licensing@extjs.com
- * 
- * http://extjs.com/license
- */
-
-/* AIRAliases.js - Revision: 0.15 */
-
-// Copyright (c) 2007. Adobe Systems Incorporated.
-// All rights reserved.
-//
-// Redistribution and use in source and binary forms, with or without
-// modification, are permitted provided that the following conditions are met:
-//
-//   * Redistributions of source code must retain the above copyright notice,
-//     this list of conditions and the following disclaimer.
-//   * Redistributions in binary form must reproduce the above copyright notice,
-//     this list of conditions and the following disclaimer in the documentation
-//     and/or other materials provided with the distribution.
-//   * Neither the name of Adobe Systems Incorporated nor the names of its
-//     contributors may be used to endorse or promote products derived from this
-//     software without specific prior written permission.
-//
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-// ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
-// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-// SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-// INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-// CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-// ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-// POSSIBILITY OF SUCH DAMAGE.
+ADOBE SYSTEMS INCORPORATED
+Copyright 2007-2008 Adobe Systems Incorporated. All Rights Reserved.
+ 
+NOTICE:   Adobe permits you to modify and distribute this file only in accordance with
+the terms of Adobe AIR SDK license agreement.  You may have received this file from a
+source other than Adobe.  Nonetheless, you may modify or
+distribute this file only in accordance with such agreement. 
+*/
 
 
 var air;
@@ -52,26 +27,27 @@ if (window.runtime)
     air.FileMode = window.runtime.flash.filesystem.FileMode;
 
     // events
+    air.ActivityEvent = window.runtime.flash.events.ActivityEvent;
     air.AsyncErrorEvent = window.runtime.flash.events.AsyncErrorEvent;
+    air.BrowserInvokeEvent = window.runtime.flash.events.BrowserInvokeEvent;
     air.DataEvent = window.runtime.flash.events.DataEvent;
     air.DRMAuthenticateEvent = window.runtime.flash.events.DRMAuthenticateEvent;
     air.DRMStatusEvent = window.runtime.flash.events.DRMStatusEvent;
+    air.ErrorEvent = window.runtime.flash.events.ErrorEvent;
     air.Event = window.runtime.flash.events.Event;
     air.EventDispatcher = window.runtime.flash.events.EventDispatcher;
     air.FileListEvent = window.runtime.flash.events.FileListEvent;
     air.HTTPStatusEvent = window.runtime.flash.events.HTTPStatusEvent;
     air.IOErrorEvent = window.runtime.flash.events.IOErrorEvent;
     air.InvokeEvent = window.runtime.flash.events.InvokeEvent;
+    air.InvokeEventReason = window.runtime.flash.desktop.InvokeEventReason;
     air.NetStatusEvent = window.runtime.flash.events.NetStatusEvent;
     air.OutputProgressEvent = window.runtime.flash.events.OutputProgressEvent;
     air.ProgressEvent = window.runtime.flash.events.ProgressEvent;
     air.SecurityErrorEvent = window.runtime.flash.events.SecurityErrorEvent;
     air.StatusEvent = window.runtime.flash.events.StatusEvent;
     air.TimerEvent = window.runtime.flash.events.TimerEvent;
-    air.NativeDragEvent = window.runtime.flash.events.NativeDragEvent;
-    air.ActivityEvent = window.runtime.flash.events.ActivityEvent;
-    air.KeyboardEvent = window.runtime.flash.events.KeyboardEvent;    
-    air.MouseEvent = window.runtime.flash.events.MouseEvent;    
+    air.SampleDataEvent = window.runtime.flash.events.SampleDataEvent;
     
     // native window
     air.NativeWindow = window.runtime.flash.display.NativeWindow;
@@ -89,6 +65,17 @@ if (window.runtime)
     air.Rectangle = window.runtime.flash.geom.Rectangle;
     air.Matrix = window.runtime.flash.geom.Matrix;
 
+    // 3D
+    air.Matrix3D  = window.runtime.flash.geom.Matrix3D;
+    air.Vector3D  = window.runtime.flash.geom.Vector3D;
+    air.Orientation3D  = window.runtime.flash.geom.Orientation3D;
+    air.Utils3D  = window.runtime.flash.geom.Utils3D;
+    
+    // Shader    
+    air.Shader = window.runtime.flash.display.Shader;
+    air.ShaderFilter = window.runtime.flash.filters.ShaderFilter;
+    air.ShaderPrecision = window.runtime.flash.display.ShaderPrecision;
+    
     // net
     air.FileFilter = window.runtime.flash.net.FileFilter;
     
@@ -110,6 +97,9 @@ if (window.runtime)
     air.ObjectEncoding = window.runtime.flash.net.ObjectEncoding;
 
     air.NetStream = window.runtime.flash.net.NetStream;
+    air.NetStreamInfo = window.runtime.flash.net.NetStreamInfo;
+    air.NetStreamPlayOptions = window.runtime.flash.net.NetStreamPlayOptions;
+    air.NetStreamPlayTransitions = window.runtime.flash.net.NetStreamPlayTransitions;
     air.SharedObject = window.runtime.flash.net.SharedObject;
     air.SharedObjectFlushStatus = window.runtime.flash.net.SharedObjectFlushStatus;
 
@@ -118,10 +108,6 @@ if (window.runtime)
     air.System = window.runtime.flash.system.System;
     air.Security = window.runtime.flash.system.Security;
     air.Updater = window.runtime.flash.desktop.Updater;
-
-    air.LoaderContext = window.runtime.flash.system.LoaderContext;
-    air.ApplicationDomain = window.runtime.flash.system.ApplicationDomain;	
-
 
     // desktop
     air.Clipboard = window.runtime.flash.desktop.Clipboard;
@@ -151,18 +137,26 @@ if (window.runtime)
 
     // ui
     air.Keyboard = window.runtime.flash.ui.Keyboard;
-    air.KeyEquivalent = window.runtime.flash.ui.KeyEquivalent;
+    air.KeyLocation = window.runtime.flash.ui.KeyLocation;
     air.Mouse = window.runtime.flash.ui.Mouse;
 
+
+    //security
+    air.ReferencesValidationSetting = window.runtime.flash.security.ReferencesValidationSetting;
+    air.RevocationCheckSettings = window.runtime.flash.security.RevocationCheckSettings;
+    air.SignatureStatus = window.runtime.flash.security.SignatureStatus;
+    air.SignerTrustSettings = window.runtime.flash.security.SignerTrustSettings;
+    air.XMLSignatureValidator = window.runtime.flash.security.XMLSignatureValidator;
+        
 
     // utils
     air.ByteArray = window.runtime.flash.utils.ByteArray;
     air.CompressionAlgorithm = window.runtime.flash.utils.CompressionAlgorithm;
     air.Endian = window.runtime.flash.utils.Endian;
     air.Timer = window.runtime.flash.utils.Timer;
-    air.XMLSignatureValidator = window.runtime.flash.security.XMLSignatureValidator;
 
-    air.HTMLLoader = window.runtime.flash.html.HTMLLoader;    
+    air.HTMLLoader = window.runtime.flash.html.HTMLLoader;
+    air.HTMLPDFCapability = window.runtime.flash.html.HTMLPDFCapability;    
 
     // media
     air.ID3Info = window.runtime.flash.media.ID3Info;
@@ -174,6 +168,7 @@ if (window.runtime)
     air.Microphone = window.runtime.flash.media.Microphone;
     air.Video = window.runtime.flash.media.Video;
     air.Camera = window.runtime.flash.media.Camera;
+    air.SoundCodec = window.runtime.flash.media.SoundCodec;
 
     // data
     air.EncryptedLocalStore = window.runtime.flash.data.EncryptedLocalStore;
@@ -201,4 +196,14 @@ if (window.runtime)
     air.__defineGetter__("ServiceMonitor", function() { return window.runtime.air.net.ServiceMonitor; })
     air.__defineGetter__("SocketMonitor", function() { return window.runtime.air.net.SocketMonitor; })
     air.__defineGetter__("URLMonitor", function() { return window.runtime.air.net.URLMonitor; })
+    
+    // update framework
+    air.__defineGetter__("ApplicationUpdater", function() { return window.runtime.air.update.ApplicationUpdater; });
+    air.__defineGetter__("ApplicationUpdaterUI", function() { return window.runtime.air.update.ApplicationUpdaterUI; });
+    air.__defineGetter__("UpdateEvent", function() { return window.runtime.air.update.events.UpdateEvent; });
+    air.__defineGetter__("StatusUpdateEvent", function() { return window.runtime.air.update.events.StatusUpdateEvent; });
+    air.__defineGetter__("StatusUpdateErrorEvent", function() { return window.runtime.air.update.events.StatusUpdateErrorEvent; });
+    air.__defineGetter__("DownloadErrorEvent", function() { return window.runtime.air.update.events.DownloadErrorEvent; });
+    air.__defineGetter__("StatusFileUpdateEvent", function() { return window.runtime.air.update.events.StatusFileUpdateEvent; });
+    air.__defineGetter__("StatusFileUpdateErrorEvent", function() { return window.runtime.air.update.events.StatusFileUpdateErrorEvent; });
 }
