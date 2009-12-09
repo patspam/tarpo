@@ -8,6 +8,10 @@ Tarpo.log = air.Introspector && air.Introspector.Console && air.Introspector.Con
 Tarpo.dump = air.Introspector && air.Introspector.Console && air.Introspector.Console.dump || Ext.emptyFn;
 Tarpo.trace = air.trace; // dumps to stderr 
 
+Tarpo.Util.openInBrowser = function(url) {
+	air.navigateToURL(new air.URLRequest(url));
+}
+
 // work around for broken cross frame Dates in Safari
 Tarpo.Util.fixDate = function(d){
     return d ? new Date(d.getTime()) : d;

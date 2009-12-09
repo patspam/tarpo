@@ -305,3 +305,9 @@ span.mc-highlight {
 #about-license {
 	padding: 5px 0px;
 }
+h2.launch-welcome {
+	font-size: 12px;
+}
+p.launch-welcome {
+	font-size: 10px;
+}

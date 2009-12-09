@@ -85,6 +85,7 @@ Tarpo.Window.Launch.init = function(){
 			id: 'recentDatabasesTreePanel',
 			width: 250,
 			autoScroll: true,
+			split: true,
 			loader: new Ext.tree.TreeLoader(),
 			root: new Ext.tree.AsyncTreeNode({
 				expanded: true,
@@ -105,14 +106,12 @@ Tarpo.Window.Launch.init = function(){
 			},
 		}, {
 			region: 'center',
-			html: '<img src="../images/splash.png" style="width: 100%; max-width: 250px;" onclick="Tarpo.Window.Launch.woof();">',
+			html: '<img src="../images/splash.png" style="width: 100%; max-width: 250px;" onclick="Tarpo.Window.Launch.woof();">' +
+				  '<h2 class="launch-welcome">Welcome to Tarpo v' + Tarpo.Util.getVersion() + '</h2>' +
+				  '<p class="launch-welcome">Tarpo is an open source Data Management tool for Dog Health Programs.</p>' +
+				  "<p class='launch-welcome'>Visit the <a href='#' onclick='Tarpo.Util.openInBrowser(\"http://pdonelan.github.com/tarpo\")'>Tarpo Website</a> to get involved in the project.</p>" +
+				  "<p class='launch-welcome'>Please report all bugs in the <a href='#' onclick='Tarpo.Util.openInBrowser(\"http://github.com/pdonelan/tarpo/issues\")'>Issue Tracker</a></p>",
 			autoHeight: true,
-		}, {
-			region: 'south',
-			title: 'Information',
-			collapsible: true,
-			html: 'Welcome to Tarpo. Please open an existing Tarpo Database file or create a new one using the buttons above.',
-			minHeight: 100
 		}]
 	});
 };
