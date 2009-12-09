@@ -30,6 +30,12 @@ Tarpo.Window.Main.bootstrap = function() {
 	var launch = Tarpo.WindowManager.getLaunchWindow();
 	var main = Tarpo.WindowManager.getMainWindow();
 	
+	// Try to register ourselves as the default handler for .tarpo files
+	air.NativeApplication.nativeApplication.setAsDefaultApplication('tarpo');
+	if (!air.NativeApplication.nativeApplication.isSetAsDefaultApplication('tarpo')) {
+		air.trace('Unable to setAsDefaultApplication for .tarpo files, oh well..');
+	}
+	
 	// Now wire up some events..
 	
 	// Closing either window immediately exits the app
@@ -54,8 +60,54 @@ Tarpo.Window.Main.bootstrap = function() {
 		}
 	});
 	
+	// Invoke event fires on application load, and if second instance of application is run 
+	air.NativeApplication.nativeApplication.addEventListener('invoke', Tarpo.Window.Main.onInvoke);
+	
 	// Display the Launch window
 	launch.activate();
+}
+
+/**
+ * Handles the 'invoke' event, which is triggered when the application starts
+ * and also if the user tries to start a second instance of the app.
+ * 
+ * This handler is used to pull out a filename from the command-line arguments
+ * and open the appropriate database file. This means that if Tarpo is set
+ * as the default application for .tarpo files, double-clicking on a .tarpo file
+ * will open that file (even if Tarpo is already running - intelligently prompting
+ * the user if they want to close the current file)
+ */
+Tarpo.Window.Main.onInvoke = function(e) {
+	// Arguments optionally contains a database to open 
+	if (e.arguments.length > 0) {
+		var file = e.currentDirectory.resolvePath(e.arguments[0]);
+		var nativePath = file.nativePath;
+		if (!file.exists) {
+			alert('File does not exist:\n\n' + nativePath);
+			return;
+		}
+		if (nativePath == Tarpo.Db.nativePath) {
+			air.trace('File already open', nativePath);
+			return;
+		}
+		if (Tarpo.Db.openState) {
+			if (confirm('Do you want to close the current database and open:\n\n' + nativePath)) {
+				Tarpo.Db.close();
+			}
+			else {
+				return;
+			}
+		}
+		
+		// We are going to trigger the 'tarpoDatabaseChosen' which is usually triggered
+		// by the Launch window, so put the file reference where the event handler expects
+		// to find it..
+		var launch = Tarpo.WindowManager.getLaunchWindow();
+		launch.loader.window.Tarpo.Window.Launch.file = file;
+		
+		// Fire the 'tarpoDatabaseChosen' event
+		launch.instance.dispatchEvent(new air.Event("tarpoDatabaseChosen"));
+	}
 }
 
 /**
