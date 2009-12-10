@@ -1,11 +1,11 @@
 /**
- * Tarpo.GroupingStore.Visit
+ * Tarpo.Store.Visit
  */
-Ext.namespace('Tarpo.GroupingStore.Visit');
+Ext.namespace('Tarpo.Store.Visit');
 
-Tarpo.GroupingStore.Visit = Ext.extend(Ext.data.GroupingStore, {
+Tarpo.Store.Visit = Ext.extend(Ext.data.GroupingStore, {
     constructor: function(){
-        Tarpo.GroupingStore.Visit.superclass.constructor.call(this, {
+        Tarpo.Store.Visit.superclass.constructor.call(this, {
             sortInfo: {
                 field: 'd',
                 direction: "ASC"
@@ -112,7 +112,7 @@ Tarpo.GroupingStore.Visit = Ext.extend(Ext.data.GroupingStore, {
         }
         //workaround WebKit cross-frame date issue
         Tarpo.Util.fixDateMember(r.data, 'd');
-        Tarpo.GroupingStore.Visit.superclass.afterEdit.apply(this, arguments);
+        Tarpo.Store.Visit.superclass.afterEdit.apply(this, arguments);
     },
     
     init: function(){

@@ -28,6 +28,14 @@ Tarpo.Actions = {
             Tarpo.WindowManager.getMedWindow();
         }
     }),
+	
+	editDogColours: new Ext.Action({
+        text: 'Edit Dog Colours',
+        tooltip: 'Edit the default list of Dog Colours',
+        handler: function(){
+            Tarpo.WindowManager.getDogColoursWindow();
+        }
+    }),
     
     report: new Ext.Action({
         text: 'Report on All Data',
@@ -169,14 +177,6 @@ Tarpo.Actions = {
         }
     }),
     
-    backup: new Ext.Action({
-        itemText: 'Backup Tarpo to your Desktop',
-        tooltip: 'Backup Tarpo to your Desktop',
-        handler: function(){
-            new Tarpo.Backup();
-        }
-    }),
-    
     quit: new Ext.Action({
         text: 'Exit',
         handler: function(){
@@ -209,6 +209,13 @@ Tarpo.Actions = {
         text: 'Debug',
         handler: function(){
             Tarpo.log(Tarpo);
+        }
+    }),
+	
+	debugState: new Ext.Action({
+        text: 'Debug State',
+        handler: function(){
+            Tarpo.log(Tarpo.Settings.getAll());
         }
     }),
     

@@ -113,3 +113,20 @@ Tarpo.WindowManager.getAboutWindow = function(){
     }
     return win;
 }
+
+Tarpo.WindowManager.getDogColoursWindow = function(){
+    var win, winId = 'dogColours';
+    if (win = Ext.air.NativeWindowManager.get(winId)) {
+        win.instance.orderToFront();
+    }
+    else {
+        win = new Ext.air.NativeWindow({
+            id: winId,
+            file: 'dogColours.html',
+            width: 550,
+            height: 550,
+            type: 'utility'
+        });
+    }
+    return win;
+}

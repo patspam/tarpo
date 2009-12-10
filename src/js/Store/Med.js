@@ -1,30 +1,30 @@
 /**
- * Tarpo.GroupingStore.Surg
+ * Tarpo.Store.Med
  */
-Ext.namespace('Tarpo.GroupingStore.Surg');
-Tarpo.GroupingStore.Surg = Ext.extend(Ext.data.GroupingStore, {
+Ext.namespace('Tarpo.Store.Med');
+Tarpo.Store.Med = Ext.extend(Ext.data.GroupingStore, {
     constructor: function(){
-        Tarpo.GroupingStore.Surg.superclass.constructor.call(this, {
+        Tarpo.Store.Med.superclass.constructor.call(this, {
             sortInfo: {
                 field: 'd',
                 direction: "ASC"
             },
             groupField: 'd',
-            surgFilter: 'all',
+            medFilter: 'all',
             reader: new Ext.data.JsonReader({
                 id: 'id',
-                fields: Tarpo.Data.Surg
+                fields: Tarpo.Data.Med
             })
         });
         this.conn = Tarpo.Db;
-        this.proxy = new Ext.sql.Proxy(Tarpo.Db, 'surg', 'id', this);
+        this.proxy = new Ext.sql.Proxy(Tarpo.Db, 'med', 'id', this);
     },
     
     applyFilter: function(filter){
         if (filter !== undefined) {
-            this.surgFilter = filter;
+            this.medFilter = filter;
         }
-        var value = this.surgFilter;
+        var value = this.medFilter;
         if (value == 'all') {
             return this.clearFilter();
         }
@@ -33,7 +33,7 @@ Tarpo.GroupingStore.Surg = Ext.extend(Ext.data.GroupingStore, {
         });
     },
     
-    addSurg: function(data){
+    addMed: function(data){
         this.suspendEvents();
         this.clearFilter();
         this.resumeEvents();
@@ -73,16 +73,16 @@ Tarpo.GroupingStore.Surg = Ext.extend(Ext.data.GroupingStore, {
 	},
 	
 	removeList: function(listId){
-		this.conn.execBy('delete from surg where listId = ?', [listId]);
+		this.conn.execBy('delete from med where listId = ?', [listId]);
 		this.reload();
 	},
     
     prepareTable: function(){
         try {
             this.createTable({
-                name: 'surg',
+                name: 'med',
                 key: 'id',
-                fields: Tarpo.Data.Surg.prototype.fields
+                fields: Tarpo.Data.Med.prototype.fields
             });
         } 
         catch (e) {
@@ -90,7 +90,7 @@ Tarpo.GroupingStore.Surg = Ext.extend(Ext.data.GroupingStore, {
         }
     },
     
-    createSurg: function(listText){
+    createMed: function(listText){
 		var listId = '';
 		if(!Ext.isEmpty(listText)){
 			listId = Tarpo.store.list.addList(Ext.util.Format.htmlEncode(listText)).id;
@@ -98,7 +98,7 @@ Tarpo.GroupingStore.Surg = Ext.extend(Ext.data.GroupingStore, {
 			listId = Tarpo.store.list.newList(false).id;
 		}
 		var newId = Ext.uniqueId();
-        this.addSurg({
+        this.addMed({
             id: newId,
 			listId: listId,
         });
@@ -111,7 +111,7 @@ Tarpo.GroupingStore.Surg = Ext.extend(Ext.data.GroupingStore, {
         }
         //workaround WebKit cross-frame date issue
         Tarpo.Util.fixDateMember(r.data, 'd');
-        Tarpo.GroupingStore.Surg.superclass.afterEdit.apply(this, arguments);
+        Tarpo.Store.Med.superclass.afterEdit.apply(this, arguments);
     },
     
     init: function(){
@@ -119,9 +119,9 @@ Tarpo.GroupingStore.Surg = Ext.extend(Ext.data.GroupingStore, {
     },
     
     lookup: function(id){
-        var surg;
-        if (surg = this.getById(id)) {
-            return surg;
+        var med;
+        if (med = this.getById(id)) {
+            return med;
         }
         var data = this.proxy.table.lookup(id);
         if (data) {
@@ -134,7 +134,7 @@ Tarpo.GroupingStore.Surg = Ext.extend(Ext.data.GroupingStore, {
     /* This is used to load some demo data if the database is empty */
     demoData: function(){
         var s = new Date();
-        this.addSurg({
+        this.addMed({
             id: Ext.uniqueId(),
 			d: s.add('d', -3),
 			listId:'2007-dry-start',
@@ -156,14 +156,12 @@ Tarpo.GroupingStore.Surg = Ext.extend(Ext.data.GroupingStore, {
 			mange: 1,
 			charge: 0,
             
-			desex: 'Castrate',
-			other_procedures: '',
-			tvt: 'Penile',
+			reason: 'Fight Wound',
 			vacc: '',
-			
-			details: '',
+			euth: '',
+			details: 'Halitosis.  Severe tartar & periodontal disease.  Needs a dental badly.  Clav inj for now.',
         });
-        this.addSurg({
+        this.addMed({
             id: Ext.uniqueId(),
 			d: s.add('d', -3),
 			listId:'2007-dry-start',
@@ -185,14 +183,12 @@ Tarpo.GroupingStore.Surg = Ext.extend(Ext.data.GroupingStore, {
 			mange: 2,
 			charge: 0,
             
-			desex: 'Spey',
-			other_procedures: '',
-			tvt: '',
+			reason: 'Hunting Wound',
 			vacc: '',
-			
-			details: "Vaginal TVT 3cm multifocal.\nDebride. \nImpression smears. \nLumps for path. \nVincristine 0.5mg",
+			euth: '',
+			details: 'Still quite lame.  Small raised ? Pus-filled swellings over P1/P2 joints.  Repeat Rimadyl - cat ate others  C5 vaccination.  Supply Baytril tabs.',
         });
-        this.addSurg({
+        this.addMed({
             id: Ext.uniqueId(),
 			d: s.add('d', -3),
 			listId:'2007-dry-start',
@@ -214,14 +210,12 @@ Tarpo.GroupingStore.Surg = Ext.extend(Ext.data.GroupingStore, {
 			mange: 2,
 			charge: 0,
             
-			desex: 'Castrate',
-			other_procedures: '',
-			tvt: '',
+			reason: 'Other',
 			vacc: '',
-			
-			details: '',	
+			euth: '',
+			details: 'Chronic skin probs - constant pruritis No fleas seen.  Ongoing for years, seasonally worse in the wet.  Dermatitis paws, chin, ears.  Now getting scabby.  Seborrheic smell.  Mas Malaseb.  Rx scabies Tx , course of Cartrophen, course of macrolone.',
         });
-        this.addSurg({
+        this.addMed({
  			id: Ext.uniqueId(),
 			d: s.add('d', -3),
 			listId:'2007-dry-start',
@@ -230,7 +224,7 @@ Tarpo.GroupingStore.Surg = Ext.extend(Ext.data.GroupingStore, {
 			
 			balanda: 0,
 			owner: 'C.J.',
-			domicile: 'Community',
+			domicile: 'Outstation',
 			
 			mc: '956000000332968',
 			name: '',
@@ -243,14 +237,12 @@ Tarpo.GroupingStore.Surg = Ext.extend(Ext.data.GroupingStore, {
 			mange: 2,
 			charge: 0,
             
-			desex: 'Spey',
-			other_procedures: '',
-			tvt: 'Vaginal',
+			reason: 'Car Accident',
 			vacc: '',
-			
-			details: "",
+			euth: '',
+			details: 'Redress leg.  Dressing been on too long.  Skin & wound look just OK.  Wound a bit open laterally, but still holding.  Some slough around tension sutures tubing areas.  Supply bandages & dressings.   Phone calls in following weeks - all healed uneventfully. ',
         });
-        this.addSurg({
+        this.addMed({
            id: Ext.uniqueId(),
 			d: s.add('d', -2),
 			listId:'2007-dry-end',
@@ -272,14 +264,12 @@ Tarpo.GroupingStore.Surg = Ext.extend(Ext.data.GroupingStore, {
 			mange: 2,
 			charge: 0,
             
-			desex: 'Castrate',
-			other_procedures: '',
-			tvt: '',
-			vacc: '',
-			
-			details: "",
+			reason: 'Other',
+			vacc: '1',
+			euth: '',
+			details: 'Desexed a few days ago.  C5 vaccination     To send vacc cards',
         });
-        this.addSurg({
+        this.addMed({
             d: s.add('d', -2),
 			listId:'2007-dry-end',
 			loc: 'Side Camp',
@@ -300,14 +290,12 @@ Tarpo.GroupingStore.Surg = Ext.extend(Ext.data.GroupingStore, {
 			mange: 4,
 			charge: 0,
             
-			desex: 'Castrate',
-			other_procedures: '1',
-			tvt: '',
+			reason: 'Other',
 			vacc: '',
-			
-			details: "Scabby lesions on head-ventral-?Demodex. \nDectomax + dexafort inj.",
+			euth: 'Unwanted',
+			details: 'Survived Rimadyl ingestion',
         });
-		this.addSurg({
+		this.addMed({
            id: Ext.uniqueId(),
 			d: s.add('d', -2),
 			listId:'2007-dry-end',
@@ -329,12 +317,10 @@ Tarpo.GroupingStore.Surg = Ext.extend(Ext.data.GroupingStore, {
 			mange: 1,
 			charge: 0,
             
-			desex: '',
-			other_procedures: '',
-			tvt: '',
-			vacc: '',
-			
-			details: "",
+			reason: 'Other',
+			vacc: '1',
+			euth: '',
+			details: 'Phone calls.  HWT negative.  Cough a bit better.  Discussed rads in Darwin if no better.',
         });
     }
 });

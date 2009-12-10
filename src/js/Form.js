@@ -1,6 +1,8 @@
 /*
  * Re-usable pre-configured form elements used throughout Tarpo Add/Edit form pages
  * Nice having them all in one file for easy comparison
+ * 
+ * TODO - this should lazy-load
  */
 (function(){
     var opener = Ext.air.NativeWindow.getRootHtmlWindow();
@@ -59,7 +61,7 @@
 	Ext.reg('Tarpo.form.listId', Tarpo.form.listId = Ext.extend(Tarpo.TreeSelector.List, {
 		fieldLabel: 'List',
 		name: 'listId',
-		store: opener.Tarpo.store.list,
+		store: opener && opener.Tarpo && opener.Tarpo.store && opener.Tarpo.store.list,
 		anchor: '100%',
 		allowBlank: false,
 		
@@ -135,6 +137,8 @@
 		editable: false,
 	}));
 	
+	var dogColours = _(Tarpo.DogColours.get()).map(function(el){return [el]});
+	dogColours.splice(0,0,[clearComboMarker]);
 	Ext.reg('Tarpo.form.colour', Tarpo.form.colour = Ext.extend(Ext.ux.ClearableCombo, {
 		fieldLabel: 'Colour',
 		name: 'colour',
@@ -142,7 +146,7 @@
 		tpl: Tarpo.Templates.simpleCombo,
 		store: new Ext.data.SimpleStore({
 			fields: ['singleField'],
-			data: _clearableComboSort([[clearComboMarker], ['Black'], ['Black/White'], ['Black/Tan'], ['Blue'], ['Blue/White'], ['Blue Roan'], ['Blue Roan/White'], ['Blue Roan/Black'], ['Brindle'], ['Brindle/White'], ['Brown'], ['Brown/White'], ['Chestnut'], ['Chestnut/White'], ['Chocolate'], ['Chocolate/White'], ['Fawn'], ['Fawn/White'], ['Ginger'], ['Golden'], ['Golden/White'], ['Liver'], ['Liver/White'], ['Red'], ['Red/Brown'], ['Red Roan'], ['Red Roan/White'], ['Red Roan/Tan'], ['Tabby'], ['Tan'], ['Tan/White'], ['Tri'], ['Tri/White'], ['White'], ['White/Black'], ['White/Blue'], ['White/Brindle'], ['White/Brown'], ['White/Fawn'], ['White/Tan'], ['White/Tri'], ])
+			data: dogColours,
 		}),
 		displayField: 'singleField',
 		mode: 'local',
@@ -267,6 +271,13 @@
 		fieldLabel: 'Details',
 		name: 'details',
 		anchor: '100%'
+	}));
+	
+	Ext.reg('Tarpo.form.dogColours', Tarpo.form.dogColours = Ext.extend(Ext.form.TextArea, {
+		fieldLabel: 'Dog Colours (enter one per line)',
+        name: 'dogColours',
+        anchor: '100%',
+		height: '100%',
 	}));
 	
 	Ext.reg('Tarpo.form.breed', Tarpo.form.breed = Ext.extend(Ext.ux.ClearableCombo, {

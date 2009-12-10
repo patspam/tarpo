@@ -247,26 +247,26 @@ Tarpo.Window.Main.init = function(){
 	
 	// Init the Grouping Stores
 	Tarpo.store = {
-		visit: new Tarpo.GroupingStore.Visit(),
-		surg: new Tarpo.GroupingStore.Surg(),
-		med: new Tarpo.GroupingStore.Med(),
-		list: new Tarpo.GroupingStore.List(),
+		visit: new Tarpo.Store.Visit(),
+		surg:  new Tarpo.Store.Surg(),
+		med:   new Tarpo.Store.Med(),
+		list:  new Tarpo.Store.List(),
 	};
 	
 	// Init the Editor Grid Panels
 	Tarpo.grid = {
 		visit: new Tarpo.EditorGridPanel.Visit(),
-		surg: new Tarpo.EditorGridPanel.Surg(),
-		med: new Tarpo.EditorGridPanel.Med(),
+		surg:  new Tarpo.EditorGridPanel.Surg(),
+		med:   new Tarpo.EditorGridPanel.Med(),
 	};
 	
 	// Init the Menus
 	Ext.air.SystemMenu.add('File', [Tarpo.Actions.closeDatabase, Tarpo.Actions.quit, ]);
-	Ext.air.SystemMenu.add('Export', [Tarpo.Actions.backup, Tarpo.Actions.exportVisitCsv, Tarpo.Actions.exportSurgCsv, Tarpo.Actions.exportMedCsv, Tarpo.Actions.exportXml, ]);
+	Ext.air.SystemMenu.add('Export', [Tarpo.Actions.exportVisitCsv, Tarpo.Actions.exportSurgCsv, Tarpo.Actions.exportMedCsv, Tarpo.Actions.exportXml, ]);
 	Ext.air.SystemMenu.add('Report', [Tarpo.Actions.report, ]);
-	Ext.air.SystemMenu.add('Settings', [Tarpo.Actions.resetDefaults]);
+	Ext.air.SystemMenu.add('Settings', [Tarpo.Actions.editDogColours, Tarpo.Actions.resetDefaults]);
 	if (air.Introspector) {
-		Ext.air.SystemMenu.add('Debug', [Tarpo.Actions.debug]);
+		Ext.air.SystemMenu.add('Debug', [Tarpo.Actions.debug, Tarpo.Actions.debugState]);
 	}
 	Ext.air.SystemMenu.add('Help', [Tarpo.Actions.visitProjectPage, Tarpo.Actions.visitWiki, Tarpo.Actions.visitBugTracker, Tarpo.Actions.about]);
 	

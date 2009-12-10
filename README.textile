@@ -2,14 +2,25 @@ h1. Introduction
 
 "Tarpo":http://pdonelan.github.com/tarpo is an open source, cross platform Data Management desktop application for Dog Health programs in rural and remote Indigenous Australian communities, written entirely in Javascript. 
 
-Visit the "Download Page":http://pdonelan.github.com/tarpo to get started.
+Visit the "Tarpo Website":http://pdonelan.github.com/tarpo to get started.
 
 Visit the "Issue Tracker":http://github.com/pdonelan/tarpo/issues to report bugs and request new features.
 
 Visit the "Project Page on GitHub":http://github.com/pdonelan/tarpo to get involved in development.
 
-h2. Usage
+h2. Install
 
-You can launch Tarpo from your Program menu or from the icon that was automatically created on your desktop.
+Install Tarpo from the "Tarpo Website":http://pdonelan.github.com/tarpo
+After Tarpo is installed, you can run it from your Program menu or Desktop icon.
 
-Tarpo automatically creates safe backup copies of any files you open.
+You can also run Tarpo directly from source without installing it, by using the AIR SDK via:
+
+    /path/to/sdk/bin/adl /path/to/tarpo/application.xml
+
+h2. Backups
+
+Tarpo automatically creates safe backup copies of any files you open in the local application store.
+
+In Linux, this path is normally:
+
+    ~/.appdata/Tarpo/Local Store/

@@ -45,6 +45,10 @@ Tarpo.Settings.get = function(name, defaultValue) {
 	return Ext.state.Manager.getProvider().get(name, defaultValue);
 };
 
+Tarpo.Settings.getAll = function() {
+	return Ext.state.Manager.getProvider().readState();
+};
+
 Tarpo.Settings.set = function(name, value) {
 	var provider = Ext.state.Manager.getProvider();
 	provider.set(name, value);

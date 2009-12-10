@@ -1,10 +1,10 @@
 /**
- * Tarpo.GroupingStore.List
+ * Tarpo.Store.List
  */
-Ext.namespace('Tarpo.GroupingStore.List');
-Tarpo.GroupingStore.List = Ext.extend(Ext.data.Store, {
+Ext.namespace('Tarpo.Store.List');
+Tarpo.Store.List = Ext.extend(Ext.data.Store, {
 	constructor: function(){
-		Tarpo.GroupingStore.List.superclass.constructor.call(this, {
+		Tarpo.Store.List.superclass.constructor.call(this, {
 	        sortInfo:{field: 'listName', direction: "ASC"},
 	        reader: new Ext.data.JsonReader({
 	            id: 'listId',
