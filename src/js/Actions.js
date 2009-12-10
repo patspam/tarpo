@@ -7,7 +7,7 @@ Tarpo.Actions = {
         iconCls: 'icon-multi-list',
         tooltip: 'New House Visit',
         handler: function(){
-            Tarpo.WindowManager.getVisitWindow();
+			Tarpo.WindowManager.getVisitWindow();
         }
     }),
     
@@ -30,7 +30,7 @@ Tarpo.Actions = {
     }),
 	
 	editDogColours: new Ext.Action({
-        text: 'Edit Dog Colours',
+        text: 'Dog Colours',
         tooltip: 'Edit the default list of Dog Colours',
         handler: function(){
             Tarpo.WindowManager.getDogColoursWindow();

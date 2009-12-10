@@ -50,6 +50,10 @@ Tarpo.Settings.getAll = function() {
 };
 
 Tarpo.Settings.set = function(name, value) {
+	if (arguments.length != 2) {
+		air.trace('Tarpo.Settings.set expects 2 arguments, you gave', arguments.length);
+		return;
+	}
 	var provider = Ext.state.Manager.getProvider();
 	provider.set(name, value);
 	provider.saveState();

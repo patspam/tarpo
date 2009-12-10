@@ -8,8 +8,25 @@ Tarpo.Window.DogColours.saveData = function(){
     Tarpo.DogColours.set(dogColours.replace(/\n+/g, '\n').split('\n'));
 };
 
-Tarpo.Window.DogColours.loadData = function(){
-    Tarpo.Window.DogColours.getField().setValue(Tarpo.DogColours.get().join('\n'));
+Tarpo.Window.DogColours.loadData = function(val){
+	val = val || Tarpo.DogColours.get();
+	val = Tarpo.DogColours.filter(val);
+    Tarpo.Window.DogColours.getField().setValue(val.join('\n'));
+};
+
+Tarpo.Window.DogColours.loadDefaults = function(){
+	Tarpo.Window.DogColours.loadData(Tarpo.DogColours.getDefaults());
+};
+
+Tarpo.Window.DogColours.loadDatabaseColours = function(){
+	Tarpo.Db.openCurrent();
+	var colours = _.flatten([
+		_(Tarpo.Db.query('select distinct(colour) as colour from med')).map(function(e){return e.colour}),
+		_(Tarpo.Db.query('select distinct(colour) as colour from surg')).map(function(e){return e.colour}),
+		_(Tarpo.Db.query('select distinct(colour) as colour from visit')).map(function(e){return e.colour}),
+		]
+	);
+	Tarpo.Window.DogColours.loadData(colours);
 };
 
 Tarpo.Window.DogColours.getField = function(){
@@ -38,6 +55,20 @@ Tarpo.Window.DogColours.init = function(){
             text: 'Cancel',
             handler: function(){
                 nativeWindow.close();
+            }
+        }, {
+            text: 'Tarpo Defaults',
+            handler: function(){
+				if (confirm('This will overwrite your current list of dog colours with the Tarpo defaults. Are you sure you want to continue?')) {
+					Tarpo.Window.DogColours.loadDefaults();
+				}
+            }
+        }, {
+            text: 'Database Values',
+            handler: function(){
+				if (confirm('This will overwrite your current list of dog colours with all colours in use by the current Database file. Are you sure you want to continue?')) {
+					Tarpo.Window.DogColours.loadDatabaseColours();
+				}
             }
         }],
         

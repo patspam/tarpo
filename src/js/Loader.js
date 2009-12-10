@@ -66,7 +66,7 @@ document.write(
 var debug_re = /AIRIntrospector/;
 document.write(
 	js
-	.filter(function(src){ return !debug_re.test(src) })
+	.filter(function(src){ return ENABLE_CONSOLE || !debug_re.test(src) })
 	.map(function(src){ return '<script src="../' + src + '"></script>' })
 	.join('\n')
 );

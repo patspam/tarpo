@@ -41,13 +41,26 @@ Tarpo.Db = Ext.sql.Connection.getInstance();
  * file lives in air.File.applicationStorageDirectory
  */
 Ext.apply(Tarpo.Db, {
-	open: function(file){
+	open: function(file) {
 		air.trace('Opening database connection to: ' + file.nativePath);
     	this.conn = new air.SQLConnection();
 		this.conn.open(file);
     	this.openState = true;
 		this.nativePath = file.nativePath,
 		this.fireEvent('open', this);
+	},
+	
+	/**
+	 * Child windows want to connect to the same database that the main window does
+	 * This class provides a handy short-cut for opening a connection to the same
+	 * database that Main has open.  
+	 */
+	openCurrent: function() {
+		if (this.openState) {
+			return;
+		}
+		var file = new air.File(Ext.air.NativeWindow.getRootHtmlWindow().Tarpo.Db.nativePath);
+		this.open(file);
 	},
 	getSchemaResult: function() {
 		this.conn.loadSchema();
@@ -66,5 +79,5 @@ Ext.apply(Tarpo.Db, {
 	},
 	backupFolderLocation: function() {
 		return air.File.applicationStorageDirectory.resolvePath('backups');
-	}
+	},
 });
