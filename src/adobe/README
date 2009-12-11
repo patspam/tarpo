@@ -1,1 +1,6 @@
-This folder contains the Adobe AIR core js files.
+Files in this folder come from the relevant Adobe AIR SDK version:
+
+    <sdk-version-x>/frameworks/libs/air/
+
+These files should be updated when Tarpo's required AIR version (as 
+specified in the xml namespace in application.xml) is changed.

@@ -223,3 +223,5 @@ Tarpo.Window.Launch.setDatabaseChosen = function(file) {
 	// Dispatch a custom event, telling the main window that a file has been chosen
 	nativeWindow.dispatchEvent(new air.Event("tarpoDatabaseChosen"));
 }
+
+Tarpo.Window.Launch.init();

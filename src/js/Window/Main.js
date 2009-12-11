@@ -41,7 +41,7 @@ Tarpo.Window.Main.bootstrap = function() {
 	// Closing either window immediately exits the app
 	main.on('close', function(){ 
 		//Tarpo.trace('Main window closed, exiting app');
-		air.NativeApplication.nativeApplication.exit(); 
+		air.NativeApplication.nativeApplication.exit();
 	});
 	launch.on('close', function(){  
 		//Tarpo.trace('Launch window closed, exiting app');
@@ -459,3 +459,5 @@ Tarpo.Window.Main.load = function() {
 	// Behold!
 	Tarpo.WindowManager.getMainWindow().activate();
 };
+
+Tarpo.Window.Main.bootstrap();

@@ -61,7 +61,7 @@
         <fileType>
         	
         	<!-- The name that the system displays for the registered file type. Required. -->
-            <name>tarpo</name>
+            <name>Tarpo</name>
 			
 			<!-- The extension to register. Required. -->
             <extension>tarpo</extension>
