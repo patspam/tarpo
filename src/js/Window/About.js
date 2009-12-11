@@ -28,3 +28,5 @@ Tarpo.Window.About.init = function() {
 	stream.close();
 	document.getElementById('about-license').innerHTML = text;
 }
+
+Tarpo.Window.About.init();

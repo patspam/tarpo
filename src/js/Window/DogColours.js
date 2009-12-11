@@ -89,3 +89,5 @@ Tarpo.Window.DogColours.init = function(){
     
     Tarpo.Window.DogColours.getField().focus();
 };
+
+Tarpo.Window.DogColours.init();
