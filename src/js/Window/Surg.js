@@ -1,19 +1,24 @@
-Ext.onReady(function(){
+/**
+ * Tarpo.Window.Surg
+ */
+Ext.namespace('Tarpo.Window.Surg');
 
+Tarpo.Window.Surg.init = function() {
+	
     Ext.QuickTips.init();
 	
 	// globals in function scope
 	var win = window.nativeWindow;
 	var opener = Ext.air.NativeWindow.getRootHtmlWindow();
-	var medId = String(window.location).split('=')[1];
-	var isNew = medId == 'New';
+	var surgId = String(window.location).split('=')[1];
+	var isNew = surgId == 'New';
 	var addCount = 1;
 	
 	if (isNew) {
-		medId = Ext.uniqueId();
-		win.title = 'New Medical Case #' + addCount;
+		surgId = Ext.uniqueId();
+		win.title = 'New Surgical Case #' + addCount;
 	} else {
-		win.title = 'Medical Case - ' + Ext.util.Format.ellipsis(getView().data.mc, 40);
+		win.title = 'Surgical Case - ' + Ext.util.Format.ellipsis(getView().data.mc, 40);
 	}	
 	
 	var tb = new Ext.Toolbar({
@@ -22,9 +27,9 @@ Ext.onReady(function(){
 		id:'main-tb',
 		items:[
 			{iconCls: 'icon-delete', text: 'Delete', handler: function(){
-				Ext.Msg.confirm('Confirm Delete', 'Are you sure you want to delete this Medical Case?', function(btn){
+				Ext.Msg.confirm('Confirm Delete', 'Are you sure you want to delete this Surgical Case?', function(btn){
 					if(btn == 'yes'){
-						opener.Tarpo.store.med.remove(getView());
+						opener.Tarpo.store.surg.remove(getView());
 						win.close();
 					}
 				});
@@ -46,8 +51,8 @@ Ext.onReady(function(){
 				if(validate()) {
 					saveData();
 					isNew = true;
-					medId = Ext.uniqueId();
-					win.title = 'New Medical Case #' + ++addCount;
+					surgId = Ext.uniqueId();
+					win.title = 'New Surgical Case #' + ++addCount;
 				}
 			}
 		},{
@@ -105,11 +110,15 @@ Ext.onReady(function(){
 			),
 			
 			Tarpo.Form.dual_column(
-				{xtype: 'Tarpo.Form.reason'},
+				{xtype: 'Tarpo.Form.desex'},
+				{xtype: 'Tarpo.Form.other_procedures'}
+			),
+			
+			Tarpo.Form.dual_column(
+				{xtype: 'Tarpo.Form.tvt'},
 				{xtype: 'Tarpo.Form.vacc'}
 			),
 			
-			{xtype: 'Tarpo.Form.euth'},
 			{xtype: 'Tarpo.Form.details'},
 		]
     });
@@ -136,7 +145,7 @@ Ext.onReady(function(){
 	function saveData(){
 		var view;
 		if(isNew){
-			view = opener.Tarpo.store.med.createMed(
+			view = opener.Tarpo.store.surg.createSurg(
 				form.getForm().findField('listId').getRawValue()
 			);
 		}else{
@@ -158,12 +167,13 @@ Ext.onReady(function(){
 	}
 	
 	function getView(){
-		var t = opener.Tarpo.store.med.lookup(medId);
+		var t = opener.Tarpo.store.surg.lookup(surgId);
 		if(t){
 			//workaround WebKit cross-frame date issue
 			Tarpo.Util.fixDateMember(t.data, 'd');
 		}
 		return t;
 	}
-});   
+};   
 
+Tarpo.Window.Surg.init();

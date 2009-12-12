@@ -57,7 +57,7 @@
 	}
 	
 	// Add the window-specific js file
-	var win = htmlLoader.location.replace(/.*?(\w+)\.html?$/i, "$1");
+	var win = window.location.pathname.replace(/.*?(\w+)\.html?$/i, "$1");
 	js.push('js/Window/' + ucfirst(win) + '.js');
 	
 	//approach1(); // 1.8 sec

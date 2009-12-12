@@ -1,19 +1,24 @@
-Ext.onReady(function(){
-	
+/**
+ * Tarpo.Window.Med
+ */
+Ext.namespace('Tarpo.Window.Med');
+
+Tarpo.Window.Med.init = function(){
+
     Ext.QuickTips.init();
 	
 	// globals in function scope
 	var win = window.nativeWindow;
 	var opener = Ext.air.NativeWindow.getRootHtmlWindow();
-	var visitId = String(window.location).split('=')[1];
-	var isNew = visitId == 'New';
+	var medId = String(window.location).split('=')[1];
+	var isNew = medId == 'New';
 	var addCount = 1;
 	
 	if (isNew) {
-		visitId = Ext.uniqueId();
-		win.title = 'New Visit #' + addCount;
+		medId = Ext.uniqueId();
+		win.title = 'New Medical Case #' + addCount;
 	} else {
-		win.title = 'House Visit - ' + Ext.util.Format.ellipsis(getView().data.house, 40);
+		win.title = 'Medical Case - ' + Ext.util.Format.ellipsis(getView().data.mc, 40);
 	}	
 	
 	var tb = new Ext.Toolbar({
@@ -22,33 +27,15 @@ Ext.onReady(function(){
 		id:'main-tb',
 		items:[
 			{iconCls: 'icon-delete', text: 'Delete', handler: function(){
-				Ext.Msg.confirm('Confirm Delete', 'Are you sure you want to delete this visit?', function(btn){
+				Ext.Msg.confirm('Confirm Delete', 'Are you sure you want to delete this Medical Case?', function(btn){
 					if(btn == 'yes'){
-						opener.Tarpo.store.visit.remove(getView());
+						opener.Tarpo.store.med.remove(getView());
 						win.close();
 					}
 				});
 			}}
 		]
 	});
-	
-	function checkType() {
-		var fields = ['name','colour','sex','desexed','bcs','mange','ticks','fleas','ivermectin','covinan','tvt'];
-		
-		var type = form.getForm().findField('type');
-		if (type.getValue() == 'Note') {
-			Ext.each(fields, function(field){
-				var f = form.getForm().findField(field);
-				f.disable();
-				f.setValue();
-			});
-		} else {
-			Ext.each(fields, function(field){
-				var f = form.getForm().findField(field);
-				f.enable();
-			});
-		}
-	}
 	
 	var form = new Ext.form.FormPanel({
 		region:'center',
@@ -64,8 +51,8 @@ Ext.onReady(function(){
 				if(validate()) {
 					saveData();
 					isNew = true;
-					visitId = Ext.uniqueId();
-					win.title = 'New Visit #' + ++addCount;
+					medId = Ext.uniqueId();
+					win.title = 'New Medical Case #' + ++addCount;
 				}
 			}
 		},{
@@ -80,7 +67,6 @@ Ext.onReady(function(){
 			text: 'Cancel',
 			handler: function(){ window.nativeWindow.close(); }
 		}],
-				
 		
         items: [
 			{xtype: 'Tarpo.Form.d'},
@@ -91,21 +77,23 @@ Ext.onReady(function(){
 				{xtype: 'Tarpo.Form.loc'}
 			),
 			
-			{xtype: 'Tarpo.Form.owner'},
-			{
-				xtype: 'Tarpo.Form.type',
-				store: new Ext.data.SimpleStore({
-				    fields: ['singleField'],
-				    data : [ ['Dog'], ['Cat'], ['Puppy'], ['Kitten'], ['Pig'], ['Other'], ['Note']]
-				}),
-				listeners: {
-					select: {
-						fn: checkType
-					},
-					scope: this
-				},
-			},
-	
+			Tarpo.Form.dual_column(
+				{xtype: 'Tarpo.Form.balanda'},
+				{xtype: 'Tarpo.Form.charge'}
+			),
+			
+			Tarpo.Form.dual_column(
+				{xtype: 'Tarpo.Form.owner'},
+				{xtype: 'Tarpo.Form.domicile'}
+			),
+			
+			Tarpo.Form.dual_column(
+				{xtype: 'Tarpo.Form.type'},
+				{xtype: 'Tarpo.Form.breed'}
+			),
+			
+			{xtype: 'Tarpo.Form.mc'},
+			
 			Tarpo.Form.dual_column(				
 				{xtype: 'Tarpo.Form.name'},
 				{xtype: 'Tarpo.Form.colour'}
@@ -122,14 +110,12 @@ Ext.onReady(function(){
 			),
 			
 			Tarpo.Form.dual_column(
-				{xtype: 'Tarpo.Form.ticks'},
-				{xtype: 'Tarpo.Form.fleas'}
+				{xtype: 'Tarpo.Form.reason'},
+				{xtype: 'Tarpo.Form.vacc'}
 			),
 			
-			{xtype: 'Tarpo.Form.ivermectin'},
-			{xtype: 'Tarpo.Form.covinan'},
-			{xtype: 'Tarpo.Form.tvt'},
-			{xtype: 'Tarpo.Form.comments'},
+			{xtype: 'Tarpo.Form.euth'},
+			{xtype: 'Tarpo.Form.details'},
 		]
     });
 	
@@ -149,14 +135,13 @@ Ext.onReady(function(){
 		if(!isNew){
 			var view = getView();
 			form.getForm().loadRecord(view);
-			checkType();
 		}
 	}
 	
 	function saveData(){
 		var view;
 		if(isNew){
-			view = opener.Tarpo.store.visit.createVisit(
+			view = opener.Tarpo.store.med.createMed(
 				form.getForm().findField('listId').getRawValue()
 			);
 		}else{
@@ -178,12 +163,13 @@ Ext.onReady(function(){
 	}
 	
 	function getView(){
-		var t = opener.Tarpo.store.visit.lookup(visitId);
+		var t = opener.Tarpo.store.med.lookup(medId);
 		if(t){
 			//workaround WebKit cross-frame date issue
 			Tarpo.Util.fixDateMember(t.data, 'd');
 		}
 		return t;
 	}
-});   
+};   
 
+Tarpo.Window.Med.init();
