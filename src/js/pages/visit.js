@@ -83,17 +83,17 @@ Ext.onReady(function(){
 				
 		
         items: [
-			{xtype: 'Tarpo.form.d'},
-			{xtype: 'Tarpo.form.listId'},
+			{xtype: 'Tarpo.Form.d'},
+			{xtype: 'Tarpo.Form.listId'},
 			
-			Tarpo.form.dual_column(
-				{xtype: 'Tarpo.form.house'},
-				{xtype: 'Tarpo.form.loc'}
+			Tarpo.Form.dual_column(
+				{xtype: 'Tarpo.Form.house'},
+				{xtype: 'Tarpo.Form.loc'}
 			),
 			
-			{xtype: 'Tarpo.form.owner'},
+			{xtype: 'Tarpo.Form.owner'},
 			{
-				xtype: 'Tarpo.form.type',
+				xtype: 'Tarpo.Form.type',
 				store: new Ext.data.SimpleStore({
 				    fields: ['singleField'],
 				    data : [ ['Dog'], ['Cat'], ['Puppy'], ['Kitten'], ['Pig'], ['Other'], ['Note']]
@@ -106,30 +106,30 @@ Ext.onReady(function(){
 				},
 			},
 	
-			Tarpo.form.dual_column(				
-				{xtype: 'Tarpo.form.name'},
-				{xtype: 'Tarpo.form.colour'}
+			Tarpo.Form.dual_column(				
+				{xtype: 'Tarpo.Form.name'},
+				{xtype: 'Tarpo.Form.colour'}
 			),
 			
-			Tarpo.form.dual_column(
-				{xtype: 'Tarpo.form.sex'},
-				{xtype: 'Tarpo.form.desexed'}
+			Tarpo.Form.dual_column(
+				{xtype: 'Tarpo.Form.sex'},
+				{xtype: 'Tarpo.Form.desexed'}
 			),
 			
-			Tarpo.form.dual_column(
-				{xtype: 'Tarpo.form.bcs'},
-				{xtype: 'Tarpo.form.mange'}
+			Tarpo.Form.dual_column(
+				{xtype: 'Tarpo.Form.bcs'},
+				{xtype: 'Tarpo.Form.mange'}
 			),
 			
-			Tarpo.form.dual_column(
-				{xtype: 'Tarpo.form.ticks'},
-				{xtype: 'Tarpo.form.fleas'}
+			Tarpo.Form.dual_column(
+				{xtype: 'Tarpo.Form.ticks'},
+				{xtype: 'Tarpo.Form.fleas'}
 			),
 			
-			{xtype: 'Tarpo.form.ivermectin'},
-			{xtype: 'Tarpo.form.covinan'},
-			{xtype: 'Tarpo.form.tvt'},
-			{xtype: 'Tarpo.form.comments'},
+			{xtype: 'Tarpo.Form.ivermectin'},
+			{xtype: 'Tarpo.Form.covinan'},
+			{xtype: 'Tarpo.Form.tvt'},
+			{xtype: 'Tarpo.Form.comments'},
 		]
     });
 	

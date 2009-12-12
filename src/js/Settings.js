@@ -45,6 +45,15 @@ Tarpo.Settings.get = function(name, defaultValue) {
 	return Ext.state.Manager.getProvider().get(name, defaultValue);
 };
 
+/**
+ * Ext's state provider returns an object that looks just enough like
+ * an array to crash your AIR instance when passed to _(data)
+ * /
+Tarpo.Settings.getArray = function(name, defaultValue) {
+	var fakeArray = Tarpo.Settings.get(name, defaultValue);
+	return fakeArray.map(function(el){return el});
+};*/
+
 Tarpo.Settings.getAll = function() {
 	return Ext.state.Manager.getProvider().readState();
 };

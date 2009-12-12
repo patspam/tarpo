@@ -44,9 +44,8 @@
 		'js/TreeSelector/TreeSelector.js',
 		'js/TreeSelector/List.js',
 		'js/WindowManager.js',
-		/*
+		
 		'js/Form.js',
-		*/
 		
 		'js/XmlExporter.js',
 		'js/CsvExporter.js',

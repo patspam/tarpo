@@ -73,7 +73,7 @@ Tarpo.Window.DogColours.init = function(){
         }],
         
         items: [{
-            xtype: 'Tarpo.form.dogColours'
+            xtype: 'Tarpo.Form.dogColours'
         }, ]
     });
     

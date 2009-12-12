@@ -110,6 +110,7 @@ Tarpo.trace = function(err) {
  * 
  * The odd ack -Q '.format(' through the source tree wouldn't hurt either.
  */
+Date.precompileFormats('d/m/Y');
 Date.precompileFormats('D d/m/Y');
 Date.precompileFormats('D d/m/Y h:m:s');
 Date.precompileFormats('Y-m-d');

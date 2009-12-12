@@ -65,57 +65,57 @@ Ext.onReady(function(){
 		}],
 		
         items: [
-			{xtype: 'Tarpo.form.d'},
-			{xtype: 'Tarpo.form.listId'},
+			{xtype: 'Tarpo.Form.d'},
+			{xtype: 'Tarpo.Form.listId'},
 			
-			Tarpo.form.dual_column(
-				{xtype: 'Tarpo.form.house'},
-				{xtype: 'Tarpo.form.loc'}
+			Tarpo.Form.dual_column(
+				{xtype: 'Tarpo.Form.house'},
+				{xtype: 'Tarpo.Form.loc'}
 			),
 			
-			Tarpo.form.dual_column(
-				{xtype: 'Tarpo.form.balanda'},
-				{xtype: 'Tarpo.form.charge'}
+			Tarpo.Form.dual_column(
+				{xtype: 'Tarpo.Form.balanda'},
+				{xtype: 'Tarpo.Form.charge'}
 			),
 			
-			Tarpo.form.dual_column(
-				{xtype: 'Tarpo.form.owner'},
-				{xtype: 'Tarpo.form.domicile'}
+			Tarpo.Form.dual_column(
+				{xtype: 'Tarpo.Form.owner'},
+				{xtype: 'Tarpo.Form.domicile'}
 			),
 			
-			Tarpo.form.dual_column(
-				{xtype: 'Tarpo.form.type'},
-				{xtype: 'Tarpo.form.breed'}
+			Tarpo.Form.dual_column(
+				{xtype: 'Tarpo.Form.type'},
+				{xtype: 'Tarpo.Form.breed'}
 			),
 			
-			{xtype: 'Tarpo.form.mc'},
+			{xtype: 'Tarpo.Form.mc'},
 			
-			Tarpo.form.dual_column(				
-				{xtype: 'Tarpo.form.name'},
-				{xtype: 'Tarpo.form.colour'}
+			Tarpo.Form.dual_column(				
+				{xtype: 'Tarpo.Form.name'},
+				{xtype: 'Tarpo.Form.colour'}
 			),
 			
-			Tarpo.form.dual_column(
-				{xtype: 'Tarpo.form.sex'},
-				{xtype: 'Tarpo.form.desexed'}
+			Tarpo.Form.dual_column(
+				{xtype: 'Tarpo.Form.sex'},
+				{xtype: 'Tarpo.Form.desexed'}
 			),
 			
-			Tarpo.form.dual_column(
-				{xtype: 'Tarpo.form.bcs'},
-				{xtype: 'Tarpo.form.mange'}
+			Tarpo.Form.dual_column(
+				{xtype: 'Tarpo.Form.bcs'},
+				{xtype: 'Tarpo.Form.mange'}
 			),
 			
-			Tarpo.form.dual_column(
-				{xtype: 'Tarpo.form.desex'},
-				{xtype: 'Tarpo.form.other_procedures'}
+			Tarpo.Form.dual_column(
+				{xtype: 'Tarpo.Form.desex'},
+				{xtype: 'Tarpo.Form.other_procedures'}
 			),
 			
-			Tarpo.form.dual_column(
-				{xtype: 'Tarpo.form.tvt'},
-				{xtype: 'Tarpo.form.vacc'}
+			Tarpo.Form.dual_column(
+				{xtype: 'Tarpo.Form.tvt'},
+				{xtype: 'Tarpo.Form.vacc'}
 			),
 			
-			{xtype: 'Tarpo.form.details'},
+			{xtype: 'Tarpo.Form.details'},
 		]
     });
 	

@@ -156,7 +156,7 @@ Tarpo.Upgrade.sanityCheck = function() {
 			throw 'Chose not to create version table';
 		}
 	}
-	return 1;
+	return true;
 };
 
 /**
