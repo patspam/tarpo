@@ -37,7 +37,20 @@ Tarpo.Util.dateFormatter = function(v){
 
 Tarpo.Util.sigFigs = function(x){
     return Math.round(x * 100) / 100;
-}
+};
+
+/**
+ * Return uniq list (of simple values)
+ */
+Tarpo.Util.uniq = function(list) {
+	var seen = {};
+	return list.filter(function(item){
+		if (seen[item] != 1) {
+			seen[item] = 1;
+			return true;
+		}
+	});
+};
 
 /**
  * Loads demo data into the database

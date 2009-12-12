@@ -20,12 +20,12 @@ Tarpo.Window.DogColours.loadDefaults = function(){
 
 Tarpo.Window.DogColours.loadDatabaseColours = function(){
 	Tarpo.Db.openCurrent();
-	var colours = _.flatten([
-		_(Tarpo.Db.query('select distinct(colour) as colour from med')).map(function(e){return e.colour}),
-		_(Tarpo.Db.query('select distinct(colour) as colour from surg')).map(function(e){return e.colour}),
-		_(Tarpo.Db.query('select distinct(colour) as colour from visit')).map(function(e){return e.colour}),
-		]
-	);
+	var colours = 
+			Tarpo.Db.query('select distinct(colour) as colour from med'  ).map(function(e){return e.colour})
+		.concat(
+			Tarpo.Db.query('select distinct(colour) as colour from surg' ).map(function(e){return e.colour}),
+			Tarpo.Db.query('select distinct(colour) as colour from visit').map(function(e){return e.colour})
+		);
 	Tarpo.Window.DogColours.loadData(colours);
 };
 

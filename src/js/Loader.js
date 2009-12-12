@@ -18,8 +18,6 @@
 		'extjs/ext-all.js',
 		'extjs/air/ext-air.js',
 		
-		'underscore/underscore-min.js',
-		
 		'js/Settings.js',
 		'js/Util.js',
 		'js/Overrides.js',
