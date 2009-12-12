@@ -9,8 +9,7 @@
  */
 
 (function() {
-	
-	var DEBUG_MODE = 0;
+	var TARPO_DEBUG_MODE = 1;
 	
 	var js = [
 		'adobe/AIRAliases.js',
@@ -54,23 +53,27 @@
 	];
 	
 	// Selectively add the debug console 
-	DEBUG_MODE &&  js.push('adobe/AIRIntrospector.js');
-	
-	// Add the window-specific js file
-	var win = htmlLoader.location.replace(/.*?(\w+)\.html?$/i, "$1");
-	js.push('js/Window/' + ucfirst(win) + '.js');
+	TARPO_DEBUG_MODE && js.push('adobe/AIRIntrospector.js');
 	
 	function ucfirst(str) {
 		return str.charAt(0).toUpperCase() + str.substr(1);
 	}
 	
+	// Add the window-specific js file
+	var win = htmlLoader.location.replace(/.*?(\w+)\.html?$/i, "$1");
+	js.push('js/Window/' + ucfirst(win) + '.js');
+	
 	//approach1(); // 1.8 sec
 	//approach2(); // 4.5 secs
 	//approach3(); // 5.4 secs
 	
-	if (DEBUG_MODE) {
+	if (TARPO_DEBUG_MODE) {
+		
+		// In debug mode we need per-file diagnostics
 		approach2();
 	} else {
+		
+		// In production mode we want the fastest approach
 		approach1();
 	}
 	
@@ -78,10 +81,11 @@
 	 * Approach 1 - eval files
 	 */
 	function approach1(){
-		var airFS = window.runtime.flash.filesystem;
+		var airFS = runtime.flash.filesystem;
+		
 		function slurp(file){
 			if (!file.exists) {
-				alert('File not found: ' + file.nativePath);
+				runtime.trace('File not found: ' + file.nativePath);
 				return;
 			}
 			var stream = new airFS.FileStream();
@@ -99,44 +103,32 @@
 	
 	/**
 	 * Approach 2 - document.write
+	 * (can do css too)
 	 */
 	function approach2(){
-	
-		// This method can do css too
-		// - if using this, use cssTags.concat(jsTags) in document.write()
-		/*
-		var css = [
-	       'extjs/resources/css/ext-all.css',
-	       'extjs/air/resources/ext-air.css',
-	       'css/tarpo.css',
-	    ];
-		var cssTags = css.map(function(src){
-			return '<link rel="stylesheet" type="text/css" href="../' + src + '" />'
-		});
-		*/
-		var jsTags = js.map(function(src){
-			return '<script src="../' + src + '"></script>'
-		});
-		document.write(jsTags.join("\n"));
+		document.write(
+			js
+			.map(function(src){ return '<script src="../' + src + '"></script>' })
+			.join("\n")
+		);
 	}
 	
 	/**
 	 * Approach 3 - dynamic script creation
+	 * Needs event-triggered sequential insertion for deterministic script execution order
 	 */
 	function approach3(){
 		var head = document.getElementsByTagName("head")[0];
-		function insertNextScript(){
+		function insertScript(){
 			var next = js.shift();
-			if (!next) {
-				air.trace('Finished loading', win);
-				return;
-			}
-			var el = document.createElement("script");
-			el.type = 'text/javascript';
-			el.src = '../' + next;
-			el.onload = insertNextScript;
-			head.appendChild(el);
+			if (next) {
+				var el = document.createElement("script");
+				el.type = 'text/javascript';
+				el.src = '../' + next;
+				el.onload = insertScript;
+				head.appendChild(el);
+			};
 		}
-		insertNextScript();
+		insertScript();
 	}
 })();

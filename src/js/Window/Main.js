@@ -78,9 +78,11 @@ Tarpo.Window.Main.bootstrap = function() {
  * the user if they want to close the current file)
  */
 Tarpo.Window.Main.onInvoke = function(e) {
-	// Arguments optionally contains a database to open 
-	if (e.arguments.length > 0) {
-		var file = e.currentDirectory.resolvePath(e.arguments[0]);
+	var args = e.arguments.filter(function(arg){return arg != '-d' && arg != '--debug'});
+	
+	// Arguments optionally contains a database to open
+	if (args.length > 0) {
+		var file = e.currentDirectory.resolvePath(args[0]);
 		var nativePath = file.nativePath;
 		if (!file.exists) {
 			alert('File does not exist:\n\n' + nativePath);
