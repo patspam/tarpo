@@ -36,6 +36,14 @@ Tarpo.Actions = {
             Tarpo.WindowManager.getDogColoursWindow();
         }
     }),
+	
+	editDogBreeds: new Ext.Action({
+        text: 'Dog Breeds',
+        tooltip: 'Edit the default list of Dog Breeds',
+        handler: function(){
+            Tarpo.WindowManager.getDogBreedsWindow();
+        }
+    }),
     
     report: new Ext.Action({
         text: 'Report on All Data',

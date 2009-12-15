@@ -28,6 +28,7 @@
 		'js/Actions.js',
 		'js/Templates.js',
 		'js/DogColours.js',
+		'js/DogBreeds.js',
 		
 		'js/Report.js',
 		'js/Store/Visit.js',

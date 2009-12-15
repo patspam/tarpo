@@ -1,132 +1,99 @@
 Ext.namespace('Tarpo.WindowManager');
 
 Tarpo.WindowManager.getLaunchWindow = function(){
-    var win, winId = 'launch';
-    if (win = Ext.air.NativeWindowManager.get(winId)) {
-        return win;
-    }
-    else {
-        return new Ext.air.NativeWindow({
-            id: winId,
-            file: 'launch.html',
-			width: 500,
-            height: 500,
-        });
-    }
-}
+    return Tarpo.WindowManager.getWindow('launch', {
+        width: 500,
+        height: 500,
+    });
+};
 
 Tarpo.WindowManager.getMainWindow = function(){
-    var win, winId = 'mainWindow';
-    
+    return Tarpo.WindowManager.getWindow('mainWindow', {
+        instance: window.nativeWindow,
+        minimizeToTray: true,
+        trayIcon: '../images/icons/48.png',
+        trayTip: 'Tarpo',
+        trayMenu: [{
+            text: 'Open Tarpo',
+            handler: function(){
+                Tarpo.WindowManager.getMainWindow().activate();
+            }
+        }, '-', {
+            text: 'Exit',
+            handler: function(){
+                air.NativeApplication.nativeApplication.exit();
+            }
+        }]
+    });
+};
+
+Tarpo.WindowManager.getVisitWindow = function(id){
+    return Tarpo.WindowManager.getMultiWindow('visit', id, {
+        height: 650
+    });
+};
+
+Tarpo.WindowManager.getSurgWindow = function(id){
+    return Tarpo.WindowManager.getMultiWindow('surg', id);
+}
+
+Tarpo.WindowManager.getMedWindow = function(id){
+    return Tarpo.WindowManager.getMultiWindow('med', id);
+};
+
+Tarpo.WindowManager.getAboutWindow = function(){
+    return Tarpo.WindowManager.getWindow('about', {
+        type: 'utility'
+    });
+};
+
+Tarpo.WindowManager.getDogColoursWindow = function(){
+    return Tarpo.WindowManager.getWindow('dogColours', {
+        type: 'utility'
+    });
+};
+
+Tarpo.WindowManager.getDogBreedsWindow = function(){
+    return Tarpo.WindowManager.getWindow('dogBreeds', {
+        type: 'utility'
+    });
+};
+
+/**
+ * Defaults for all Tarpo windows
+ */
+Tarpo.WindowManager.windowDefaults = {
+    width: 550,
+    height: 550,
+};
+
+/**
+ * Creates a new Tarpo window, or returns the existing instance identified
+ * by winId
+ */
+Tarpo.WindowManager.getWindow = function(winId, o){
+    o = o || {};
+    var win;
     if (win = Ext.air.NativeWindowManager.get(winId)) {
+        win.instance.orderToFront();
         return win;
     }
     else {
-        return new Ext.air.NativeWindow({
+        return new Ext.air.NativeWindow(Ext.apply({}, o, {
             id: winId,
-            instance: window.nativeWindow,
-            minimizeToTray: true,
-            trayIcon: '../images/icons/48.png',
-            trayTip: 'Tarpo',
-            trayMenu: [{
-                text: 'Open Tarpo',
-                handler: function(){
-                    win.activate();
-                }
-            }, '-', {
-                text: 'Exit',
-                handler: function(){
-                    air.NativeApplication.nativeApplication.exit();
-                }
-            }]
-        });
+            file: winId + '.html',
+        }));
     }
-}
+};
 
-Tarpo.WindowManager.getVisitWindow = function(visitId){
-    var visitId = visitId || 'New';
-    var win, winId = 'visit' + visitId;
-    
-    if (win = Ext.air.NativeWindowManager.get(winId)) {
-        win.instance.orderToFront();
-    }
-    else {
-        win = new Ext.air.NativeWindow({
-            id: winId,
-            file: 'visit.html?visitId=' + visitId,
-            width: 550,
-            height: 650
-        });
-    }
-    return win;
-}
-
-Tarpo.WindowManager.getSurgWindow = function(surgId){
-    var surgId = surgId || 'New';
-    var win, winId = 'surg' + surgId;
-    
-    if (win = Ext.air.NativeWindowManager.get(winId)) {
-        win.instance.orderToFront();
-    }
-    else {
-        win = new Ext.air.NativeWindow({
-            id: winId,
-            file: 'surg.html?surgId=' + surgId,
-            width: 550,
-            height: 550
-        });
-    }
-    return win;
-}
-
-Tarpo.WindowManager.getMedWindow = function(medId){
-    var medId = medId || 'New';
-    var win, winId = 'med' + medId;
-    
-    if (win = Ext.air.NativeWindowManager.get(winId)) {
-        win.instance.orderToFront();
-    }
-    else {
-        win = new Ext.air.NativeWindow({
-            id: winId,
-            file: 'med.html?medId=' + medId,
-            width: 550,
-            height: 550
-        });
-    }
-    return win;
-}
-
-Tarpo.WindowManager.getAboutWindow = function(){
-    var win, winId = 'about';
-    if (win = Ext.air.NativeWindowManager.get(winId)) {
-        win.instance.orderToFront();
-    }
-    else {
-        win = new Ext.air.NativeWindow({
-            id: winId,
-            file: 'about.html',
-            width: 550,
-            height: 550,
-            type: 'utility'
-        });
-    }
-    return win;
-}
-
-Tarpo.WindowManager.getDogColoursWindow = function(){
-    var win, winId = 'dogColours';
-    if (win = Ext.air.NativeWindowManager.get(winId)) {
-        win.instance.orderToFront();
-    }
-    else {
-        win = new Ext.air.NativeWindow({
-            id: winId,
-            file: 'dogColours.html',
-            width: 550,
-            height: 550,
-            type: 'utility'
-        });
-    }
-    return win;
-}
+/**
+ * Multi windows are ones that typically correspond to one per-db row
+ */
+Tarpo.WindowManager.getMultiWindow = function(name, dbId, o){
+    o = o || {};
+    dbId = dbId || 'New';
+    var winId = name + dbId; // e.g. medNew
+    return Tarpo.WindowManager.getWindow(winId, Ext.apply(o, {
+        file: name + '.html?' + name + 'Id=' + dbId
+    }));
+};

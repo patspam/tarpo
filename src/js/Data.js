@@ -101,8 +101,3 @@ Tarpo.Data.List = Ext.data.Record.create([
     {name: 'listName', type:'string'},
     {name: 'isFolder', type:'boolean'}
 ]);
-
-// Define the List data type
-Tarpo.Data.DogColours = Ext.data.Record.create([
-    {name: 'dogColours', type:'string'},
-]);

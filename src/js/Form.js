@@ -284,6 +284,17 @@ Ext.reg('Tarpo.Form.dogColours', Tarpo.Form.dogColours = Ext.extend(Ext.form.Tex
     height: '100%',
 }));
 
+Ext.reg('Tarpo.Form.dogBreeds', Tarpo.Form.dogBreeds = Ext.extend(Ext.form.TextArea, {
+    fieldLabel: 'Dog Breeds (enter one per line)',
+    name: 'dogBreeds',
+    anchor: '100%',
+    height: '100%',
+}));
+
+var dogBreeds = Tarpo.DogBreeds.get().map(function(el){
+    return [el]
+});
+dogBreeds.splice(0, 0, [Tarpo.Form.clearComboMarker]);
 Ext.reg('Tarpo.Form.breed', Tarpo.Form.breed = Ext.extend(Ext.ux.ClearableCombo, {
     fieldLabel: 'Breed',
     name: 'breed',
@@ -291,7 +302,7 @@ Ext.reg('Tarpo.Form.breed', Tarpo.Form.breed = Ext.extend(Ext.ux.ClearableCombo,
     tpl: Tarpo.Templates.simpleCombo,
     store: new Ext.data.SimpleStore({
         fields: ['singleField'],
-        data: _clearableComboSort([[Tarpo.Form.clearComboMarker], ['Camp Dog'], ['Boxer'], ['Staffie'], ['Dingo'], ['Irish Wolfhound X'], ['DSH'], ['DLH'], ['Pit Bull'], ['Mastiff X'], ['Labrador'], ['Golder Retriever'], ['German Shephers'], ['Rottweiler'], ['Jack Russell'], ['Ridgeback'], ['Kelpie'], ['Border Collie'], ['Blue Heeler'], ['Red Heeler'], ['GSP'], ['Shar Pei X'], ['Pig Dog Crossbreed'], ['Small crossbreed'], ['Bull Arab']])
+        data: dogBreeds,
     }),
     displayField: 'singleField',
     mode: 'local',

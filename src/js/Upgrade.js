@@ -174,6 +174,6 @@ Tarpo.Upgrade.setVersion = function (version, description) {
 }
 
 Tarpo.Upgrade['1.0.3'] = function(){
-	//Tarpo.DogColours.set(['Camp Dog', 'Boxer', 'Staffie', 'Dingo', 'Irish Wolfhound X', 'DSH', 'DLH', 'Pit Bull', 'Mastiff X', 'Labrador', 'Golder Retriever', 'German Shephers', 'Rottweiler', 'Jack Russell', 'Ridgeback', 'Kelpie', 'Border Collie', 'Blue Heeler', 'Red Heeler', 'GSP', 'Shar Pei X', 'Pig Dog Crossbreed', 'Small crossbreed', 'Bull Arab'])
 	Tarpo.DogColours.set(Tarpo.DogColours.getDefaults());
+	Tarpo.DogBreeds.set(Tarpo.DogBreeds.getDefaults());
 }
