@@ -1,4 +1,8 @@
-Tarpo.Exporter = function(){
+/**
+ * Export Tarpo data to XML
+ */
+Ext.namespace('Tarpo.Export.XML')
+Tarpo.Export.XML.All = function(){
 	var lists = Tarpo.Db.query('select * from list');
 	
 	var doc = new runtime.flash.xml.XMLDocument();
@@ -74,7 +78,5 @@ Tarpo.Exporter = function(){
         stream.close();
 	});
 	
-	// I wonder why no filter for Save As?
-	// var filter = new air.FileFilter("Tasks XML File", "*.xml");
 	file.browseForSave('Save As');
 };

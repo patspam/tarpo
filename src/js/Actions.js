@@ -157,7 +157,7 @@ Tarpo.Actions = {
         itemText: 'Export All Data to XML',
         tooltip: 'Export All Data to XML',
         handler: function(){
-            new Tarpo.XmlExporter();
+            new Tarpo.Export.XML.All();
         }
     }),
     
@@ -165,7 +165,7 @@ Tarpo.Actions = {
         itemText: 'Export Visit Data to CSV',
         tooltip: 'Export Visit Data to CSV',
         handler: function(){
-            new Tarpo.VisitCsvExporter();
+            new Tarpo.Export.CSV.Visit();
         }
     }),
     
@@ -173,7 +173,7 @@ Tarpo.Actions = {
         itemText: 'Export Surgical Case Data to CSV',
         tooltip: 'Export Surgical Case Data to CSV',
         handler: function(){
-            new Tarpo.SurgCsvExporter();
+            new Tarpo.Export.CSV.Surg();
         }
     }),
     
@@ -181,7 +181,7 @@ Tarpo.Actions = {
         itemText: 'Export Medical Case Data to CSV',
         tooltip: 'Export Medical Case Data to CSV',
         handler: function(){
-            new Tarpo.MedCsvExporter();
+            new Tarpo.Export.CSV.Med();
         }
     }),
     

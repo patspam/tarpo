@@ -1,4 +1,9 @@
-Tarpo.VisitCsvExporter = function(){
+/**
+ * Export Tarpo data to CSV
+ */
+Ext.namespace('Tarpo.Export.CSV');
+
+Tarpo.Export.CSV.Visit = function(){
 	function filter(k){
 		var s = String(k);
 		s = s.replace(/\n/g, ' ');
@@ -47,7 +52,7 @@ Tarpo.VisitCsvExporter = function(){
 	file.browseForSave('Save As');
 };
 
-Tarpo.SurgCsvExporter = function(){
+Tarpo.Export.CSV.Surg = function(){
 	function filter(k){
 		var s = String(k);
 		s = s.replace(/\n/g, ' ');
@@ -96,7 +101,7 @@ Tarpo.SurgCsvExporter = function(){
 	file.browseForSave('Save As');
 };
 
-Tarpo.MedCsvExporter = function(){
+Tarpo.Export.CSV.Med = function(){
 	function filter(k){
 		var s = String(k);
 		s = s.replace(/\n/g, ' ');

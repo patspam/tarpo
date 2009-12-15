@@ -46,8 +46,8 @@
 		
 		'js/Form.js',
 		
-		'js/XmlExporter.js',
-		'js/CsvExporter.js',
+		'js/Export/XML.js',
+		'js/Export/CSV.js',
 	];
 	
 	// Selectively add the debug console 
