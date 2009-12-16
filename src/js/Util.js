@@ -7,6 +7,10 @@ Ext.namespace('Tarpo.Util');
 Tarpo.log = air.Introspector && air.Introspector.Console && air.Introspector.Console.log || Ext.emptyFn;
 Tarpo.dump = air.Introspector && air.Introspector.Console && air.Introspector.Console.dump || Ext.emptyFn;
 Tarpo.trace = air.trace; // dumps to stderr 
+Tarpo.debug = function(){ 
+	Tarpo.log('Did you mean Tarpo.log() instead of Tarpo.debug()?'); 
+	Tarpo.log.apply(this, arguments);
+};
 
 Tarpo.Util.openInBrowser = function(url) {
 	air.navigateToURL(new air.URLRequest(url));
@@ -45,9 +49,8 @@ Tarpo.Util.sigFigs = function(x){
 Tarpo.Util.uniq = function(list) {
 	var seen = {};
 	return list.filter(function(item){
-		if (seen[item] != 1) {
-			seen[item] = 1;
-			return true;
+		if (!seen[item]) {
+			return seen[item] = true;
 		}
 	});
 };

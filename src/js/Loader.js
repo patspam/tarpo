@@ -9,10 +9,11 @@
  */
 
 (function() {
-	var TARPO_DEBUG_MODE = 1;
+	var TARPO_DEBUG_MODE = true;
 	
 	var js = [
 		'adobe/AIRAliases.js',
+		// AIRIntrospector gets conditionally spliced in here (at index 1) 
 		
 		'extjs/adapter/ext/ext-base.js',
 		'extjs/ext-all.js',
@@ -51,7 +52,7 @@
 	];
 	
 	// Selectively add the debug console 
-	TARPO_DEBUG_MODE && js.push('adobe/AIRIntrospector.js');
+	TARPO_DEBUG_MODE && js.splice(1,0,'adobe/AIRIntrospector.js');
 	
 	function ucfirst(str) {
 		return str.charAt(0).toUpperCase() + str.substr(1);
