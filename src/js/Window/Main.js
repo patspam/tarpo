@@ -263,8 +263,7 @@ Tarpo.Window.Main.init = function(){
 	};
 	
 	// Init the Menus
-	Ext.air.SystemMenu.add('File', [Tarpo.Actions.closeDatabase, Tarpo.Actions.quit, ]);
-	Ext.air.SystemMenu.add('Export', [Tarpo.Actions.exportVisitCsv, Tarpo.Actions.exportSurgCsv, Tarpo.Actions.exportMedCsv, Tarpo.Actions.exportXml, ]);
+	Ext.air.SystemMenu.add('File', [Tarpo.Actions.exportXml, Tarpo.Actions.closeDatabase, Tarpo.Actions.quit, ]);
 	Ext.air.SystemMenu.add('Report', [Tarpo.Actions.report, ]);
 	Ext.air.SystemMenu.add('Settings', [Tarpo.Actions.editDogColours, Tarpo.Actions.editDogBreeds, Tarpo.Actions.resetDefaults]);
 	if (air.Introspector) {

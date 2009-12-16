@@ -115,6 +115,27 @@ Ext.extend(Tarpo.TreePanel.List, Ext.tree.TreePanel, {
                     handler:function(){
                         Tarpo.Actions.report.execute(this.cTarpoNode.id);
                     }
+                },{
+					text:'Export Visits to CSV',
+                    iconCls:'icon-report',
+                    scope: this,
+                    handler:function(){
+						Tarpo.Export.CSV.Visit(this.cTarpoNode.id);
+                    }
+                },{
+					text:'Export Surgical Cases to CSV',
+                    iconCls:'icon-report',
+                    scope: this,
+                    handler:function(){
+                       Tarpo.Export.CSV.Surg(this.cTarpoNode.id);
+                    }
+                },{
+					text:'Export Medical Cases to CSV',
+                    iconCls:'icon-report',
+                    scope: this,
+                    handler:function(){
+                       Tarpo.Export.CSV.Med(this.cTarpoNode.id);
+                    }
                 }]
             });
             this.menu.on('hide', this.onContextHide, this);

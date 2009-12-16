@@ -154,34 +154,10 @@ Tarpo.Actions = {
     }),
     
     exportXml: new Ext.Action({
-        itemText: 'Export All Data to XML',
-        tooltip: 'Export All Data to XML',
+        itemText: 'Export Data as XML',
+        tooltip: 'Export Data to XML',
         handler: function(){
-            new Tarpo.Export.XML.All();
-        }
-    }),
-    
-    exportVisitCsv: new Ext.Action({
-        itemText: 'Export Visit Data to CSV',
-        tooltip: 'Export Visit Data to CSV',
-        handler: function(){
-            new Tarpo.Export.CSV.Visit();
-        }
-    }),
-    
-    exportSurgCsv: new Ext.Action({
-        itemText: 'Export Surgical Case Data to CSV',
-        tooltip: 'Export Surgical Case Data to CSV',
-        handler: function(){
-            new Tarpo.Export.CSV.Surg();
-        }
-    }),
-    
-    exportMedCsv: new Ext.Action({
-        itemText: 'Export Medical Case Data to CSV',
-        tooltip: 'Export Medical Case Data to CSV',
-        handler: function(){
-            new Tarpo.Export.CSV.Med();
+            Tarpo.Export.XML.All();
         }
     }),
     

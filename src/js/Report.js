@@ -1,20 +1,7 @@
 Ext.namespace('Tarpo.Report');
 
-// single col, single result
-Tarpo.Report.querySingle = function(sql){
-    // This is hacky and should be fixed
-    var instance = Ext.sql.Connection.getInstance();
-    instance.open(Tarpo.Settings.DB_FILENAME);
-    
-    var result = instance.query(sql)[0];
-    var results = new Array();
-    for (p in result) {
-        return result[p]; // return first
-    }
-}
-
 Tarpo.Report.getChildren = function(listId){
-    if (Tarpo.Report.querySingle('select isFolder from list where listId = "' + listId + '"') == 0) {
+    if (Tarpo.Db.queryScalar('select isFolder from list where listId = "' + listId + '"') == 0) {
         return ['"' + listId + '"'];
     }
     else {
@@ -49,43 +36,43 @@ Tarpo.Report.show = function(listId){
         filter_for = 'All Tarpo Data';
     }
     
-    var houses_with_dogs = Tarpo.Report.querySingle('select count(distinct house) from visit where type="Dog"' + xF);
-    var dogs = Tarpo.Report.querySingle('select count(*) from visit where type="Dog"' + xF);
+    var houses_with_dogs = Tarpo.Db.queryScalar('select count(distinct house) from visit where type="Dog"' + xF);
+    var dogs = Tarpo.Db.queryScalar('select count(*) from visit where type="Dog"' + xF);
     
     var report_data = {
-        houses: Tarpo.Report.querySingle('select count(distinct house) from visit where 1' + xF),
+        houses: Tarpo.Db.queryScalar('select count(distinct house) from visit where 1' + xF),
         houses_with_dogs: houses_with_dogs,
         dogs: dogs,
-        cats: Tarpo.Report.querySingle('select count(*) from visit where type="Cat"' + xF),
-        puppies: Tarpo.Report.querySingle('select count(*) from visit where type="Puppy"' + xF),
-        kittens: Tarpo.Report.querySingle('select count(*) from visit where type="Kitten"' + xF),
-        pigs: Tarpo.Report.querySingle('select count(*) from visit where type="Pig"' + xF),
-        other: Tarpo.Report.querySingle('select count(*) from visit where type="Other"' + xF),
-        ivermectin: Tarpo.Report.querySingle('select count(*) from visit where ivermectin=1' + xF),
-        covinan: Tarpo.Report.querySingle('select count(*) from visit where covinan=1' + xF),
+        cats: Tarpo.Db.queryScalar('select count(*) from visit where type="Cat"' + xF),
+        puppies: Tarpo.Db.queryScalar('select count(*) from visit where type="Puppy"' + xF),
+        kittens: Tarpo.Db.queryScalar('select count(*) from visit where type="Kitten"' + xF),
+        pigs: Tarpo.Db.queryScalar('select count(*) from visit where type="Pig"' + xF),
+        other: Tarpo.Db.queryScalar('select count(*) from visit where type="Other"' + xF),
+        ivermectin: Tarpo.Db.queryScalar('select count(*) from visit where ivermectin=1' + xF),
+        covinan: Tarpo.Db.queryScalar('select count(*) from visit where covinan=1' + xF),
         
-        avg_bcs: Tarpo.Util.sigFigs(Tarpo.Report.querySingle('select avg(bcs) from visit where type="Dog"' + xF)),
-        avg_mange: Tarpo.Util.sigFigs(Tarpo.Report.querySingle('select avg(mange) from visit where type="Dog"' + xF)),
+        avg_bcs: Tarpo.Util.sigFigs(Tarpo.Db.queryScalar('select avg(bcs) from visit where type="Dog"' + xF)),
+        avg_mange: Tarpo.Util.sigFigs(Tarpo.Db.queryScalar('select avg(mange) from visit where type="Dog"' + xF)),
         avg_dogs_per_house: Tarpo.Util.sigFigs(dogs / houses_with_dogs),
         
-        surgical_cases: Tarpo.Report.querySingle('select count(*) from surg where 1' + xF),
-        speys: Tarpo.Report.querySingle('select count(*) from surg where desex="Spey"' + xF),
-        castrations: Tarpo.Report.querySingle('select count(*) from surg where desex="Castrate"' + xF),
-        other_procedures: Tarpo.Report.querySingle('select count(*) from surg where other_procedures = 1' + xF),
-        penile_tvt: Tarpo.Report.querySingle('select count(*) from surg where tvt="Penile"' + xF),
-        vaginal_tvt: Tarpo.Report.querySingle('select count(*) from surg where tvt="Vaginal"' + xF),
-        surgical_vaccinations: Tarpo.Report.querySingle('select count(*) from surg where vacc=1' + xF),
+        surgical_cases: Tarpo.Db.queryScalar('select count(*) from surg where 1' + xF),
+        speys: Tarpo.Db.queryScalar('select count(*) from surg where desex="Spey"' + xF),
+        castrations: Tarpo.Db.queryScalar('select count(*) from surg where desex="Castrate"' + xF),
+        other_procedures: Tarpo.Db.queryScalar('select count(*) from surg where other_procedures = 1' + xF),
+        penile_tvt: Tarpo.Db.queryScalar('select count(*) from surg where tvt="Penile"' + xF),
+        vaginal_tvt: Tarpo.Db.queryScalar('select count(*) from surg where tvt="Vaginal"' + xF),
+        surgical_vaccinations: Tarpo.Db.queryScalar('select count(*) from surg where vacc=1' + xF),
         
-        medical_cases: Tarpo.Report.querySingle('select count(*) from med where 1' + xF),
-        fight_wounds: Tarpo.Report.querySingle('select count(*) from med where reason="Fight Wound"' + xF),
-        hunting_wounds: Tarpo.Report.querySingle('select count(*) from med where reason="Hunting Wound"' + xF),
-        car_accidents: Tarpo.Report.querySingle('select count(*) from med where reason="Car Accident"' + xF),
-        other_reasons: Tarpo.Report.querySingle('select count(*) from med where reason="Other"' + xF),
-        medical_vaccinations: Tarpo.Report.querySingle('select count(*) from med where vacc=1' + xF),
+        medical_cases: Tarpo.Db.queryScalar('select count(*) from med where 1' + xF),
+        fight_wounds: Tarpo.Db.queryScalar('select count(*) from med where reason="Fight Wound"' + xF),
+        hunting_wounds: Tarpo.Db.queryScalar('select count(*) from med where reason="Hunting Wound"' + xF),
+        car_accidents: Tarpo.Db.queryScalar('select count(*) from med where reason="Car Accident"' + xF),
+        other_reasons: Tarpo.Db.queryScalar('select count(*) from med where reason="Other"' + xF),
+        medical_vaccinations: Tarpo.Db.queryScalar('select count(*) from med where vacc=1' + xF),
         
-        euth_unwanted: Tarpo.Report.querySingle('select count(*) from med where euth="Unwanted"' + xF),
-        euth_humane: Tarpo.Report.querySingle('select count(*) from med where euth="Humane"' + xF),
-        euth_cheeky: Tarpo.Report.querySingle('select count(*) from med where euth="Cheeky"' + xF),
+        euth_unwanted: Tarpo.Db.queryScalar('select count(*) from med where euth="Unwanted"' + xF),
+        euth_humane: Tarpo.Db.queryScalar('select count(*) from med where euth="Humane"' + xF),
+        euth_cheeky: Tarpo.Db.queryScalar('select count(*) from med where euth="Cheeky"' + xF),
     };
     
     Ext.Msg.show({

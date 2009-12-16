@@ -12,6 +12,7 @@
  *  Tarpo.Db.query('select * from visit');
  *  Tarpo.Db.queryBy('select * from visit where id = ?', [ "710663999ZKAA" ]); 
  *  Tarpo.Db.queryBy('select * from visit where id = :id', { id : "710663999ZKAA" });
+ *  Tarpo.Db.queryScalar('select id from visit limit 1');
  *  Tarpo.Db.close();
  *  
  *  // Lower level API access
@@ -80,4 +81,10 @@ Ext.apply(Tarpo.Db, {
 	backupFolderLocation: function() {
 		return air.File.applicationStorageDirectory.resolvePath('backups');
 	},
+	queryScalar: function(sql, params) {
+	    var result = this.queryBy(sql, params)[0];
+	    for (p in result) {
+	        return result[p]; // return first
+	    }
+	}
 });

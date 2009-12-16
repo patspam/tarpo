@@ -1,5 +1,8 @@
 /**
  * Export Tarpo data to XML
+ * 
+ * This is only here 'because we can' - if nobody needs XML export
+ * it should probalby be removed
  */
 Ext.namespace('Tarpo.Export.XML')
 Tarpo.Export.XML.All = function(){
