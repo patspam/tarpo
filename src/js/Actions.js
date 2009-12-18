@@ -118,8 +118,8 @@ Tarpo.Actions = {
         tooltip: 'New List',
         iconCls: 'icon-list-new',
         handler: function(){
-            var id = Tarpo.store.list.newList(false, tree.getActiveFolderId()).id;
-            tree.startEdit(id, true);
+            var id = Tarpo.store.list.newList(false, Tarpo.store.list.tree.getActiveFolderId()).id;
+            Tarpo.store.list.tree.startEdit(id, true);
         }
     }),
     
@@ -129,7 +129,7 @@ Tarpo.Actions = {
         iconCls: 'icon-list-delete',
         disabled: true,
         handler: function(){
-            tree.removeList(tree.getSelectionModel().getSelectedNode());
+            Tarpo.store.list.tree.removeList(Tarpo.store.list.tree.getSelectionModel().getSelectedNode());
         }
     }),
     
@@ -138,8 +138,8 @@ Tarpo.Actions = {
         tooltip: 'New Folder',
         iconCls: 'icon-folder-new',
         handler: function(){
-            var id = Tarpo.store.list.newList(true, tree.getActiveFolderId()).id;
-            tree.startEdit(id, true);
+            var id = Tarpo.store.list.newList(true, Tarpo.store.list.tree.getActiveFolderId()).id;
+            Tarpo.store.list.tree.startEdit(id, true);
         }
     }),
     
@@ -149,7 +149,7 @@ Tarpo.Actions = {
         iconCls: 'icon-folder-delete',
         disabled: true,
         handler: function(s){
-            tree.removeList(tree.getSelectionModel().getSelectedNode());
+            Tarpo.store.list.tree.removeList(Tarpo.store.list.tree.getSelectionModel().getSelectedNode());
         }
     }),
     
