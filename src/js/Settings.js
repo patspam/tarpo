@@ -36,7 +36,9 @@ Ext.state.Manager.setProvider(
 				height:580,
 				x:10,
 				y:10
-			}
+			},
+			dogColours: Tarpo.DogColours.getDefaults(),
+			dogBreeds: Tarpo.DogBreeds.getDefaults(),
 		}
 	}
 ));

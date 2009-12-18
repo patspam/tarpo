@@ -19,6 +19,8 @@
 		'extjs/ext-all.js',
 		'extjs/air/ext-air.js',
 		
+		'js/DogColours.js',
+		'js/DogBreeds.js',
 		'js/Settings.js',
 		'js/Util.js',
 		'js/Overrides.js',
@@ -28,8 +30,6 @@
 		'js/Data.js',
 		'js/Actions.js',
 		'js/Templates.js',
-		'js/DogColours.js',
-		'js/DogBreeds.js',
 		
 		'js/Report.js',
 		'js/Store/Visit.js',
