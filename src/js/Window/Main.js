@@ -460,5 +460,5 @@ Tarpo.Window.Main.load = function() {
 	// Behold!
 	Tarpo.WindowManager.getMainWindow().activate();
 };
-
-Tarpo.Window.Main.bootstrap();
+Tarpo.WindowManager.getAboutWindow().activate();
+//Tarpo.Window.Main.bootstrap();

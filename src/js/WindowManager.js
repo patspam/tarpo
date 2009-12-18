@@ -42,8 +42,8 @@ Tarpo.WindowManager.getMedWindow = function(id){
 };
 
 Tarpo.WindowManager.getAboutWindow = function(){
-    return Tarpo.WindowManager.getWindow('about', {
-        type: 'utility'
+    return Tarpo.WindowManager.getWindow('airtest', {
+        //type: 'utility'
     });
 };
 

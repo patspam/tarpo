@@ -24,7 +24,8 @@
 	<!-- Settings for the application's initial window. Required. -->
 	<initialWindow>
 		<!-- The main SWF or HTML file of the application. Required. -->
-		<content>src/html/main.html</content>
+		<content>src/html/airtest.html</content>
+		<visible>true</visible>
 		
 		<!-- The title of the main window. Optional. -->
 		 <title>Tarpo</title>

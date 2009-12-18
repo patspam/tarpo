@@ -17,7 +17,7 @@
 		
 		'extjs/adapter/ext/ext-base.js',
 		'extjs/ext-all.js',
-		'extjs/air/ext-air.js',
+		//'extjs/air/ext-air.js',
 		
 		'js/Settings.js',
 		'js/Util.js',
