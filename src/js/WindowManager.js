@@ -29,7 +29,7 @@ Tarpo.WindowManager.getMainWindow = function(){
 
 Tarpo.WindowManager.getVisitWindow = function(id){
     return Tarpo.WindowManager.getMultiWindow('visit', id, {
-        height: 650
+        height: 580
     });
 };
 
@@ -72,7 +72,7 @@ Tarpo.WindowManager.windowDefaults = {
  * by winId
  */
 Tarpo.WindowManager.getWindow = function(winId, o){
-    o = o || {};
+    o = Ext.apply({}, o || {}, Tarpo.WindowManager.windowDefaults); 
     var win;
     if (win = Ext.air.NativeWindowManager.get(winId)) {
         win.instance.orderToFront();
