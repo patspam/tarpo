@@ -18,3 +18,12 @@ Ext.uniqueId = function(){
 Ext.util.Format.bool = function(value){
 	return value ? '<img src="../images/icon-complete.gif"></input>' : '';
 };
+
+/**
+ * Need to override the way that GroupingView generates its groupTextTpl because it uses XTemplate
+ * This is taken from ext-air.js, but with this.groupTextTpl substituted with {text}
+ * -- for some reason GroupingViews don't display their grouping headers without this (in ExtJS >= 2.3) 
+ */
+Ext.override(Ext.grid.GroupingView, {
+    startGroup: new Ext.XTemplate('<div id="{groupId}" class="x-grid-group {cls}">', '<div id="{groupId}-hd" class="x-grid-group-hd" style="{style}"><div>{text}</div></div>', '<div id="{groupId}-bd" class="x-grid-group-body">')
+});
