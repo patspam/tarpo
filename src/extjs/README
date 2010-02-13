@@ -1,3 +1,5 @@
 This is the ExtJS library.
 
 See the adapter/, resources/, air/ and root dir of the ext-2.3.0 distro.
+
+Not upgrade to 3.1.1 because Ext.Air pack is broken (people in the ExtJS forum are providing workarounds but not great).
