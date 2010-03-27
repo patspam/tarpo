@@ -60,7 +60,7 @@ Tarpo.Data.Surg = Ext.data.Record.create([
 	
 	{name: 'desex', type:'string'},
 	{name: 'other_procedures', type:'boolean'},
-	{name: 'tvt', type:'string'},
+	{name: 'tvt', type:'boolean'},
 	{name: 'vacc', type:'boolean'},
 	{name: 'details', type:'string'},
 ]);

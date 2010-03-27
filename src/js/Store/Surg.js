@@ -158,8 +158,8 @@ Tarpo.Store.Surg = Ext.extend(Ext.data.GroupingStore, {
             
 			desex: 'Castrate',
 			other_procedures: '',
-			tvt: 'Penile',
-			vacc: '',
+			tvt: 1,
+			vacc: 0,
 			
 			details: '',
         });
@@ -187,8 +187,8 @@ Tarpo.Store.Surg = Ext.extend(Ext.data.GroupingStore, {
             
 			desex: 'Spey',
 			other_procedures: '',
-			tvt: '',
-			vacc: '',
+			tvt: 0,
+			vacc: 0,
 			
 			details: "Vaginal TVT 3cm multifocal.\nDebride. \nImpression smears. \nLumps for path. \nVincristine 0.5mg",
         });
@@ -216,8 +216,8 @@ Tarpo.Store.Surg = Ext.extend(Ext.data.GroupingStore, {
             
 			desex: 'Castrate',
 			other_procedures: '',
-			tvt: '',
-			vacc: '',
+			tvt: 0,
+			vacc: 0,
 			
 			details: '',	
         });
@@ -245,8 +245,8 @@ Tarpo.Store.Surg = Ext.extend(Ext.data.GroupingStore, {
             
 			desex: 'Spey',
 			other_procedures: '',
-			tvt: 'Vaginal',
-			vacc: '',
+			tvt: 1,
+			vacc: 0,
 			
 			details: "",
         });
@@ -274,8 +274,8 @@ Tarpo.Store.Surg = Ext.extend(Ext.data.GroupingStore, {
             
 			desex: 'Castrate',
 			other_procedures: '',
-			tvt: '',
-			vacc: '',
+			tvt: 0,
+			vacc: 0,
 			
 			details: "",
         });
@@ -302,8 +302,8 @@ Tarpo.Store.Surg = Ext.extend(Ext.data.GroupingStore, {
             
 			desex: 'Castrate',
 			other_procedures: '1',
-			tvt: '',
-			vacc: '',
+			tvt: 0,
+			vacc: 0,
 			
 			details: "Scabby lesions on head-ventral-?Demodex. \nDectomax + dexafort inj.",
         });
@@ -331,8 +331,8 @@ Tarpo.Store.Surg = Ext.extend(Ext.data.GroupingStore, {
             
 			desex: '',
 			other_procedures: '',
-			tvt: '',
-			vacc: '',
+			tvt: 0,
+			vacc: 0,
 			
 			details: "",
         });

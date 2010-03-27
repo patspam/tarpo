@@ -8,6 +8,9 @@
  * Tarpo will automatically run patch-level upgrades, then minor upgrades,
  * and finally major upgrades in order. It is assumed that there are no
  * shunt upgrades (e.g. all upgrades are run sequentially).
+ * 
+ * To create a new upgrade, add a new function at the end of this file,
+ * and remember to bump the version number in application.xml
  */
 
 Ext.namespace('Tarpo.Upgrade');
@@ -176,4 +179,73 @@ Tarpo.Upgrade.setVersion = function (version, description) {
 Tarpo.Upgrade['1.0.3'] = function(){
 	Tarpo.DogColours.set(Tarpo.DogColours.getDefaults());
 	Tarpo.DogBreeds.set(Tarpo.DogBreeds.getDefaults());
+}
+
+Tarpo.Upgrade['1.0.4'] = function(){
+	// migrate surg.tvt from text to bool 
+	Tarpo.Db.execBy('update surg set tvt=1 where tvt=? or tvt=?', ['Penile', 'Vaginal'] );
+	Tarpo.Db.execBy('update surg set tvt=0 where tvt != ?', [1] );
+	
+	// Sqlite doesn't support full ALTER TABLE, so we need to delete surg and recreate to
+	// change tvt column type
+	Tarpo.Db.exec('CREATE TEMPORARY TABLE surg_temp( \n\
+        id TEXT NOT NULL PRIMARY KEY, \n\
+        listId TEXT, \n\
+        d TEXT, \n\
+        loc TEXT, \n\
+        house TEXT, \n\
+		\n\
+        balanda INTEGER, \n\
+        charge TEXT, \n\
+        owner TEXT, \n\
+        domicile TEXT, \n\
+		\n\
+        type TEXT, \n\
+        mc TEXT, \n\
+        name TEXT, \n\
+        breed TEXT, \n\
+        colour TEXT, \n\
+        sex TEXT, \n\
+        desexed INTEGER, \n\
+        bcs TEXT, \n\
+        mange TEXT, \n\
+		\n\
+        desex TEXT, \n\
+        other_procedures TEXT, \n\
+        tvt TEXT, \n\
+        vacc INTEGER, \n\
+        details TEXT \n\
+	)');
+	Tarpo.Db.exec('INSERT INTO surg_temp SELECT * FROM surg');
+	Tarpo.Db.exec('DROP TABLE surg');
+	Tarpo.Db.exec('CREATE TABLE surg ( \n\
+        id TEXT NOT NULL PRIMARY KEY, \n\
+        listId TEXT, \n\
+        d TEXT, \n\
+        loc TEXT, \n\
+        house TEXT, \n\
+		\n\
+        balanda INTEGER, \n\
+        charge TEXT, \n\
+        owner TEXT, \n\
+        domicile TEXT, \n\
+		\n\
+        type TEXT, \n\
+        mc TEXT, \n\
+        name TEXT, \n\
+        breed TEXT, \n\
+        colour TEXT, \n\
+        sex TEXT, \n\
+        desexed INTEGER, \n\
+        bcs TEXT, \n\
+        mange TEXT, \n\
+		\n\
+        desex TEXT, \n\
+        other_procedures TEXT, \n\
+        tvt INTEGER, \n\
+        vacc INTEGER, \n\
+        details TEXT \n\
+	)');
+	Tarpo.Db.exec('INSERT INTO surg SELECT * FROM surg_temp');
+	Tarpo.Db.exec('DROP TABLE surg_temp');
 }

@@ -35,8 +35,7 @@ Tarpo.Templates.report = new Ext.XTemplate(
 		'<dt>Speys</dt><dd>{speys}</dd>',
 		'<dt>Castrations</dt><dd>{castrations}</dd>',
 		'<dt>Other Procedures</dt><dd>{other_procedures}</dd>',
-		'<dt>Penile TVT</dt><dd>{penile_tvt}</dd>',
-		'<dt>Vaginal TVT</dt><dd>{vaginal_tvt}</dd>',
+		'<dt>TVT</dt><dd>{tvt}</dd>',
 		'<dt>Vaccinations</dt><dd>{surgical_vaccinations}</dd>',		
 	'</dl>',
 	

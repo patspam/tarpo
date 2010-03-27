@@ -23,6 +23,7 @@ Ext.namespace('Tarpo.Window.Main');
  * Everything from then on is event-based.
  */
 Tarpo.Window.Main.bootstrap = function() {
+	air.trace('Tarpo version ' + Tarpo.Util.getVersion());
 	
 	// Create the Launch and the Main NativeWindows.
 	// We create them both right away so that we can add 

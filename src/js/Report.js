@@ -59,8 +59,7 @@ Tarpo.Report.show = function(listId){
         speys: Tarpo.Db.queryScalar('select count(*) from surg where desex="Spey"' + xF),
         castrations: Tarpo.Db.queryScalar('select count(*) from surg where desex="Castrate"' + xF),
         other_procedures: Tarpo.Db.queryScalar('select count(*) from surg where other_procedures = 1' + xF),
-        penile_tvt: Tarpo.Db.queryScalar('select count(*) from surg where tvt="Penile"' + xF),
-        vaginal_tvt: Tarpo.Db.queryScalar('select count(*) from surg where tvt="Vaginal"' + xF),
+        tvt: Tarpo.Db.queryScalar('select count(*) from surg where tvt=1' + xF),
         surgical_vaccinations: Tarpo.Db.queryScalar('select count(*) from surg where vacc=1' + xF),
         
         medical_cases: Tarpo.Db.queryScalar('select count(*) from med where 1' + xF),

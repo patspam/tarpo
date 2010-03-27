@@ -9,11 +9,17 @@
  * Usage:
  *  Tarpo.Db.open(file);
  *  Tarpo.Db.exec('delete from visit');
+ *  Tarpo.Db.execBy('update version set description = ? where 1=1', [ "blah" ]);
  *  Tarpo.Db.query('select * from visit');
  *  Tarpo.Db.queryBy('select * from visit where id = ?', [ "710663999ZKAA" ]); 
  *  Tarpo.Db.queryBy('select * from visit where id = :id', { id : "710663999ZKAA" });
  *  Tarpo.Db.queryScalar('select id from visit limit 1');
  *  Tarpo.Db.close();
+ *  
+ *  // Ext.sql.Table
+ *  var surg = Tarpo.Db.getTable('surg', 'id');
+ *  surg.insert({ version: version, d: new Date().getTime().toString() });
+ *  surg.update/updateBy/lookup/exists/save/select/selectBy/remove/removeBy
  *  
  *  // Lower level API access
  *  var stmt = Tarpo.Db.createStatement('query');

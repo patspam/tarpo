@@ -146,6 +146,8 @@ Tarpo.EditorGridPanel.Surg = function(){
                 width:30 + offset,
                 sortable: true,
                 dataIndex: 'tvt',
+				renderer: Ext.util.Format.bool,
+				align: 'center',
             },
 			{
                 header: "Vaccination",
