@@ -160,6 +160,26 @@ Tarpo.Actions = {
             Tarpo.Export.XML.All();
         }
     }),
+	
+	importSqlite: new Ext.Action({
+        itemText: 'Import Tarpo Database',
+        tooltip: 'Import a second Tarpo Database into the current Tarpo Database',
+        handler: function(){
+            Tarpo.Import.importSqlite();
+        }
+    }),
+	
+	refresh: new Ext.Action({
+        text: 'Refresh',
+        handler: function(){
+			// For some reason, load() works after import but reload() doesn't..
+			Tarpo.store.list.load();
+			Tarpo.store.visit.load();
+			Tarpo.store.surg.load();
+			Tarpo.store.med.load();
+			Tarpo.store.list.tree.getRootNode().reload();
+        }
+    }),
     
     quit: new Ext.Action({
         text: 'Exit',

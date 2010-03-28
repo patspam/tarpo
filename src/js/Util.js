@@ -75,6 +75,37 @@ Tarpo.Util.loadDemoData = function(){
     Tarpo.store.med.demoData();
 }
 
+Tarpo.Util.openDatabase = function(cb) {
+	// The "Open File" dialog should default to the location
+	// of the most recently opened database file
+	var mostRecent = Tarpo.Settings.get('recentDatabases', [])[0];
+	var file;
+	if (mostRecent) {
+		file = new air.File(mostRecent.nativePath);
+	} else {
+		// Otherwise just default to the documents directory
+		// N.B. specify a (probably non-existant) file so that the dialog
+		// shows the inside of the documents folder
+		file = air.File.documentsDirectory.resolvePath('tarpo.tarpo');
+	}
+    
+	// Subscribe to the SELECT event
+	file.addEventListener( air.Event.SELECT, function (e) {
+		air.trace('User chose file: ' + file.nativePath);
+		if (file.exists) {
+			cb(file);
+		} else {
+			Tarpo.error('File not found', 'Unable to open file (not found):<br>' + file.nativePath, file);
+		}
+	});
+	
+	var fileFilter = [ 
+		new air.FileFilter( 'Tarpo Databases', '*.tarpo' ),
+		new air.FileFilter( 'All Files', '*.*' ),
+	];
+	file.browseForOpen( 'Open Tarpo Database', fileFilter);
+};
+
 /**
  * Returns the current Tarpo version (retrieved from application.xml)
  */

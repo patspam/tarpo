@@ -21,6 +21,9 @@
  *  surg.insert({ version: version, d: new Date().getTime().toString() });
  *  surg.update/updateBy/lookup/exists/save/select/selectBy/remove/removeBy
  *  
+ *  // Schema
+ *  Tarpo.Db.getSchema().tables.forEach(function(table){ air.trace(table.name) })
+ *  
  *  // Lower level API access
  *  var stmt = Tarpo.Db.createStatement('query');
  *  stmt.text = 'select * from visit where id = ?';
@@ -69,8 +72,11 @@ Ext.apply(Tarpo.Db, {
 		var file = new air.File(Ext.air.NativeWindow.getRootHtmlWindow().Tarpo.Db.nativePath);
 		this.open(file);
 	},
-	getSchemaResult: function() {
-		this.conn.loadSchema();
+	getSchema: function(type,name,database) {
+		// See http://help.adobe.com/en_US/air/reference/html/ > SqlConnection::loadScheme 
+		// for explination of arguments
+		database = database || 'main'; // stop loadSchema from dying if database undefined
+		this.conn.loadSchema(type,name,database);
 		return this.conn.getSchemaResult();
 	},
 	backup: function() {
@@ -88,9 +94,19 @@ Ext.apply(Tarpo.Db, {
 		return air.File.applicationStorageDirectory.resolvePath('backups');
 	},
 	queryScalar: function(sql, params) {
+		// manually it would be: Tarpo.Db.query('select x from y')[0].x
 	    var result = this.queryBy(sql, params)[0];
 	    for (p in result) {
 	        return result[p]; // return first
 	    }
+	},
+	getPrimaryKey: function(table) {
+		var name;
+		table.columns.forEach(function(col){
+			if (col.primaryKey) {
+				name = col.name;
+			}
+		});
+		return name;
 	}
 });

@@ -72,7 +72,7 @@ Tarpo.Window.Launch.init = function(){
 			}, {
 				text: 'Open',
 				handler: function(){
-					Tarpo.Window.Launch.openDatabase();
+					Tarpo.Util.openDatabase(Tarpo.Window.Launch.setDatabaseChosen);
 				},
 				icon: '../images/edit.gif',
 				cls: 'x-btn-text-icon',
@@ -145,40 +145,6 @@ Tarpo.Window.Launch.recentDatabases = function(recent) {
 		});
 	}
 }
-
-/**
- * This function triggers the "open file" dialog
- */
-Tarpo.Window.Launch.openDatabase = function() {
-	// The "Open File" dialog should default to the location
-	// of the most recently opened database file
-	var mostRecent = Tarpo.Settings.get('recentDatabases', [])[0];
-	var file;
-	if (mostRecent) {
-		file = new air.File(mostRecent.nativePath);
-	} else {
-		// Otherwise just default to the documents directory
-		// N.B. specify a (probably non-existant) file so that the dialog
-		// shows the inside of the documents folder
-		file = air.File.documentsDirectory.resolvePath('tarpo.tarpo');
-	}
-    
-	// Subscribe to the SELECT event
-	file.addEventListener( air.Event.SELECT, function (e) {
-		air.trace('User chose file: ' + file.nativePath);
-		if (file.exists) {
-			Tarpo.Window.Launch.setDatabaseChosen(file);
-		} else {
-			Tarpo.error('File not found', 'Unable to open file (not found):<br>' + file.nativePath, file);
-		}
-	});
-	
-	var fileFilter = [ 
-		new air.FileFilter( 'Tarpo Databases', '*.tarpo' ),
-		new air.FileFilter( 'All Files', '*.*' ),
-	];
-	file.browseForOpen( 'Open Tarpo Database', fileFilter);
-};
 
 /**
  * This function triggers the "new file" dialog

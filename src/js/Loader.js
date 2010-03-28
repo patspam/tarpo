@@ -49,6 +49,7 @@
 		
 		'js/Export/XML.js',
 		'js/Export/CSV.js',
+		'js/Import.js',
 	];
 	
 	// Selectively add the debug console 

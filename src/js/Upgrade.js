@@ -134,7 +134,7 @@ Tarpo.Upgrade.parseVersionString = function(v) {
 Tarpo.Upgrade.sanityCheck = function() {
 	
 	// Check version information
-	var schema = Tarpo.Db.getSchemaResult();
+	var schema = Tarpo.Db.getSchema();
 	if (!schema.tables.some(function(t){ return t.name == 'version' })) {
 		var proceed = confirm('Version table not found, can I create it?');
 		if (proceed) {
