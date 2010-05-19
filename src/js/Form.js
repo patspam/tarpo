@@ -205,7 +205,7 @@ Ext.reg('Tarpo.Form.mange', Tarpo.Form.mange = Ext.extend(Ext.ux.ClearableCombo,
     tpl: Tarpo.Templates.simpleCombo,
     store: new Ext.data.SimpleStore({
         fields: ['singleField'],
-        data: [[Tarpo.Form.clearComboMarker], [1], [2], [3], [4], [5], ]
+        data: [[Tarpo.Form.clearComboMarker], [0], [1], [2], [3], [4], [5], ]
     }),
     displayField: 'singleField',
     typeAhead: true,
