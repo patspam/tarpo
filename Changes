@@ -1,2 +1,5 @@
+1.06    2010-05-22
+    Fixes upgrade error introduced in 1.05
+
 1.05	2010-05-19
 	Tarpo now uses the AMRRIC harmonised Mange Score [0, 5] (previously mange was [1, 5])

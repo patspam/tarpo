@@ -249,3 +249,6 @@ Tarpo.Upgrade['1.0.4'] = function(){
 	Tarpo.Db.exec('INSERT INTO surg SELECT * FROM surg_temp');
 	Tarpo.Db.exec('DROP TABLE surg_temp');
 }
+
+Tarpo.Upgrade['1.0.5'] = function(){}
+Tarpo.Upgrade['1.0.6'] = function(){}
