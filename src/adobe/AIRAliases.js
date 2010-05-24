@@ -1,4 +1,4 @@
-/* AIRAliases.js - Revision: 2.0beta */
+/* AIRAliases.js - Revision: 2.0 */
 
 /*
 ADOBE SYSTEMS INCORPORATED
