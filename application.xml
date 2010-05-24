@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<application xmlns="http://ns.adobe.com/air/application/2.0beta2">
+<application xmlns="http://ns.adobe.com/air/application/2.0">
 
 	<!-- The application identifier string, unique to this application. Required. -->
 	<id>Tarpo</id>
@@ -12,7 +12,7 @@
 	<name>Tarpo</name>
 
 	<!-- Tarpo Version - remember to create corresponding Upgrade function -->
-	<version>1.0.6</version>
+	<version>1.0.7</version>
 
 	<!-- Description, displayed in the AIR application installer.
 	     May have multiple values for each language. See samples or xsd schema file. Optional. -->

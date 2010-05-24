@@ -252,3 +252,4 @@ Tarpo.Upgrade['1.0.4'] = function(){
 
 Tarpo.Upgrade['1.0.5'] = function(){}
 Tarpo.Upgrade['1.0.6'] = function(){}
+Tarpo.Upgrade['1.0.7'] = function(){}
