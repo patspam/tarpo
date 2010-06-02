@@ -178,7 +178,7 @@ Tarpo.Window.Main.tarpoDatabaseChosen = function(e) {
 	
 	// See if the database needs to be upgraded
 	if (Tarpo.Upgrade.dbNeedsUpgrade()) {
-		if (!confirm('This database file is out of date. Can I upgrade it?')) {
+		if (!confirm('This file was saved with an older version of Tarpo. Do you want to upgrade it?')) {
 			return;
 		}
 		
@@ -422,8 +422,9 @@ Tarpo.Window.Main.load = function() {
         var listId = node ? node.id : null;
         var node = Tarpo.store.list.tree.getNodeById(listId);
         if (node && !node.isSelected()) {
-            node.select();
-            return;
+			// Disabled (http://github.com/pdonelan/tarpo/issues/issue/20)
+            //node.select();
+            //return;
         }
         Tarpo.Actions.deleteList.setDisabled(!node || !node.attributes.editable);
         Tarpo.Actions.deleteFolder.setDisabled(!node || node.attributes.editable === false || !node.attributes.isFolder);

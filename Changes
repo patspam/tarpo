@@ -1,3 +1,6 @@
+1.0.8	2010-06-02
+	Fixes bug #20 - error when moving between lists
+	
 1.0.7	2010-05-24
 	Made the AIR version specifier less strict (so that it works with 2.0beta, 2.0rc1, etc..)
 
