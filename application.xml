@@ -1,91 +1,88 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <application xmlns="http://ns.adobe.com/air/application/2.0" minimumPatchLevel="0">
 
-	<!-- The application identifier string, unique to this application. Required. -->
-	<id>Tarpo</id>
+  <!-- The application identifier string, unique to this application. Required. -->
+  <id>Tarpo</id>
 
-	<!-- Used as the filename for the application. Required. -->
-	<filename>Tarpo</filename>
+  <!-- Used as the filename for the application. Required. -->
+  <filename>Tarpo</filename>
 
-	<!-- The name that is displayed in the AIR application installer. 
-	     May have multiple values for each language. See samples or xsd schema file. Optional. -->
-	<name>
-		<text xml:lang="en">Tarpo</text>
-	</name>
+  <!-- The name that is displayed in the AIR application installer.
+       May have multiple values for each language. See samples or xsd schema file. Optional. -->
+  <name>
+    <text xml:lang="en">Tarpo</text>
+  </name>
 
-	<!-- Tarpo Version - remember to create corresponding Upgrade function -->
-	<version>1.0.9</version>
+  <!-- Tarpo Version - remember to create corresponding Upgrade function -->
+  <version>1.0.9</version>
 
-	<!-- Description, displayed in the AIR application installer.
-	     May have multiple values for each language. See samples or xsd schema file. Optional. -->
-	<description>
-		<text xml:lang="en">Open source, cross platform data management tool for Dog Health Programs</text>
-	</description>
+  <!-- Description, displayed in the AIR application installer.
+       May have multiple values for each language. See samples or xsd schema file. Optional. -->
+  <description>
+    <text xml:lang="en">Open source, cross platform data management tool for Dog Health Programs</text>
+  </description>
 
-	<!-- Copyright information. Optional -->
-	<copyright>Copyright 2009 - Patrick Donelan</copyright>
+  <!-- Copyright information. Optional -->
+  <copyright>Copyright 2009 - Patrick Donelan</copyright>
 
-	<!-- Settings for the application's initial window. Required. -->
-	<initialWindow>
-		<!-- The main SWF or HTML file of the application. Required. -->
-		<content>src/html/main.html</content>
-		
-		<!-- The title of the main window. Optional. -->
-		 <title>Tarpo</title>
+  <!-- Settings for the application's initial window. Required. -->
+  <initialWindow>
+    <!-- The main SWF or HTML file of the application. Required. -->
+    <content>src/html/main.html</content>
 
-		<!-- The window's initial width. Optional. -->
-		<width>1024</width>
+    <!-- The title of the main window. Optional. -->
+    <title>Tarpo</title>
 
-		<!-- The window's initial height. Optional. -->
-		<height>768</height>
+    <!-- The window's initial width. Optional. -->
+    <width>1024</width>
 
-		<!-- The window's initial x position. Optional. -->
-		<x>200</x>
+    <!-- The window's initial height. Optional. -->
+    <height>768</height>
 
-		<!-- The window's initial y position. Optional. -->
-		<y>200</y>
+    <!-- The window's initial x position. Optional. -->
+    <x>200</x>
 
-		<!-- The window's minimum size, specified as a width/height pair, such as "400 200". Optional. -->
-		<minSize>800 600</minSize>
-	</initialWindow>
+    <!-- The window's initial y position. Optional. -->
+    <y>200</y>
 
-	<!-- The icon the system uses for the application. For at least one resolution,
-		 specify the path to a PNG file included in the AIR package. Optional. -->
-	<icon>
-	  	<image16x16>src/images/icons/16.png</image16x16>
-		<image32x32>src/images/icons/32.png</image32x32>
-		<image48x48>src/images/icons/48.png</image48x48>
-		<image128x128>src/images/icons/128.png</image128x128>
-	</icon>
-	
-	<!-- Listing of file types for which the application can register. Optional. -->
-	<fileTypes> 
-	
-		<!-- Defines one file type. Optional. -->
-        <fileType>
-        	
-        	<!-- The name that the system displays for the registered file type. Required. -->
-            <name>Tarpo</name>
-			
-			<!-- The extension to register. Required. -->
-            <extension>tarpo</extension>
-			
-			<!-- The description of the file type. Optional. -->
-            <description>Tarpo Database File</description> 
-			
-			<!-- The MIME content type. -->
-            <contentType>application/tarpo.database</contentType>
-			
-			<!-- The icon to display for the file type. Optional. -->
-            <icon>
-			  	<image16x16>src/images/icons/16.png</image16x16>
-				<image32x32>src/images/icons/32.png</image32x32>
-				<image48x48>src/images/icons/48.png</image48x48>
-				<image128x128>src/images/icons/128.png</image128x128>
-			</icon>
-			
-        </fileType>
-		
-    </fileTypes>
-	
+    <!-- The window's minimum size, specified as a width/height pair, such as "400 200". Optional. -->
+    <minSize>800 600</minSize>
+  </initialWindow>
+
+  <!-- The icon the system uses for the application. For at least one resolution,
+     specify the path to a PNG file included in the AIR package. Optional. -->
+  <icon>
+    <image16x16>src/images/icons/16.png</image16x16>
+    <image32x32>src/images/icons/32.png</image32x32>
+    <image48x48>src/images/icons/48.png</image48x48>
+    <image128x128>src/images/icons/128.png</image128x128>
+  </icon>
+
+  <!-- Listing of file types for which the application can register. Optional. -->
+  <fileTypes>
+
+    <!-- Defines one file type. Optional. -->
+    <fileType>
+      <!-- The name that the system displays for the registered file type. Required. -->
+      <name>Tarpo</name>
+
+      <!-- The extension to register. Required. -->
+      <extension>tarpo</extension>
+
+      <!-- The description of the file type. Optional. -->
+      <description>Tarpo Database File</description> 
+
+      <!-- The MIME content type. -->
+      <contentType>application/tarpo.database</contentType>
+
+      <!-- The icon to display for the file type. Optional. -->
+      <icon>
+        <image16x16>src/images/icons/16.png</image16x16>
+        <image32x32>src/images/icons/32.png</image32x32>
+        <image48x48>src/images/icons/48.png</image48x48>
+        <image128x128>src/images/icons/128.png</image128x128>
+      </icon>
+   </fileType>
+
+  </fileTypes>
 </application>
