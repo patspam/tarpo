@@ -41,7 +41,7 @@ Tarpo.Window.Visit.init = function() {
 		var fields = ['name','colour','sex','desexed','bcs','mange','ticks','fleas','ivermectin','covinan','tvt'];
 		
 		var type = form.getForm().findField('type');
-		if (type.getValue() == 'Note') {
+		if (type.getValue().match('^Note')) {
 			Ext.each(fields, function(field){
 				var f = form.getForm().findField(field);
 				f.disable();
@@ -101,7 +101,17 @@ Tarpo.Window.Visit.init = function() {
 				xtype: 'Tarpo.Form.type',
 				store: new Ext.data.SimpleStore({
 				    fields: ['singleField'],
-				    data : [ ['Dog'], ['Cat'], ['Puppy'], ['Kitten'], ['Pig'], ['Other'], ['Note']]
+                                    data: [
+                                      ['Dog'],
+                                      ['Cat'],
+                                      ['Puppy'],
+                                      ['Kitten'],
+                                      ['Pig'],
+                                      ['Other'],
+                                      ['Note'],
+                                      ['Note - House unoccupied'],
+                                      ['Note - People away'],
+                                      ['Note - No dogs']]
 				}),
 				listeners: {
 					select: {
