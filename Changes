@@ -1,11 +1,14 @@
-1.0.8	2010-06-02
-	Fixes bug #20 - error when moving between lists
-	
-1.0.7	2010-05-24
-	Made the AIR version specifier less strict (so that it works with 2.0beta, 2.0rc1, etc..)
+1.0.9  2010-?
+  Not sure.. was a long time ago
 
-1.0.6	2010-05-22
-	Fixes upgrade error introduced in 1.05
+1.0.8  2010-06-02
+  Fixes bug #20 - error when moving between lists
 
-1.0.5	2010-05-19
-	Tarpo now uses the AMRRIC harmonised Mange Score [0, 5] (previously mange was [1, 5])
+1.0.7  2010-05-24
+  Made the AIR version specifier less strict (so that it works with 2.0beta, 2.0rc1, etc..)
+
+1.0.6  2010-05-22
+  Fixes upgrade error introduced in 1.05
+
+1.0.5  2010-05-19
+  Tarpo now uses the AMRRIC harmonised Mange Score [0, 5] (previously mange was [1, 5])
