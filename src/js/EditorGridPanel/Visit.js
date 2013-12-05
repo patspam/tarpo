@@ -54,6 +54,7 @@ Tarpo.EditorGridPanel.Visit = function(){
             width: 40,
             sortable: true,
             dataIndex: 'colour',
+            renderer: Tarpo.Util.clearableComboFormatter,
         }, {
             header: "Sex",
             width: 40,
@@ -73,24 +74,28 @@ Tarpo.EditorGridPanel.Visit = function(){
             sortable: true,
             dataIndex: 'bcs',
             align: 'center',
+            renderer: Tarpo.Util.clearableComboFormatter,
         }, {
             header: "Mange",
             width: 40,
             sortable: true,
             dataIndex: 'mange',
             align: 'center',
+            renderer: Tarpo.Util.clearableComboFormatter,
         }, {
             header: "Ticks",
             width: 40,
             sortable: true,
             dataIndex: 'ticks',
             align: 'center',
+            renderer: Tarpo.Util.clearableComboFormatter,
         }, {
             header: "Fleas",
             width: 40,
             sortable: true,
             dataIndex: 'fleas',
             align: 'center',
+            renderer: Tarpo.Util.clearableComboFormatter,
         }, {
             header: "Ivermectin",
             width: 45,

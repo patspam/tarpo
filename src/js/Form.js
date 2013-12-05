@@ -113,11 +113,17 @@ Ext.ux.ClearableCombo = Ext.extend(Ext.form.ComboBox, {
         // Call parent (required)
         Ext.ux.ClearableCombo.superclass.initComponent.apply(this, arguments);
         
-        // After parent code
-        this.on('select', function(){
-            if (this.getValue() == this.clearMarker) 
-                this.clearValue();
-        });
+//        // After parent code
+//        this.on('select', function(){
+//            if (this.getValue() == this.clearMarker) {
+//                this.clearValue();
+//            }
+//        });
+//      this.on('valid', function(field){
+//          if (field.getValue() == Tarpo.Form.clearComboMarker) {
+//              field.setRawValue(' ');
+//          }
+//      });
     },
 });
 

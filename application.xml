@@ -14,7 +14,7 @@
 	</name>
 
 	<!-- Tarpo Version - remember to create corresponding Upgrade function -->
-	<version>1.0.8</version>
+	<version>1.0.9</version>
 
 	<!-- Description, displayed in the AIR application installer.
 	     May have multiple values for each language. See samples or xsd schema file. Optional. -->

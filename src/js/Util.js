@@ -39,6 +39,14 @@ Tarpo.Util.dateFormatter = function(v){
     //	return v.format('D d/m/Y'); // this breaks sometimes
 };
 
+Tarpo.Util.clearableComboFormatter = function(v){
+  if (Ext.isEmpty(v) || v == Tarpo.Form.clearComboMarker) {
+    return '';
+  } else {
+	return v.toString();
+  }
+};
+
 Tarpo.Util.sigFigs = function(x){
     return Math.round(x * 100) / 100;
 };

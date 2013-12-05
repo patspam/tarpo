@@ -60,6 +60,7 @@ Tarpo.EditorGridPanel.Med = function(){
                 width:60 + offset,
                 sortable: true,
                 dataIndex: 'domicile',
+                renderer: Tarpo.Util.clearableComboFormatter,
             },
 			{
                 header: "Type",
@@ -91,12 +92,14 @@ Tarpo.EditorGridPanel.Med = function(){
                 width:40 + offset,
                 sortable: true,
                 dataIndex: 'breed',
+                renderer: Tarpo.Util.clearableComboFormatter,
             },
 			{
                 header: "Colour",
                 width:35 + offset,
                 sortable: true,
                 dataIndex: 'colour',
+                renderer: Tarpo.Util.clearableComboFormatter,
             },
 			{
                 header: "Sex",
@@ -119,6 +122,7 @@ Tarpo.EditorGridPanel.Med = function(){
                 sortable: true,
                 dataIndex: 'bcs',
 				align: 'center',
+	            renderer: Tarpo.Util.clearableComboFormatter,
             },
 			{
                 header: "Mange",
@@ -126,6 +130,7 @@ Tarpo.EditorGridPanel.Med = function(){
                 sortable: true,
                 dataIndex: 'mange',
 				align: 'center',
+	            renderer: Tarpo.Util.clearableComboFormatter,
             },
 			{
                 header: "Reason",
@@ -146,6 +151,7 @@ Tarpo.EditorGridPanel.Med = function(){
                 width:50 + offset,
                 sortable: true,
                 dataIndex: 'euth',
+                renderer: Tarpo.Util.clearableComboFormatter,
             },
 			{
                 header: "Details",
