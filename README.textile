@@ -1,16 +1,16 @@
 h1. Introduction
 
-"Tarpo":http://pdonelan.github.com/tarpo is an open source, cross platform Data Management desktop application for Dog Health programs in rural and remote Indigenous Australian communities, written entirely in Javascript. 
+"Tarpo":http://patspam.github.com/tarpo is an open source, cross platform Data Management desktop application for Dog Health programs in rural and remote Indigenous Australian communities, written entirely in Javascript. 
 
-Visit the "Tarpo Website":http://pdonelan.github.com/tarpo to get started.
+Visit the "Tarpo Website":http://patspam.github.com/tarpo to get started.
 
-Visit the "Issue Tracker":http://github.com/pdonelan/tarpo/issues to report bugs and request new features.
+Visit the "Issue Tracker":http://github.com/patspam/tarpo/issues to report bugs and request new features.
 
-Visit the "Project Page on GitHub":http://github.com/pdonelan/tarpo to get involved in development.
+Visit the "Project Page on GitHub":http://github.com/patspam/tarpo to get involved in development.
 
 h2. Install
 
-Install Tarpo from the "Tarpo Website":http://pdonelan.github.com/tarpo
+Install Tarpo from the "Tarpo Website":http://patspam.github.com/tarpo
 After Tarpo is installed, you can run it from your Program menu or Desktop icon.
 
 You can also run Tarpo directly from source without installing it, by using the AIR SDK via:
