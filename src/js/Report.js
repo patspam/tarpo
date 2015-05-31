@@ -18,7 +18,7 @@ Tarpo.Report.getChildren = function(listId){
 Tarpo.Report.show = function(listId){
     var xF, filter_for;
     if (listId && typeof listId === 'string') {
-        if (querySingle('select isFolder from list where listId = "' + listId + '"') == 1) {
+        if (Tarpo.Db.queryScalar('select isFolder from list where listId = "' + listId + '"') == 1) {
             var children = Tarpo.Report.getChildren(listId);
             if (children) {
                 children = children.join(',');

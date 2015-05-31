@@ -49,8 +49,8 @@ Tarpo.Actions = {
         text: 'Report on All Data',
         iconCls: 'icon-report',
         tooltip: 'Report on All Data (right-click on individual list for more specific Report)',
-		handler: function(){
-			Tarpo.Report.show()
+		handler: function(listId){
+			Tarpo.Report.show(listId)
 		},
     }),
 	
