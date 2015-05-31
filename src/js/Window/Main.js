@@ -422,7 +422,7 @@ Tarpo.Window.Main.load = function() {
         var listId = node ? node.id : null;
         var node = Tarpo.store.list.tree.getNodeById(listId);
         if (node && !node.isSelected()) {
-			// Disabled (http://github.com/pdonelan/tarpo/issues/issue/20)
+			// Disabled (http://github.com/patspam/tarpo/issues/issue/20)
             //node.select();
             //return;
         }

@@ -191,21 +191,21 @@ Tarpo.Actions = {
 	visitProjectPage: new Ext.Action({
         text: 'Website',
         handler: function(){
-            Tarpo.Util.openInBrowser('http://pdonelan.github.com/tarpo');
+            Tarpo.Util.openInBrowser('http://patspam.github.com/tarpo');
         }
     }),
 	
 	visitBugTracker: new Ext.Action({
         text: 'Bug Tracker',
         handler: function(){
-            Tarpo.Util.openInBrowser('http://github.com/pdonelan/tarpo/issues');
+            Tarpo.Util.openInBrowser('http://github.com/patspam/tarpo/issues');
         }
     }),
 	
 	visitWiki: new Ext.Action({
         text: 'Wiki',
         handler: function(){
-            Tarpo.Util.openInBrowser('http://wiki.github.com/pdonelan/tarpo');
+            Tarpo.Util.openInBrowser('http://wiki.github.com/patspam/tarpo');
         }
     }),
 	

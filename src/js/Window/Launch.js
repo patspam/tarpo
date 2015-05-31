@@ -109,8 +109,8 @@ Tarpo.Window.Launch.init = function(){
 			html: '<img src="../images/splash.png" style="width: 100%; max-width: 250px;" onclick="Tarpo.Window.Launch.woof();">' +
 				  '<h2 class="launch-welcome">Welcome to Tarpo v' + Tarpo.Util.getVersion() + '</h2>' +
 				  '<p class="launch-welcome">Tarpo is an open source Data Management tool for Dog Health Programs.</p>' +
-				  "<p class='launch-welcome'>Visit the <a href='#' onclick='Tarpo.Util.openInBrowser(\"http://pdonelan.github.com/tarpo\")'>Tarpo Website</a> to get involved in the project.</p>" +
-				  "<p class='launch-welcome'>Please report all bugs in the <a href='#' onclick='Tarpo.Util.openInBrowser(\"http://github.com/pdonelan/tarpo/issues\")'>Issue Tracker</a></p>",
+				  "<p class='launch-welcome'>Visit the <a href='#' onclick='Tarpo.Util.openInBrowser(\"http://patspam.github.com/tarpo\")'>Tarpo Website</a> to get involved in the project.</p>" +
+				  "<p class='launch-welcome'>Please report all bugs in the <a href='#' onclick='Tarpo.Util.openInBrowser(\"http://github.com/patspam/tarpo/issues\")'>Issue Tracker</a></p>",
 			autoHeight: true,
 		}]
 	});
